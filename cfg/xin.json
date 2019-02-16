@@ -1,0 +1,187 @@
+[
+	["models", "type", "models", [
+		"data", "routes", "name", "options", "auth", "env"
+	]],
+	["body", "view", [
+		["options", "map", {"el": "body"}],
+		["css", "file", "style.css"],
+		["auth", "models", [
+			["routes", "map", {
+				"create": ":DOMAIN/1.0/auth/login/admin"
+			}],
+			["name", "text", "AuthColl"],
+			["options", "map", {
+				"relativePath": true
+			}],
+			["env", "ref", "env"]
+		]],
+		["mails", "models", [
+			["routes", "map", {
+				"list": ":DOMAIN/s3/list",
+				"read": ":DOMAIN/s3/read/:Key"
+			}],
+			["options", "map", {
+				"idAttr": "Key",
+				"relativePath": true
+			}],
+			["env", "ref", "env"]
+		]],
+		["inbox", "models", [
+			["data", "list", [
+				{"id":1, "sender":"Alex John Red Smith", "time":"1:33 pm", "summary":"Click to open this message", "star":true, "read":false, "clip":false, "status":[]},
+				{"id":2, "sender":"John Doe", "time":"7:15 pm", "summary":"Clik to open this message right here", "star":false, "read":false, "clip":true, "status":[], "tag":"badge-pink"},
+				{"id":3, "sender":"Philip Markov", "time":"10:15 am", "summary":"Photo booth beard raw denim letterpress vegan", "star":false, "read":true, "clip":true, "status":["fa-reply"]},
+				{"id":4, "sender":"Sabrina", "time":"Yesterday", "summary":"Nullam quis risus eget urna mollis ornare", "star":true, "read":true, "clip":false, "status":[]},
+				{"id":5, "sender":"Philip Markov", "time":"Yesterday", "summary":"Vestibulum id ligula porta felis euismod", "star":false, "read":true, "clip":true, "status":[], "tag":"badge-success"},
+				{"id":6, "sender":"Doctor Gomenz", "time":"Yesterday", "summary":"Vim te vivendo convenire, summo fuisset", "star":false, "read":true, "clip":false, "status":[]},
+				{"id":7, "sender":"Robin Hood", "time":"Yesterday", "summary":"No eos veniam equidem mentitum, his porro", "star":false, "read":true, "clip":false, "status":["fa-reply"]},
+				{"id":8, "sender":"Google Inc", "time":"April 3", "summary":"Convallis facilisis euismod urna sodales", "star":false, "read":true, "clip":false, "status":[], "tag":"badge-grey"},
+				{"id":9, "sender":"Shrek", "time":"March 28", "summary":"Photo booth beard raw denim letterpress vegan messenger", "star":false, "read":true, "clip":true, "status":["fa-flag"]},
+				{"id":10, "sender":"Yahoo!", "time":"March 27", "summary":"Tofu biodiesel williamsburg marfa, four loko mcsweeney", "star":false, "read":true, "clip":false, "status":["fa-mail-forward"]}
+			]],
+			["env", "ref", "env"]
+		]],
+		["pages", "map", {
+			"auth": ["auth/layout", "view", [
+				["options", "map", {"el": "body", "class":"login-layout"}],
+				["html", "file", "auth/layout.html"],
+				["auth", "ref", "auth"],
+				["auth/navbar", "view", [
+					["options", "map", {"class":"navbar-fixed-top align-right"}],
+					["html", "file", "auth/navbar.html"]
+				]],
+				["auth/title", "view", [
+					["options", "map", {"class":"center"}],
+					["tpl", "file", "auth/title.asp"],
+					["appIcon", "text", "fa-inbox"],
+					["appName", "text", "Xin Mailbox"],
+					["appVer", "text", "1.0"],
+					["companyName", "text", "Jasa WS Ptd. Ltd."]
+				]],
+				["p/View", "view", [
+					["options", "map", {"class":"space-6"}]
+				]],
+				["auth/modal", "view", [
+					["options", "map", {"class":"position-relative"}],
+					["tpl", "file", "auth/modal.asp"],
+					["auth", "ref", "auth"],
+					["socialBtn", "list", [
+						{"color": "btn-primary", "icon": "fa-facebook", "id": "loginFacebook"},
+						{"color": "btn-info", "icon": "fa-twitter", "id": "loginTwitter"},
+						{"color": "btn-danger", "icon": "fa-google-plus", "id": "loginGoogle"},
+						{"color": "btn-default", "icon": "fa-github", "id": "loginGithub"}
+					]],
+					["enableReset", "bool", true],
+					["enableRegister", "bool", true]
+				]]
+			]],
+			"home": ["p/View", "view", [
+				["options", "map", {"el": "body", "class":"no-skin"}],
+				["models", "refs", "models"],
+				["p/View", "view", [
+					["options", "map", {"id":"navbar", "class":"navbar navbar-default ace-save-state", "content":[
+						{"id":"navbar-container", "class":"navbar-container ace-save-state"}
+					]}],
+					["auth", "ref", "auth"],
+					["p/View", "view", [
+						["options", "map", {"tag":"button","id":"menu-toggler", "class":"navbar-toggle menu-toggler pull-left", "data": {"target": "#sidebar"}, "content":[
+							{"tag":"span", "class":"icon-bar"},
+							{"tag":"span", "class":"icon-bar"},
+							{"tag":"span", "class":"icon-bar"}
+						]}]
+					]],
+					["home/navbar-header", "view", [
+						["options", "map", {"class":"navbar-header pull-left"}],
+						["tpl", "file", "home/navbar-header.asp"],
+						["icon", "text", "fa-inbox"],
+						["name", "text", "Xin Mailbox 1.0"]
+					]],
+					["home/navbar-menu", "view", [
+						["options", "map", {"class":"navbar-header navbar-buttons pull-right", "role":"navigation", "content":[
+							{"tag":"ul", "class":"nav ace-nav"}
+						]}],
+						["auth", "ref", "auth"],
+						["home/navbar-menu-content", "view", [
+							["options", "map", {"tag":"li", "class":"light-blue dropdown-modal"}],
+							["tpl", "file", "home/navbar-menu-content.asp"],
+							["greet", "text", "Welcome,"],
+							["text", "text", "Gopal Madala"],
+							["photo", "text", "dat/gopal.png"],
+							["icon_right", "text", "fa-caret-down"],
+							["auth", "ref", "auth"],
+							["home/navbar-menu-user", "view", [
+								["options", "map", {"tag":"ul", "class":"user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close"}],
+								["auth", "ref", "auth"],
+								["html", "file", "home/navbar-menu-user.html"]
+							]]
+						]]
+					]]
+				]],
+				["home/main-container", "view", [
+					["options", "map", {"id":"main-container", "class":"main-container ace-save-state"}],
+					["models", "refs", "models"],
+					["menu", "models", [
+						["data", "list", [
+							{"id":1, "permission":"", "name":"Dashboard", "icon":"fa-tachometer", "href":"#/", "shortcut":123},
+							{"id":10, "permission":"", "name":"Mailbox", "icon":"fa-inbox", "href":"#/mailbox", "shortcut":124}
+						]]
+					]],
+					["home/sidebar", "view", [
+						["options", "map", {"class":"sidebar responsive ace-save-state"}],
+						["tpl", "file", "home/sidebar.asp"],
+						["menu", "ref", "menu"]
+					]],
+					["home/main-content", "view", [
+						["options", "map", {"class":"main-content", "content": [{"class": "main-content-inner"}]}],
+						["models", "refs", "models"],
+						["home/breadcrumbs", "view", [
+							["options", "map", {"id": "breadcrumbs", "class":"breadcrumbs ace-save-state"}],
+							["html", "file", "home/breadcrumbs.html"],
+							["tpl", "file", "home/breadcrumb.asp"],
+							["breadcrumbs", "models", [
+								["name", "text", "breadcrumbs"]
+							]],
+							["menu", "ref", "menu"]
+						]],
+						["p/View", "view", [
+							["options", "map", {"class":"page-content"}],
+							["models", "refs", "models"],
+							["p/View", "view", [
+								["options", "map", {"id":"ace-settings-container", "class":"ace-settings-container"}],
+								["html", "file", "home/settings-container.html"]
+							]],
+							["home/page-header", "view", [
+								["options", "map", {"class":"page-header"}],
+								["tpl", "file", "home/page-header.asp"]
+							]],
+							["home/page-content", "view", [
+								["options", "map", {"class":"row", "content":[{"class":"col-ex-12"}]}],
+								["models", "refs", "models"]
+							]]
+						]]
+					]],
+					["p/View", "view", [
+						["options", "map", {"class":"footer", "content": [{"class": "footer-inner", "content": [{"class": "footer-content"}]}]}],
+						["html", "file", "home/footer.html"]
+					]],
+					["scrollup", "view", [
+						["options", "map", {"tag":"a", "id":"btn-scroll-up", "class":"btn-scroll-up btn btn-sm btn-inverse", "href":"#", "content": [
+							{"tag": "i", "class": "ace-icon fa fa-angle-double-up icon-only bigger-110"}
+						]}]
+					]]
+				]]
+			]],
+			"mailbox": ["mailbox", "view", [
+				["title", "text", "Mailbox"],
+				["desc", "text", "jasaws-admin-mailbox"],
+				["tpl", "file", "mailbox.asp"],
+				["mails", "ref", "mails"],
+				["inbox", "ref", "inbox"]
+			]]
+		}],
+		["routes","map",{
+			"auth":["auth"],
+			"/":["home","mailbox"]
+		}]
+	]]
+]

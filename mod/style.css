@@ -1,0 +1,9 @@
+select.form-control{
+	-webkit-appearance: none;
+}
+textarea.form-control{
+	overflow: hidden;
+	word-wrap: break-word;
+	resize: horizontal;
+	height: 150px;
+}

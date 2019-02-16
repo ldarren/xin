@@ -1,0 +1,30 @@
+{
+  "name": "xin",
+  "version": "0.0.4",
+  "description": "xin client",
+  "main": "pclient-build",
+  "scripts": {
+    "test": "test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ldarren/xin.git"
+  },
+  "keywords": [
+    "xin",
+    "email",
+    "office",
+    "office system",
+    "office automation"
+  ],
+  "author": "Darren Liew",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ldarren/xin/issues"
+  },
+  "homepage": "https://github.com/ldarren/xin#readme",
+  "dependencies": {
+    "emailjs-mime-parser": "^2.0.5",
+    "pico-client": "^0.5.9"
+  }
+}
