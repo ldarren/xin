@@ -29,19 +29,22 @@ return {
 	deps: {
 		mails: 'models',
 		inbox: 'models',
-		tpl: 'file'
+		tpl: 'file',
+		eml: 'file'
 	},
 	create(deps, params){
+		const mail = emailjs.parse(deps.eml)
 		deps.inbox.sort((r1, r2) => r1.id > r2.id)
 
 		this.el.innerHTML = deps.tpl({inbox:deps.inbox, renderMail})
-
+/*
 		deps.mails.list([1], (err, res) => {
-			const mail = deps.mails.at(0)
+			const mail = deps.mails.at(10)
 			deps.mails.read(mail.Key, (err, detail) => {
 				console.log(err, detail)
 				console.log(emailjs.parse(detail))
 			})
 		})
+*/
 	}
 }

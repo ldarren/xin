@@ -44,6 +44,7 @@
 		["pages", "map", {
 			"auth": ["auth/layout", "view", [
 				["options", "map", {"el": "body", "class":"login-layout"}],
+				["env", "ref", "env"],
 				["html", "file", "auth/layout.html"],
 				["auth", "ref", "auth"],
 				["auth/navbar", "view", [
@@ -72,7 +73,8 @@
 						{"color": "btn-default", "icon": "fa-github", "id": "loginGithub"}
 					]],
 					["enableReset", "bool", true],
-					["enableRegister", "bool", true]
+					["enableRegister", "bool", true],
+					["env", "ref", "env"]
 				]]
 			]],
 			"home": ["p/View", "view", [
@@ -175,6 +177,7 @@
 				["title", "text", "Mailbox"],
 				["desc", "text", "jasaws-admin-mailbox"],
 				["tpl", "file", "mailbox.asp"],
+				["eml", "file", "sample.eml"],
 				["mails", "ref", "mails"],
 				["inbox", "ref", "inbox"]
 			]]
