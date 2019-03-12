@@ -12,26 +12,15 @@
 			<fieldset>
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name=Username type=text class=form-control placeholder=Username required/>
+				<input name=username type=text class=form-control placeholder=Username required/>
 				<i class="ace-icon fa fa-user"></i>
 				</span>
 				</label>
 
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name=Password type=password class=form-control placeholder=Password required/>
+				<input name=password type=password class=form-control placeholder=Password required/>
 				<i class="ace-icon fa fa-lock"></i>
-				</span>
-				</label>
-
-				<label class="block clearfix" >
-				<span class="block input-icon input-icon-right">
-				<select name=CCode class=form-control required>
-				<option value=HK>Hong Kong</option>
-				<option value=JP>Japan</option>
-				<option value=SG selected>Singapore</option>
-				</select>
-				<i class="ace-icon fa fa-globe"></i>
 				</span>
 				</label>
 
@@ -144,28 +133,35 @@
 			<fieldset>
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name=email type="email" class="form-control" placeholder="Email" required/>
+				<input name="email" type=email class="form-control" placeholder="darren@pmail.com" required/>
 				<i class="ace-icon fa fa-envelope"></i>
 				</span>
 				</label>
 
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name=username type="text" class="form-control" placeholder="Username" required/>
+				<input name="phone" type=tel class="form-control" placeholder="+6598765432" required/>
+				<i class="ace-icon fa fa-mobile"></i>
+				</span>
+				</label>
+
+				<label class="block clearfix">
+				<span class="block input-icon input-icon-right">
+				<input name="username" type="text" class="form-control" placeholder="Username" required/>
 				<i class="ace-icon fa fa-user"></i>
 				</span>
 				</label>
 
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name=password type="password" class="form-control" placeholder="Password" required/>
+				<input name="password" type="password" class="form-control" placeholder="Password" required/>
 				<i class="ace-icon fa fa-lock"></i>
 				</span>
 				</label>
 
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name=repeat type="password" class="form-control" placeholder="Repeat password" required/>
+				<input name="repeat" type="password" class="form-control" placeholder="Repeat password" required/>
 				<i class="ace-icon fa fa-retweet"></i>
 				</span>
 				</label>

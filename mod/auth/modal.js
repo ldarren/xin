@@ -1,5 +1,34 @@
 const router = require('po/router')
 
+function signin(Username, Password, cb){
+	const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({
+		Username,
+		Password
+	})
+	const cognitoUser = new AmazonCognitoIdentity.CognitoUser({
+		Username,
+		Pool: this.userPool
+	})
+	cognitoUser.authenticateUser(authDetails, {
+		onSuccess: result => {
+			const idToken = result.idToken.jwtToken
+			const ac = this.deps.env.aws
+
+			AWS.config.region = ac.region
+			AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+				IdentityPoolId: ac.IdentityPoolId,
+				Logins: {
+					[`cognito-idp.${ac.region}.amazonaws.com/${ac.UserPoolId}`]: idToken
+				}
+			})
+
+			AWS.config.credentials.get(cb)
+		},
+
+		onFailure: cb
+	})
+}
+
 return {
 	deps: {
 		tpl: 'file',
@@ -13,47 +42,11 @@ return {
 		this.super.create.call(this, deps, params)
 		this.el.innerHTML = deps.tpl(deps)
 
-		const env = deps.env
-console.log(env)
-		const identity = {
-			IdentityPoolId: env.aws-region
-		}
+		const ac = deps.env.aws
 
-		AWS.config.region = aws1.region // Region
-		AWS.config.credentials = new AWS.CognitoIdentityCredentials(identity)
-
-		AWSCognito.config.region = aws1.region
-		AWSCognito.config.credentials = new AWS.CognitoIdentityCredentials(identity)
-
-		const poolData = {
-			UserPoolId : env.aws-user-pool-id,
-			ClientId : env.aws-client-id
-		}
-		const userPool = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool({
-			UserPoolId: env.aws-user-pool-id,
-			ClientId: env.client_id
-		})
-
-		const attributeList = []
-
-		const dataEmail = {
-			Name : 'email',
-			Value : 'email@yopmail.com'
-		}
-		const dataPhoneNumber = {
-			Name : 'phone_number',
-			Value : '+15555555555'
-		}
-		const attributeEmail = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute(dataEmail)
-		const attributePhoneNumber = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute(dataPhoneNumber)
-
-		attributeList.push(attributeEmail)
-		attributeList.push(attributePhoneNumber)
-
-		userPool.signUp('test2', 'P@55w0rD', attributeList, null, function(err, result){
-			if (err) return alert(err)
-			cognitoUser = result.user
-			console.log('user name:', cognitoUser.getUsername())
+		this.userPool = new AmazonCognitoIdentity.CognitoUserPool({
+			UserPoolId: ac.UserPoolId,
+			ClientId: ac.ClientId
 		})
 	},
 	events: {
@@ -67,39 +60,37 @@ console.log(env)
 		'click button': function(evt, target){
 			const form = target.closest('form')
 			if (!form.reportValidity()) return
-			const elements = form.elements
+			const els = form.elements
 
 			switch(target.id){
 			case 'btn-login':
-				this.deps.auth.create({
-					Username: elements.Username.value,
-					Password: elements.Password.value,
-					CCode: elements.CCode.value
-				}, (err, model) => {
-					if (err) return console.error(err)
+				signin.call(this, els.username.value, els.password.value, err => {
+					if (err) return alert(err)
 					router.go('/')
 				})
 				break
 			case 'btn-register':
-				if (elements.password.value !== elements.repeat.value) return alert('password not match')
-				__.ajax('POST', 'https://st-api.metroresidences.com/api/2.0/signup', {
-					email: elements.email.value,
-					username: elements.username.value,
-					password: elements.password.value
-				}, {
-					headers: { 'Content-Type': 'application/json' }
-				}, (err, state, res) => {
-					if (4 !== state) return
-					if (err) return console.error(err)
+				const Password = els.password.value
+				if (Password !== els.repeat.value) return alert('password not match')
+				const Username = els.username.value
 
-					try { var user = JSON.parse(res) }
-					catch (exp) { return console.error(exp) }
-					this.deps.auth.create({
-						id: user.id,
-						username: elements.username.value,
-						password: elements.password.value
-					}, (err, model) => {
-						if (err) return console.error(err)
+				const attributeList = [
+					new AmazonCognitoIdentity.CognitoUserAttribute({
+						Name : 'email',
+						Value : els.email.value
+					}),
+					new AmazonCognitoIdentity.CognitoUserAttribute({
+						Name : 'phone_number',
+						Value : els.phone.value
+					})
+				]
+
+				this.userPool.signUp(Username, Password, attributeList, null, (err, result) => {
+					if (err) return alert(JSON.stringify(err, null, '/t'))
+					const cognitoUser = result.user
+					console.log('user name:', cognitoUser)
+					signin.call(this, Username, Password, err => {
+						if (err) return alert(err)
 						router.go('/')
 					})
 				})
