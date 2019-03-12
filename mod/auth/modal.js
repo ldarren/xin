@@ -13,48 +13,48 @@ return {
 		this.super.create.call(this, deps, params)
 		this.el.innerHTML = deps.tpl(deps)
 
-		const env = deps.env;
-
+		const env = deps.env
+console.log(env)
 		const identity = {
-			IdentityPoolId: env.aws-region;
-		};
+			IdentityPoolId: env.aws-region
+		}
 
-		AWS.config.region = aws1.region; // Region
-		AWS.config.credentials = new AWS.CognitoIdentityCredentials(identity);
+		AWS.config.region = aws1.region // Region
+		AWS.config.credentials = new AWS.CognitoIdentityCredentials(identity)
 
-		AWSCognito.config.region = aws1.region;
-		AWSCognito.config.credentials = new AWS.CognitoIdentityCredentials(identity);
+		AWSCognito.config.region = aws1.region
+		AWSCognito.config.credentials = new AWS.CognitoIdentityCredentials(identity)
 
 		const poolData = {
 			UserPoolId : env.aws-user-pool-id,
 			ClientId : env.aws-client-id
-		};
+		}
 		const userPool = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool({
 			UserPoolId: env.aws-user-pool-id,
 			ClientId: env.client_id
-		});
+		})
 
-		const attributeList = [];
+		const attributeList = []
 
 		const dataEmail = {
 			Name : 'email',
 			Value : 'email@yopmail.com'
-		};
+		}
 		const dataPhoneNumber = {
 			Name : 'phone_number',
 			Value : '+15555555555'
-		};
-		const attributeEmail = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute(dataEmail);
-		const attributePhoneNumber = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute(dataPhoneNumber);
+		}
+		const attributeEmail = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute(dataEmail)
+		const attributePhoneNumber = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute(dataPhoneNumber)
 
-		attributeList.push(attributeEmail);
-		attributeList.push(attributePhoneNumber);
+		attributeList.push(attributeEmail)
+		attributeList.push(attributePhoneNumber)
 
 		userPool.signUp('test2', 'P@55w0rD', attributeList, null, function(err, result){
-			if (err) return alert(err);
-			cognitoUser = result.user;
-			console.log('user name:', cognitoUser.getUsername());
-		});
+			if (err) return alert(err)
+			cognitoUser = result.user
+			console.log('user name:', cognitoUser.getUsername())
+		})
 	},
 	events: {
 		'click .toolbar a[data-target]': function(evt, target){
