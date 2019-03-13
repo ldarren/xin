@@ -29,6 +29,26 @@ function signin(Username, Password, cb){
 	})
 }
 
+function signup(Username, Password, email, phone, cb){
+	const attributes = [
+		new AmazonCognitoIdentity.CognitoUserAttribute({
+			Name : 'email',
+			Value : email,
+		}),
+		new AmazonCognitoIdentity.CognitoUserAttribute({
+			Name : 'phone_number',
+			Value : phone
+		})
+	]
+
+	this.userPool.signUp(Username, Password, attributes, null, (err, result) => {
+		if (err) return cb(err)
+		const cognitoUser = result.user
+		console.log('user name:', cognitoUser)
+		signin.call(this, Username, Password, cb)
+	})
+}
+
 return {
 	deps: {
 		tpl: 'file',
@@ -65,34 +85,17 @@ return {
 			switch(target.id){
 			case 'btn-login':
 				signin.call(this, els.username.value, els.password.value, err => {
-					if (err) return alert(err)
+					if (err) return alert(JSON.stringify(err, null, '\t'))
 					router.go('/')
 				})
 				break
 			case 'btn-register':
 				const Password = els.password.value
 				if (Password !== els.repeat.value) return alert('password not match')
-				const Username = els.username.value
 
-				const attributeList = [
-					new AmazonCognitoIdentity.CognitoUserAttribute({
-						Name : 'email',
-						Value : els.email.value
-					}),
-					new AmazonCognitoIdentity.CognitoUserAttribute({
-						Name : 'phone_number',
-						Value : els.phone.value
-					})
-				]
-
-				this.userPool.signUp(Username, Password, attributeList, null, (err, result) => {
-					if (err) return alert(JSON.stringify(err, null, '/t'))
-					const cognitoUser = result.user
-					console.log('user name:', cognitoUser)
-					signin.call(this, Username, Password, err => {
-						if (err) return alert(err)
-						router.go('/')
-					})
+				signup.call(this, els.username.value, Password, els.email.value, els.phone.value, err => {
+					if (err) return alert(JSON.stringify(err, null, '\t'))
+					alert('Please confirm your account before login', 'Signup Successfully')
 				})
 				break
 			case 'btn-forget':
