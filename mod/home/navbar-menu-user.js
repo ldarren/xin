@@ -1,8 +1,9 @@
+// https://docs.aws.amazon.com/cognito/latest/developerguide/using-amazon-cognito-user-identity-pools-javascript-examples.html
 const router = require('po/router')
 
 return {
 	deps: {
-		auth: 'models'
+		ums: 'cognito'
 	},
 	events: {
 		'click a': function(evt, target){
@@ -11,7 +12,7 @@ return {
 			case '#profile':
 				break
 			case '#logout':
-				this.deps.auth.clear()
+				this.deps.ums.signout()
 				router.go('auth')
 				break
 			default:

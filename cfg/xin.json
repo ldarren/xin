@@ -2,17 +2,13 @@
 	["models", "type", "models", [
 		"data", "routes", "name", "options", "auth", "env"
 	]],
+	["cognito", "type", "cognito", [
+		"env"
+	]],
 	["body", "view", [
 		["options", "map", {"el": "body"}],
 		["css", "file", "style.css"],
-		["auth", "models", [
-			["routes", "map", {
-				"create": ":DOMAIN/1.0/auth/login/admin"
-			}],
-			["name", "text", "AuthColl"],
-			["options", "map", {
-				"relativePath": true
-			}],
+		["ums", "cognito", [
 			["env", "ref", "env"]
 		]],
 		["mails", "models", [
@@ -46,7 +42,7 @@
 				["options", "map", {"el": "body", "class":"login-layout"}],
 				["env", "ref", "env"],
 				["html", "file", "auth/layout.html"],
-				["auth", "ref", "auth"],
+				["ums", "ref", "ums"],
 				["auth/navbar", "view", [
 					["options", "map", {"class":"navbar-fixed-top align-right"}],
 					["html", "file", "auth/navbar.html"]
@@ -65,7 +61,7 @@
 				["auth/modal", "view", [
 					["options", "map", {"class":"position-relative"}],
 					["tpl", "file", "auth/modal.asp"],
-					["auth", "ref", "auth"],
+					["ums", "ref", "ums"],
 					["socialBtn", "list", [
 						{"color": "btn-primary", "icon": "fa-facebook", "id": "loginFacebook"},
 						{"color": "btn-info", "icon": "fa-twitter", "id": "loginTwitter"},
@@ -79,12 +75,13 @@
 			]],
 			"home": ["p/View", "view", [
 				["options", "map", {"el": "body", "class":"no-skin"}],
+				["ums", "ref", "ums"],
 				["models", "refs", "models"],
 				["p/View", "view", [
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default ace-save-state", "content":[
 						{"id":"navbar-container", "class":"navbar-container ace-save-state"}
 					]}],
-					["auth", "ref", "auth"],
+					["ums", "ref", "ums"],
 					["p/View", "view", [
 						["options", "map", {"tag":"button","id":"menu-toggler", "class":"navbar-toggle menu-toggler pull-left", "data": {"target": "#sidebar"}, "content":[
 							{"tag":"span", "class":"icon-bar"},
@@ -102,7 +99,7 @@
 						["options", "map", {"class":"navbar-header navbar-buttons pull-right", "role":"navigation", "content":[
 							{"tag":"ul", "class":"nav ace-nav"}
 						]}],
-						["auth", "ref", "auth"],
+						["ums", "ref", "ums"],
 						["home/navbar-menu-content", "view", [
 							["options", "map", {"tag":"li", "class":"light-blue dropdown-modal"}],
 							["tpl", "file", "home/navbar-menu-content.asp"],
@@ -110,10 +107,10 @@
 							["text", "text", "Gopal Madala"],
 							["photo", "text", "dat/gopal.png"],
 							["icon_right", "text", "fa-caret-down"],
-							["auth", "ref", "auth"],
+							["ums", "ref", "ums"],
 							["home/navbar-menu-user", "view", [
 								["options", "map", {"tag":"ul", "class":"user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close"}],
-								["auth", "ref", "auth"],
+								["ums", "ref", "ums"],
 								["html", "file", "home/navbar-menu-user.html"]
 							]]
 						]]

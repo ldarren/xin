@@ -7,7 +7,7 @@ function changeContent(state, params){
 }
 
 function pageChanged(evt, states, params){
-	if (this.deps.auth.length()){
+	if (this.deps.ums.isValid()){
 		if (!states || states.includes('auth')) return router.go('/')
 	} else {
 		if (!states || !states.includes('auth')) return router.go('auth')
@@ -29,7 +29,7 @@ function pageChanged(evt, states, params){
 return {
 	signals: ['changeContent'],
 	deps: {
-		auth: 'models',
+		ums: 'cognito',
 		pages: 'map',
 		routes: 'map'
 	},
@@ -51,7 +51,10 @@ return {
 			for (var i=0, k; (k=keys[i]); i++){
 				specMap[k]=spec.shift()
 			}
-			router.on('change',pageChanged,this).start(deps.routes)
+
+			deps.ums.ready(() => {
+				router.on('change',pageChanged,this).start(deps.routes)
+			})
 		})
 	},
 	slots: {
