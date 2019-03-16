@@ -27,7 +27,7 @@ function renderMail(items, idx) {
 
 return {
 	deps: {
-		mails: 'models',
+		mails: 's3bucket',
 		inbox: 'models',
 		tpl: 'file',
 		eml: 'file'
@@ -37,14 +37,13 @@ return {
 		deps.inbox.sort((r1, r2) => r1.id > r2.id)
 
 		this.el.innerHTML = deps.tpl({inbox:deps.inbox, renderMail})
-/*
-		deps.mails.list([1], (err, res) => {
-			const mail = deps.mails.at(10)
+
+		deps.mails.list((err, list) => {
+			const mail = list[10]
 			deps.mails.read(mail.Key, (err, detail) => {
 				console.log(err, detail)
-				console.log(emailjs.parse(detail))
+				console.log(emailjs.parse(detail.Body))
 			})
 		})
-*/
 	}
 }

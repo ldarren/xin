@@ -2,7 +2,10 @@
 	["models", "type", "models", [
 		"data", "routes", "name", "options", "auth", "env"
 	]],
-	["cognito", "type", "cognito", [
+	["cognito", "type", "aws/cognito", [
+		"env"
+	]],
+	["s3bucket", "type", "aws/s3bucket", [
 		"env"
 	]],
 	["body", "view", [
@@ -11,15 +14,7 @@
 		["ums", "cognito", [
 			["env", "ref", "env"]
 		]],
-		["mails", "models", [
-			["routes", "map", {
-				"list": ":DOMAIN/s3/list",
-				"read": ":DOMAIN/s3/read/:Key"
-			}],
-			["options", "map", {
-				"idAttr": "Key",
-				"relativePath": true
-			}],
+		["mails", "s3bucket", [
 			["env", "ref", "env"]
 		]],
 		["inbox", "models", [
@@ -40,7 +35,6 @@
 		["pages", "map", {
 			"auth": ["auth/layout", "view", [
 				["options", "map", {"el": "body", "class":"login-layout"}],
-				["env", "ref", "env"],
 				["html", "file", "auth/layout.html"],
 				["ums", "ref", "ums"],
 				["auth/navbar", "view", [
@@ -53,7 +47,7 @@
 					["appIcon", "text", "fa-inbox"],
 					["appName", "text", "Xin Mailbox"],
 					["appVer", "text", "1.0"],
-					["companyName", "text", "Jasa WS Ptd. Ltd."]
+					["companyName", "text", "Jasa Web Services"]
 				]],
 				["p/View", "view", [
 					["options", "map", {"class":"space-6"}]
@@ -69,13 +63,13 @@
 						{"color": "btn-default", "icon": "fa-github", "id": "loginGithub"}
 					]],
 					["enableReset", "bool", true],
-					["enableRegister", "bool", true],
-					["env", "ref", "env"]
+					["enableRegister", "bool", true]
 				]]
 			]],
 			"home": ["p/View", "view", [
 				["options", "map", {"el": "body", "class":"no-skin"}],
 				["ums", "ref", "ums"],
+				["mails", "ref", "mails"],
 				["models", "refs", "models"],
 				["p/View", "view", [
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default ace-save-state", "content":[
@@ -118,6 +112,7 @@
 				]],
 				["home/main-container", "view", [
 					["options", "map", {"id":"main-container", "class":"main-container ace-save-state"}],
+					["mails", "ref", "mails"],
 					["models", "refs", "models"],
 					["menu", "models", [
 						["data", "list", [
@@ -132,6 +127,7 @@
 					]],
 					["home/main-content", "view", [
 						["options", "map", {"class":"main-content", "content": [{"class": "main-content-inner"}]}],
+						["mails", "ref", "mails"],
 						["models", "refs", "models"],
 						["home/breadcrumbs", "view", [
 							["options", "map", {"id": "breadcrumbs", "class":"breadcrumbs ace-save-state"}],
@@ -144,6 +140,7 @@
 						]],
 						["p/View", "view", [
 							["options", "map", {"class":"page-content"}],
+							["mails", "ref", "mails"],
 							["models", "refs", "models"],
 							["p/View", "view", [
 								["options", "map", {"id":"ace-settings-container", "class":"ace-settings-container"}],
@@ -155,6 +152,7 @@
 							]],
 							["home/page-content", "view", [
 								["options", "map", {"class":"row", "content":[{"class":"col-ex-12"}]}],
+								["mails", "ref", "mails"],
 								["models", "refs", "models"]
 							]]
 						]]
