@@ -14,7 +14,7 @@
 		["ums", "cognito", [
 			["env", "ref", "env"]
 		]],
-		["mails", "s3bucket", [
+		["bucket", "s3bucket", [
 			["env", "ref", "env"]
 		]],
 		["inbox", "models", [
@@ -69,7 +69,7 @@
 			"home": ["p/View", "view", [
 				["options", "map", {"el": "body", "class":"no-skin"}],
 				["ums", "ref", "ums"],
-				["mails", "ref", "mails"],
+				["bucket", "ref", "bucket"],
 				["models", "refs", "models"],
 				["p/View", "view", [
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default ace-save-state", "content":[
@@ -112,7 +112,7 @@
 				]],
 				["home/main-container", "view", [
 					["options", "map", {"id":"main-container", "class":"main-container ace-save-state"}],
-					["mails", "ref", "mails"],
+					["bucket", "ref", "bucket"],
 					["models", "refs", "models"],
 					["menu", "models", [
 						["data", "list", [
@@ -127,7 +127,7 @@
 					]],
 					["home/main-content", "view", [
 						["options", "map", {"class":"main-content", "content": [{"class": "main-content-inner"}]}],
-						["mails", "ref", "mails"],
+						["bucket", "ref", "bucket"],
 						["models", "refs", "models"],
 						["home/breadcrumbs", "view", [
 							["options", "map", {"id": "breadcrumbs", "class":"breadcrumbs ace-save-state"}],
@@ -140,7 +140,7 @@
 						]],
 						["p/View", "view", [
 							["options", "map", {"class":"page-content"}],
-							["mails", "ref", "mails"],
+							["bucket", "ref", "bucket"],
 							["models", "refs", "models"],
 							["p/View", "view", [
 								["options", "map", {"id":"ace-settings-container", "class":"ace-settings-container"}],
@@ -152,7 +152,7 @@
 							]],
 							["home/page-content", "view", [
 								["options", "map", {"class":"row", "content":[{"class":"col-ex-12"}]}],
-								["mails", "ref", "mails"],
+								["bucket", "ref", "bucket"],
 								["models", "refs", "models"]
 							]]
 						]]
@@ -172,8 +172,7 @@
 				["title", "text", "Mailbox"],
 				["desc", "text", "jasaws-admin-mailbox"],
 				["tpl", "file", "mailbox.asp"],
-				["eml", "file", "sample.eml"],
-				["mails", "ref", "mails"],
+				["bucket", "ref", "bucket"],
 				["inbox", "ref", "inbox"]
 			]]
 		}],

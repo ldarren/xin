@@ -25,24 +25,44 @@ function renderMail(items, idx) {
 	return mail + renderMail(items, idx)
 }
 
+function readMails(bucket, mails, inbox, cb){
+	if (!mails || !mails.length) return cb()
+
+	const mail = mails.shift()
+	console.log('reading', mail.Key, mail.Size)
+	bucket.read(mail.Key, (err, detail) => {
+		if (err) return cb(err)
+		try{
+			const { headers, childNodes } = emailjs.parse(detail.Body)
+			inbox.create({
+				id: headers['message-id'][0].value,
+				sender: headers.from[0].value[0].name,
+				time: headers.date[0].value,
+				summary: headers.subject[0].value,
+				headers,
+				childNodes
+			})
+		}catch(exp){
+			console.error(exp)
+		}
+		return readMails(bucket, mails, inbox, cb)
+	})
+}
+
 return {
 	deps: {
-		mails: 's3bucket',
+		bucket: 's3bucket',
 		inbox: 'models',
-		tpl: 'file',
-		eml: 'file'
+		tpl: 'file'
 	},
 	create(deps, params){
-		const mail = emailjs.parse(deps.eml)
-		deps.inbox.sort((r1, r2) => r1.id > r2.id)
+		deps.bucket.list((err, mails) => {
+			if (err) return alert(err)
+			readMails(deps.bucket, mails, deps.inbox, err => {
+				if (err) return alert(err)
+				deps.inbox.sort((r1, r2) => r1.id > r2.id)
 
-		this.el.innerHTML = deps.tpl({inbox:deps.inbox, renderMail})
-
-		deps.mails.list((err, list) => {
-			const mail = list[10]
-			deps.mails.read(mail.Key, (err, detail) => {
-				console.log(err, detail)
-				console.log(emailjs.parse(detail.Body))
+				this.el.innerHTML = deps.tpl({inbox:deps.inbox, renderMail})
 			})
 		})
 	}
