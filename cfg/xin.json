@@ -161,24 +161,31 @@
 						["options", "map", {"class":"footer", "content": [{"class": "footer-inner", "content": [{"class": "footer-content"}]}]}],
 						["html", "file", "home/footer.html"]
 					]],
-					["scrollup", "view", [
+					["home/scrollup", "view", [
 						["options", "map", {"tag":"a", "id":"btn-scroll-up", "class":"btn-scroll-up btn btn-sm btn-inverse", "href":"#", "content": [
 							{"tag": "i", "class": "ace-icon fa fa-angle-double-up icon-only bigger-110"}
 						]}]
 					]]
 				]]
 			]],
-			"mailbox": ["mailbox", "view", [
+			"mailbox": ["email/mailbox", "view", [
 				["title", "text", "Mailbox"],
-				["desc", "text", "jasaws-admin-mailbox"],
-				["tpl", "file", "mailbox.asp"],
+				["desc", "text", "jasaws-cognito-s3"],
+				["tpl", "file", "email/mailbox.asp"],
 				["bucket", "ref", "bucket"],
+				["inbox", "ref", "inbox"]
+			]],
+			"mail": ["email/mail", "view", [
+				["title", "text", "Mail"],
+				["desc", "text", "mail"],
+				["tpl", "file", "email/mail.asp"],
 				["inbox", "ref", "inbox"]
 			]]
 		}],
 		["routes","map",{
 			"auth":["auth"],
-			"/":["home","mailbox"]
+			"/":["home","mailbox"],
+			"/mail/:id":["home","mail"]
 		}]
 	]]
 ]

@@ -1,3 +1,5 @@
+const router = require('po/router')
+
 function renderMail(items, idx) {
 	if (items.length() <= idx) return ''
 	const item = items.at(idx++)
@@ -21,7 +23,7 @@ function renderMail(items, idx) {
 	if (item.tag){
 		mail += `<span class="badge ${item.tag} mail-tag"></span>`
 	}
-	mail += `<span class=text>${item.summary}</span></span></div>`
+	mail += `<span class=text id="${item.id}">${item.summary}</span></span></div>`
 	return mail + renderMail(items, idx)
 }
 
@@ -65,5 +67,10 @@ return {
 				this.el.innerHTML = deps.tpl({inbox:deps.inbox, renderMail})
 			})
 		})
+	},
+	events: {
+		'click .message-list .text': function(evt, target){
+			router.go('/mail/'+target.id)
+		}
 	}
 }
