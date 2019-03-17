@@ -424,7 +424,7 @@
 						<!-- #section:pages/inbox.message-header -->
 						<div class="message-header clearfix">
 							<div class="pull-left">
-								<span class="blue bigger-125"> Clik to open this message </span>
+								<span class="blue bigger-125"> <%d.subject%> </span>
 
 								<div class="space-4"></div>
 
@@ -433,11 +433,11 @@
 								&nbsp;
 								<img class="middle" alt="John's Avatar" src="../assets/avatars/avatar.png" width="32">
 								&nbsp;
-								<a href="#" class="sender">John Doe</a>
+								<a href="#" class="sender"><%d.sender%></a>
 
 								&nbsp;
 								<i class="ace-icon fa fa-clock-o bigger-110 orange middle"></i>
-								<span class="time grey">Today, 7:15 pm</span>
+								<span class="time grey"><%d.time%></span>
 							</div>
 
 							<div class="pull-right action-buttons">
@@ -459,32 +459,7 @@
 						<div class="hr hr-double"></div>
 
 						<!-- #section:pages/inbox.message-body -->
-						<div class="message-body ace-scroll" style="position: relative;"><div class="scroll-track scroll-visible scroll-active" style="display: block; height: 150px;"><div class="scroll-bar" style="height: 129px; top: 21px;"></div></div><div class="scroll-content" style="max-height: 150px;">
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-							</p>
-
-							<p>
-								Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-							</p>
-
-							<p>
-								Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-							</p>
-
-							<p>
-								Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-							</p>
-
-							<p>
-								Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-							</p>
-
-							<p>
-								Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-							</p>
-						</div></div>
-
+						<%d.content%>
 						<!-- /section:pages/inbox.message-body -->
 						<div class="hr hr-double"></div>
 

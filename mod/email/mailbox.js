@@ -32,17 +32,19 @@ function readMails(bucket, mails, inbox, cb){
 
 	const mail = mails.shift()
 	console.log('reading', mail.Key, mail.Size)
+	if (inbox.get(mail.Key)) return readMails(bucket, mails, inbox, cb)
 	bucket.read(mail.Key, (err, detail) => {
 		if (err) return cb(err)
 		try{
-			const { headers, childNodes } = emailjs.parse(detail.Body)
+			const { headers, childNodes, content } = emailjs.parse(detail.Body)
+			const typedArray = childNodes.length ? childNodes[childNodes.length-1].content : content
 			inbox.create({
-				id: headers['message-id'][0].value,
+				id: mail.Key,
 				sender: headers.from[0].value[0].name,
 				time: headers.date[0].value,
 				summary: headers.subject[0].value,
 				headers,
-				childNodes
+				body: Array.prototype.slice.call(typedArray)
 			})
 		}catch(exp){
 			console.error(exp)
