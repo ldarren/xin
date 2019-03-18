@@ -23,34 +23,8 @@ function renderMail(items, idx) {
 	if (item.tag){
 		mail += `<span class="badge ${item.tag} mail-tag"></span>`
 	}
-	mail += `<span class=text id="${item.id}">${item.summary}</span></span></div>`
+	mail += `<span class=text id="${item.id}">${item.subject}</span></span></div>`
 	return mail + renderMail(items, idx)
-}
-
-function readMails(bucket, mails, inbox, cb){
-	if (!mails || !mails.length) return cb()
-
-	const mail = mails.shift()
-	console.log('reading', mail.Key, mail.Size)
-	if (inbox.get(mail.Key)) return readMails(bucket, mails, inbox, cb)
-	bucket.read(mail.Key, (err, detail) => {
-		if (err) return cb(err)
-		try{
-			const { headers, childNodes, content } = emailjs.parse(detail.Body)
-			const typedArray = childNodes.length ? childNodes[childNodes.length-1].content : content
-			inbox.create({
-				id: mail.Key,
-				sender: headers.from[0].value[0].name,
-				time: headers.date[0].value,
-				summary: headers.subject[0].value,
-				headers,
-				body: Array.prototype.slice.call(typedArray)
-			})
-		}catch(exp){
-			console.error(exp)
-		}
-		return readMails(bucket, mails, inbox, cb)
-	})
 }
 
 return {
@@ -60,14 +34,11 @@ return {
 		tpl: 'file'
 	},
 	create(deps, params){
-		deps.bucket.list((err, mails) => {
+		deps.bucket.list(deps.inbox, err => {
 			if (err) return alert(err)
-			readMails(deps.bucket, mails, deps.inbox, err => {
-				if (err) return alert(err)
-				deps.inbox.sort((r1, r2) => r1.id > r2.id)
+			deps.inbox.sort((r1, r2) => r1.id > r2.id)
 
-				this.el.innerHTML = deps.tpl({inbox:deps.inbox, renderMail})
-			})
+			this.el.innerHTML = deps.tpl({inbox:deps.inbox, renderMail})
 		})
 	},
 	events: {

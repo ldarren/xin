@@ -7,13 +7,14 @@ return {
 		tpl: 'file'
 	},
 	create(deps, params){
-		const mail = deps.inbox.get(params.id)
-		const content = new TextDecoder('utf-8').decode(new Uint8Array(mail.body))
-		this.el.innerHTML = deps.tpl({
-			sender: mail.sender,
-			time: mail.time,
-			subject: mail.summary,
-			content
+		deps.bucket.read(params.id, deps.inbox, (err, mail) => {
+			const content = new TextDecoder('utf-8').decode(new Uint8Array(mail.body))
+			this.el.innerHTML = deps.tpl({
+				sender: mail.sender,
+				time: mail.time,
+				subject: mail.subject,
+				content
+			})
 		})
 	},
 	events: {
