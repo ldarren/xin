@@ -33,6 +33,14 @@
 			["env", "ref", "env"]
 		]],
 		["pages", "map", {
+			"land": ["land/layout", "view", [
+				["options", "map", {"el": "body", "class":"no-skin pos-rel", "data": {"spy": "scroll", "target": "#menu"}}],
+				["html", "file", "land/layout.html"],
+				["p/View", "view", [
+					["options", "map", {"id":"navbar", "class":"navbar navbar-default navbar-fixed-top", "content": [{"id":"navbar-container", "class":"navbar-container container"}]}],
+					["html", "file", "land/navbar.html"]
+				]]
+			]],
 			"auth": ["auth/layout", "view", [
 				["options", "map", {"el": "body", "class":"login-layout"}],
 				["html", "file", "auth/layout.html"],
@@ -184,7 +192,7 @@
 			]]
 		}],
 		["routes","map",{
-			"/": [],
+			"/": ["land"],
 			"/auth":["auth"],
 			"/dash":["home","mailbox"],
 			"/dash/mail":["home","mailbox"],
