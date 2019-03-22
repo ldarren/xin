@@ -184,9 +184,11 @@
 			]]
 		}],
 		["routes","map",{
-			"auth":["auth"],
-			"/":["home","mailbox"],
-			"/mail/:id":["home","mail"]
+			"/": [],
+			"/auth":["auth"],
+			"/dash":["home","mailbox"],
+			"/dash/mail":["home","mailbox"],
+			"/dash/mail/view/:id":["home","mail"]
 		}]
 	]]
 ]

@@ -13,7 +13,7 @@ return {
 				break
 			case '#logout':
 				this.deps.ums.signout()
-				router.go('auth')
+				router.go('/auth')
 				break
 			default:
 				return

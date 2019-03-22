@@ -29,7 +29,7 @@ return {
 			case 'btn-login':
 				this.deps.ums.signin(els.username.value, els.password.value, err => {
 					if (err) return alert(JSON.stringify(err, null, '\t'))
-					router.go('/')
+					router.go('/dash')
 				})
 				break
 			case 'btn-register':

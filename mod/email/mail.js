@@ -19,7 +19,7 @@ return {
 	},
 	events: {
 		'click .messagebar-item-left': function(evt, target){
-			router.go('/')
+			router.go('/dash/mail')
 		}
 	}
 }

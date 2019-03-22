@@ -43,7 +43,7 @@ return {
 	},
 	events: {
 		'click .message-list .text': function(evt, target){
-			router.go('/mail/'+target.id)
+			router.go('/dash/mail/view/'+target.id)
 		}
 	}
 }
