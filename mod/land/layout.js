@@ -1,10 +1,9 @@
 return {
 	remove(){
-		this._el.classList.remove('no-skin pos-rel')
+		this.el.classList.remove('no-skin', 'pos-rel')
+		const ds = this.el.dataset
+		delete ds.spy
+		delete ds.target
 		this.super.remove.call(this)
-	},
-	render(){
-		this.setElement(this.el.querySelector('div.login-container'))
-		return this.el
 	}
 }

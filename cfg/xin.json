@@ -10,7 +10,6 @@
 	]],
 	["body", "view", [
 		["options", "map", {"el": "body"}],
-		["css", "file", "style.css"],
 		["ums", "cognito", [
 			["env", "ref", "env"]
 		]],
@@ -35,7 +34,7 @@
 		["pages", "map", {
 			"land": ["land/layout", "view", [
 				["options", "map", {"el": "body", "class":"no-skin pos-rel", "data": {"spy": "scroll", "target": "#menu"}}],
-				["html", "file", "land/layout.html"],
+				["css", "file", "land/layout.css"],
 				["p/View", "view", [
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default navbar-fixed-top", "content": [{"id":"navbar-container", "class":"navbar-container container"}]}],
 					["html", "file", "land/navbar.html"]
@@ -44,6 +43,7 @@
 			"auth": ["auth/layout", "view", [
 				["options", "map", {"el": "body", "class":"login-layout"}],
 				["html", "file", "auth/layout.html"],
+				["css", "file", "home/layout.css"],
 				["ums", "ref", "ums"],
 				["auth/navbar", "view", [
 					["options", "map", {"class":"navbar-fixed-top align-right"}],
@@ -76,6 +76,7 @@
 			]],
 			"home": ["p/View", "view", [
 				["options", "map", {"el": "body", "class":"no-skin"}],
+				["css", "file", "home/layout.css"],
 				["ums", "ref", "ums"],
 				["bucket", "ref", "bucket"],
 				["models", "refs", "models"],
