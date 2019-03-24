@@ -22,6 +22,10 @@ body {
   padding-top: 150px;
   margin-bottom: 0;
 }
+.jumbotron.has-background {
+	background: transparent url("dat/home-bg.jpg") top center no-repeat;
+	/* background source: https://pixabay.com/en/apple-steve-jobs-quotes-scrabble-758334/ */
+}
 .navbar {
   background-color: rgba(67, 142, 185, 0.8);
   padding: 20px;
@@ -150,4 +154,7 @@ body {
 }
 .coming-soon .timer-text .label {
   min-width: 60%;
+}
+.section-contact {
+	background: #222 url("dat/map-contact.jpg") center no-repeat;
 }

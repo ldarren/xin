@@ -38,6 +38,55 @@
 				["p/View", "view", [
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default navbar-fixed-top", "content": [{"id":"navbar-container", "class":"navbar-container container"}]}],
 					["html", "file", "land/navbar.html"]
+				]],
+				["p/View", "view", [
+					["options", "map", {"id": "top", "class":"main-container"}],
+					["p/View", "view", [
+						["options", "map", {"tag": "header", "class": "jumbotron main-background"}],
+						["html", "file", "land/hero.html"]
+					]],
+					["p/View", "view", [
+						["options", "map", {"tag": "section", "id": "services", "class": "section section-grey", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/services.html"]
+					]],
+					["p/View", "view", [
+						["options", "map", {"tag": "section", "id": "info", "class": "section", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/info.html"]
+					]],
+					["p/View", "view", [
+						["options", "map", {"tag": "section", "id": "info2", "class": "section section-grey", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/info2.html"]
+					]],
+					["p/View", "view", [
+						["options", "map", {"tag": "section", "id": "slider", "class": "section no-padding", "content": [
+							{"id": "carousel-example", "class": "carousel slide", "data": {"ride": "carousel"}}
+						]}],
+						["html", "file", "land/slider.html"]
+					]],
+					["p/View", "view", [
+						["options", "map", {"tag": "section", "id": "clients", "class": "section", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/clients.html"]
+					]],
+					["p/View", "view", [
+						["options", "map", {"tag": "section", "id": "contact", "class": "section section-contact", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/contact.html"]
+					]],
+					["p/View", "view", [
+						["options", "map", {"tag": "footer", "id": "footer", "class": "section", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/footer.html"]
+					]]
 				]]
 			]],
 			"auth": ["auth/layout", "view", [

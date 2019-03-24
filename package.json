@@ -1,6 +1,6 @@
 {
   "name": "xin",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "xin client",
   "main": "pclient-build",
   "scripts": {
@@ -27,6 +27,7 @@
     "amazon-cognito-identity-js": "^3.0.9",
     "aws-sdk": "^2.418.0",
     "emailjs-mime-parser": "^2.0.5",
+    "holderjs": "^2.9.6",
     "pico-client": "^0.5.9"
   }
 }
