@@ -27,7 +27,7 @@ body {
 	/* background source: https://pixabay.com/en/apple-steve-jobs-quotes-scrabble-758334/ */
 }
 .navbar {
-  background-color: rgba(67, 142, 185, 0.8);
+  background-color: #69b9ff; 
   padding: 20px;
   -webkit-transition: padding 0.2s, background-color 0.2s;
   -o-transition: padding 0.2s, background-color 0.2s;
@@ -157,4 +157,7 @@ body {
 }
 .section-contact {
 	background: #222 url("dat/map-contact.jpg") center no-repeat;
+}
+#contact textarea{
+	min-height: 150px;
 }

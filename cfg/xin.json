@@ -35,13 +35,13 @@
 			"land": ["land/layout", "view", [
 				["options", "map", {"el": "body", "class":"no-skin pos-rel", "data": {"spy": "scroll", "target": "#menu"}}],
 				["css", "file", "land/layout.css"],
-				["p/View", "view", [
+				["land/navbar", "view", [
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default navbar-fixed-top", "content": [{"id":"navbar-container", "class":"navbar-container container"}]}],
 					["html", "file", "land/navbar.html"]
 				]],
 				["p/View", "view", [
 					["options", "map", {"id": "top", "class":"main-container"}],
-					["p/View", "view", [
+					["land/hero", "view", [
 						["options", "map", {"tag": "header", "class": "jumbotron main-background"}],
 						["html", "file", "land/hero.html"]
 					]],
@@ -63,7 +63,7 @@
 						]}],
 						["html", "file", "land/info2.html"]
 					]],
-					["p/View", "view", [
+					["land/slider", "view", [
 						["options", "map", {"tag": "section", "id": "slider", "class": "section no-padding", "content": [
 							{"id": "carousel-example", "class": "carousel slide", "data": {"ride": "carousel"}}
 						]}],
@@ -246,7 +246,12 @@
 			"/auth":["auth"],
 			"/dash":["home","mailbox"],
 			"/dash/mail":["home","mailbox"],
-			"/dash/mail/view/:id":["home","mail"]
+			"/dash/mail/view/:id":["home","mail"],
+			"/c/:cid": ["land"],
+			"/c/:cid/auth":["auth"],
+			"/c/:cid/dash":["home","mailbox"],
+			"/c/:cid/dash/mail":["home","mailbox"],
+			"/c/:cid/dash/mail/view/:id":["home","mail"]
 		}]
 	]]
 ]
