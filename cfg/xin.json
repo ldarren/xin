@@ -35,9 +35,11 @@
 			"land": ["land/layout", "view", [
 				["options", "map", {"el": "body", "class":"no-skin pos-rel", "data": {"spy": "scroll", "target": "#menu"}}],
 				["css", "file", "land/layout.css"],
+				["ums", "ref", "ums"],
 				["land/navbar", "view", [
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default navbar-fixed-top", "content": [{"id":"navbar-container", "class":"navbar-container container"}]}],
-					["html", "file", "land/navbar.html"]
+					["html", "file", "land/navbar.html"],
+					["ums", "ref", "ums"]
 				]],
 				["p/View", "view", [
 					["options", "map", {"id": "top", "class":"main-container"}],
@@ -246,12 +248,7 @@
 			"/auth":["auth"],
 			"/dash":["home","mailbox"],
 			"/dash/mail":["home","mailbox"],
-			"/dash/mail/view/:id":["home","mail"],
-			"/c/:cid": ["land"],
-			"/c/:cid/auth":["auth"],
-			"/c/:cid/dash":["home","mailbox"],
-			"/c/:cid/dash/mail":["home","mailbox"],
-			"/c/:cid/dash/mail/view/:id":["home","mail"]
+			"/dash/mail/view/:id":["home","mail"]
 		}]
 	]]
 ]
