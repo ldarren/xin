@@ -31,6 +31,12 @@
 			]],
 			["env", "ref", "env"]
 		]],
+		["config_mailbox", "models", [
+			["routes", "map", {
+				"list": "https://xin.jasaws.com/config/mailbox/:id",
+				"create": "https://xin.jasaws.com/config/mailbox/:id"
+			}]
+		]],
 		["pages", "map", {
 			"land": ["land/layout", "view", [
 				["options", "map", {"el": "body", "class":"no-skin pos-rel", "data": {"spy": "scroll", "target": "#menu"}}],
@@ -177,7 +183,8 @@
 					["menu", "models", [
 						["data", "list", [
 							{"id":1, "permission":"", "name":"Dashboard", "icon":"fa-tachometer", "href":"#/", "shortcut":123},
-							{"id":10, "permission":"", "name":"Mailbox", "icon":"fa-inbox", "href":"#/mailbox", "shortcut":124}
+							{"id":10, "permission":"", "name":"Mailbox", "icon":"fa-inbox", "href":"#/dash/mail", "shortcut":124},
+							{"id":20, "permission":"", "name":"Settings", "icon":"fa-cogs", "href":"#/dash/config/mailbox", "shortcut":125}
 						]]
 					]],
 					["home/sidebar", "view", [
@@ -241,6 +248,18 @@
 				["tpl", "file", "email/mail.asp"],
 				["bucket", "ref", "bucket"],
 				["inbox", "ref", "inbox"]
+			]],
+			"config/mailbox": ["config/mailbox", "view", [
+				["title", "text", "Config"],
+				["desc", "text", "create mailbox setting"],
+				["tpl", "file", "config/mailbox.asp"],
+				["config_mailbox", "ref", "config_mailbox"]
+			]],
+			"config/mailboxes": ["config/mailboxes", "view", [
+				["title", "text", "Config"],
+				["desc", "text", "list of mailbox settings"],
+				["tpl", "file", "config/mailboxes.asp"],
+				["config_mailbox", "ref", "config_mailbox"]
 			]]
 		}],
 		["routes","map",{
@@ -248,7 +267,9 @@
 			"/auth":["auth"],
 			"/dash":["home","mailbox"],
 			"/dash/mail":["home","mailbox"],
-			"/dash/mail/view/:id":["home","mail"]
+			"/dash/mail/view/:id":["home","mail"],
+			"/dash/config/mailbox":["home","config/mailbox"],
+			"/dash/config/mailboxes":["home","config/mailboxes"]
 		}]
 	]]
 ]

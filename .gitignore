@@ -1,5 +1,6 @@
 .DS_Store
 cfg/env.json
+cfg/xin.env.json
 
 # Logs
 logs
