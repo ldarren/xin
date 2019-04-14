@@ -31,10 +31,13 @@
 			]],
 			["env", "ref", "env"]
 		]],
-		["config_mailbox", "models", [
+		["configMailbox", "models", [
 			["routes", "map", {
-				"list": "https://xin.jasaws.com/config/mailbox/:id",
-				"create": "https://xin.jasaws.com/config/mailbox/:id"
+				"list": "http://localhost:8888/config/mailbox",
+				"create": "http://localhost:8888/config/mailbox"
+			}],
+			["options", "map", {
+				"idAttr": "name"
 			}]
 		]],
 		["pages", "map", {
@@ -182,7 +185,7 @@
 					["models", "refs", "models"],
 					["menu", "models", [
 						["data", "list", [
-							{"id":1, "permission":"", "name":"Dashboard", "icon":"fa-tachometer", "href":"#/", "shortcut":123},
+							{"id":1, "permission":"", "name":"Dashboard", "icon":"fa-tachometer", "href":"#/dash", "shortcut":123},
 							{"id":10, "permission":"", "name":"Mailbox", "icon":"fa-inbox", "href":"#/dash/mail", "shortcut":124},
 							{"id":20, "permission":"", "name":"Settings", "icon":"fa-cogs", "href":"#/dash/config/mailbox", "shortcut":125}
 						]]
@@ -253,19 +256,19 @@
 				["title", "text", "Config"],
 				["desc", "text", "create mailbox setting"],
 				["tpl", "file", "config/mailbox.asp"],
-				["config_mailbox", "ref", "config_mailbox"]
+				["configMailbox", "ref", "configMailbox"]
 			]],
 			"config/mailboxes": ["config/mailboxes", "view", [
 				["title", "text", "Config"],
 				["desc", "text", "list of mailbox settings"],
 				["tpl", "file", "config/mailboxes.asp"],
-				["config_mailbox", "ref", "config_mailbox"]
+				["configMailbox", "ref", "configMailbox"]
 			]]
 		}],
 		["routes","map",{
 			"/": ["land"],
 			"/auth":["auth"],
-			"/dash":["home","mailbox"],
+			"/dash":["home"],
 			"/dash/mail":["home","mailbox"],
 			"/dash/mail/view/:id":["home","mail"],
 			"/dash/config/mailbox":["home","config/mailbox"],
