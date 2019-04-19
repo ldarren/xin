@@ -1,11 +1,8 @@
 return {
 	deps: {
 		configMailbox: 'models',
-		tpl: 'file'
 	},
 	create(deps, params){
-		this.el.innerHTML = deps.tpl({
-		})
 		this.form = this.el.querySelector('form')
 	},
 	events: {

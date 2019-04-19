@@ -54,12 +54,21 @@
 
 <script src=lib/components/_mod/bootstrap-tag/bootstrap-tag.js></script>
 <script src=lib/ace/elements.typeahead.js></script>
+
+<!-- page specific plugin scripts -->
+<script src=lib/components/datatables/media/js/jquery.dataTables.js></script>
+<script src=lib/components/_mod/datatables/jquery.dataTables.bootstrap.js></script>
+<script src=lib/components/datatables.net-buttons/js/dataTables.buttons.js></script>
+<script src=lib/components/datatables.net-buttons/js/buttons.flash.js></script>
+<script src=lib/components/datatables.net-buttons/js/buttons.html5.js></script>
+<script src=lib/components/datatables.net-buttons/js/buttons.print.js></script>
+<script src=lib/components/datatables.net-buttons/js/buttons.colVis.js></script>
+<script src=lib/components/datatables.net-select/js/dataTables.select.js></script>
+
 <script src=lib/emailjs/ramda.min.js></script>
 <script type=module>
 	import parse from './lib/emailjs/mimeparser.js'
-	window.emailjs = {
-		parse
-	}
+	window.emailjs = { parse }
 </script>
 <script src="lib/aws/amazon-cognito-identity.min.js"></script>
 <script src="lib/aws/aws-sdk.min.js"></script>

@@ -1,6 +1,7 @@
 .DS_Store
 cfg/env.json
 cfg/xin.env.json
+cfg/jasa.env.json
 
 # Logs
 logs

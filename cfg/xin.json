@@ -187,7 +187,9 @@
 						["data", "list", [
 							{"id":1, "permission":"", "name":"Dashboard", "icon":"fa-tachometer", "href":"#/dash", "shortcut":123},
 							{"id":10, "permission":"", "name":"Mailbox", "icon":"fa-inbox", "href":"#/dash/mail", "shortcut":124},
-							{"id":20, "permission":"", "name":"Settings", "icon":"fa-cogs", "href":"#/dash/config/mailbox", "shortcut":125}
+							{"id":20, "permission":"", "name":"Settings", "icon":"fa-cogs", "href":"#/dash/config/mailbox", "shortcut":125},
+							{"id":21, "permission":"", "name":"New Email Account", "icon":"far fa-plus-square", "parent":20, "href":"#/dash/config/mailbox", "shortcut":1548192889},
+							{"id":22, "permission":"", "name":"Email Accounts", "icon":"far fa-plus-square", "parent":20, "href":"#/dash/config/mailboxes", "shortcut":15481929889}
 						]]
 					]],
 					["home/sidebar", "view", [
@@ -254,14 +256,14 @@
 			]],
 			"config/mailbox": ["config/mailbox", "view", [
 				["title", "text", "Config"],
-				["desc", "text", "create mailbox setting"],
-				["tpl", "file", "config/mailbox.asp"],
+				["desc", "text", "create a new mailbox"],
+				["html", "file", "config/mailbox.html"],
 				["configMailbox", "ref", "configMailbox"]
 			]],
 			"config/mailboxes": ["config/mailboxes", "view", [
 				["title", "text", "Config"],
-				["desc", "text", "list of mailbox settings"],
-				["tpl", "file", "config/mailboxes.asp"],
+				["desc", "text", "list of your mailboxes"],
+				["html", "file", "config/mailboxes.html"],
 				["configMailbox", "ref", "configMailbox"]
 			]]
 		}],
