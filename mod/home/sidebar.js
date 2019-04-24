@@ -67,7 +67,9 @@ return {
 		this.el.innerHTML = deps.tpl({shortcuts, menu, renderMenu})
 	},
 	render(){
-		try{ace.settings.loadState('sidebar')}catch(e){}
+		try{
+			ace.settings.loadState('sidebar')
+		}catch(e){}
 		ace.demo.functions.enableSidebar()
 		return this.el
 	},

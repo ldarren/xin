@@ -14,12 +14,15 @@ function ajax(method, route, params, cb){
 			Authroization: 'bearer ' + user.accessToken
 		})
 	}
-	
+
 	pico.ajax(method,route,params,{headers},function(err,state,res){
 		if (4!==state) return
 		if (err) return cb(err)
-		try{ var obj=JSON.parse(res) }
-		catch(ex){ return cb(ex) }
+		try{
+			var obj=JSON.parse(res)
+		} catch(ex){
+			return cb(ex)
+		}
 		cb(null, obj.Contents ? obj.Contents : obj)
 	})
 }

@@ -29,11 +29,11 @@ return {
 			if (bc.length() > 4) bc.remove(bc.at(0).id)
 			ul.innerHTML = ''
 			bc.forEach(b => {
-				const li = document.createElement('li')	
+				const li = document.createElement('li')
 				li.innerHTML = this.deps.tpl(b)
 				ul.appendChild(li)
 			})
-			
+
 			bc.create({
 				id: Date.now(),
 				name: menuItem.name,

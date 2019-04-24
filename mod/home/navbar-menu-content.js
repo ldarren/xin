@@ -3,8 +3,8 @@ return {
 		greet: ['text', ''],
 		text: 'text',
 		photo: 'text',
-		icon_right: "text",
-		icon_left: "text",
+		icon_right: 'text',
+		icon_left: 'text',
 		tpl: 'file'
 	},
 	create(deps, params){

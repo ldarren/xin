@@ -33,8 +33,9 @@
 		]],
 		["configMailbox", "models", [
 			["routes", "map", {
-				"list": "http://localhost:8888/config/mailbox",
-				"create": "http://localhost:8888/config/mailbox"
+				"list": "DOMAIN/config/mailbox",
+				"get": "DOMAIN/config/mailbox/:name",
+				"create": "DOMAIN/config/mailbox"
 			}],
 			["options", "map", {
 				"idAttr": "name"
@@ -104,7 +105,7 @@
 				["options", "map", {"el": "body", "class":"login-layout"}],
 				["html", "file", "auth/layout.html"],
 				["css", "file", "home/layout.css"],
-				["ums", "ref", "ums"],
+				["models", "refs", "models"],
 				["auth/navbar", "view", [
 					["options", "map", {"class":"navbar-fixed-top align-right"}],
 					["html", "file", "auth/navbar.html"]
@@ -124,6 +125,7 @@
 					["options", "map", {"class":"position-relative"}],
 					["tpl", "file", "auth/modal.asp"],
 					["ums", "ref", "ums"],
+					["configMailbox", "ref", "configMailbox"],
 					["socialBtn", "list", [
 						{"color": "btn-primary", "icon": "fa-facebook", "id": "loginFacebook"},
 						{"color": "btn-info", "icon": "fa-twitter", "id": "loginTwitter"},

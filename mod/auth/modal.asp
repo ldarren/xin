@@ -12,7 +12,7 @@
 			<fieldset>
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name=company type=text class=form-control placeholder=Company required/>
+				<input name=company type=text class=form-control placeholder=Company value=JasaWS required/>
 				<i class="ace-icon fa fa-bank"></i>
 				</span>
 				</label>
@@ -138,6 +138,13 @@
 
 			<form>
 			<fieldset>
+				<label class="block clearfix">
+				<span class="block input-icon input-icon-right">
+				<input name=company type=text class=form-control placeholder=Company value=JasaWS required/>
+				<i class="ace-icon fa fa-bank"></i>
+				</span>
+				</label>
+
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
 				<input name="email" type=email class="form-control" placeholder="darren@pmail.com" required/>

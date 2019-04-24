@@ -1,9 +1,9 @@
-function setConfig(ac, token, cb){
-	AWS.config.region = ac.region
+function setConfig(aws, token, cb){
+	AWS.config.region = aws.region
 	AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-		IdentityPoolId: ac.IdentityPoolId,
+		IdentityPoolId: aws.IdentityPoolId,
 		Logins: {
-			[`cognito-idp.${ac.region}.amazonaws.com/${ac.UserPoolId}`]: token
+			[`cognito-idp.${aws.region}.amazonaws.com/${aws.UserPoolId}`]: token
 		}
 	})
 
@@ -11,31 +11,34 @@ function setConfig(ac, token, cb){
 }
 
 function Cognito(env){
-	const ac = this.awsConfig = env.aws
-
-	this.userPool = new AmazonCognitoIdentity.CognitoUserPool({
-		UserPoolId: ac.UserPoolId,
-		ClientId: ac.ClientId
-	})
-	
-	this.readyListeners = void 0
-
-	const user = this.userPool.getCurrentUser()
-	if (!user) return
-
 	this.readyListeners = []
-	user.getSession((err, session) => {
-		if (err) return console.error(err)
-		if (!session.isValid()) return
-
-		setConfig(ac, session.getIdToken().getJwtToken(), err => {
-			this.readyListeners.forEach(cb => cb(err))
-			this.readyListeners = void 0
-		})
-	})
+	this.env(env.aws)
 }
 
 Cognito.prototype = {
+	env(aws){
+		if (!aws) return
+		this.awsConfig = aws
+
+		this.userPool = new AmazonCognitoIdentity.CognitoUserPool({
+			UserPoolId: aws.UserPoolId,
+			ClientId: aws.ClientId
+		})
+
+		const user = this.userPool.getCurrentUser()
+
+		if (!user) return
+
+		user.getSession((err, session) => {
+			if (err) return console.error(err)
+			if (!session.isValid()) return
+
+			setConfig(aws, session.getIdToken().getJwtToken(), err => {
+				this.readyListeners.forEach(cb => cb(err))
+				this.readyListeners = void 0
+			})
+		})
+	},
 	ready(cb){
 		if (this.readyListeners) return this.readyListeners.push(cb)
 		cb()
@@ -59,7 +62,7 @@ Cognito.prototype = {
 		})
 	},
 
-	signup(Username, Password, email, phone, cb){
+	signup(Company, Username, Password, email, phone, cb){
 		const attributes = [
 			new AmazonCognitoIdentity.CognitoUserAttribute({
 				Name : 'email',
@@ -81,7 +84,7 @@ Cognito.prototype = {
 		AWS.config.credentials = void 0
 		const user = this.userPool.getCurrentUser()
 		if (!user) return
-		user.signOut()		
+		user.signOut()
 	},
 
 	isValid(){
