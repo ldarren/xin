@@ -11,12 +11,12 @@ function setConfig(aws, token, cb){
 }
 
 function Cognito(env){
-	this.readyListeners = []
 	this.env(env.aws)
 }
 
 Cognito.prototype = {
 	env(aws){
+		this.readyListeners = void 0
 		if (!aws) return
 		this.awsConfig = aws
 
@@ -28,6 +28,7 @@ Cognito.prototype = {
 		const user = this.userPool.getCurrentUser()
 
 		if (!user) return
+		this.readyListeners = []
 
 		user.getSession((err, session) => {
 			if (err) return console.error(err)

@@ -28,8 +28,8 @@ return {
 			const deps = this.deps
 			const ums = deps.ums
 
-			deps.config.read(els.company.name, (err, company) => {
-				if (err) return alert(`company name [${els.company.name}] not found`)
+			deps.config.read(els.company.value, (err, company) => {
+				if (err) return alert(`company name [${els.company.value}] not found`)
 				ums.env(company.env)
 
 				switch(target.id){

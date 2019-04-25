@@ -33,13 +33,14 @@
 		]],
 		["config", "models", [
 			["routes", "map", {
-				"list": "DOMAIN/config/mailbox",
-				"get": "DOMAIN/config/mailbox/:name",
-				"create": "DOMAIN/config/mailbox"
+				"list": ":DOMAIN/config/mailbox",
+				"read": ":DOMAIN/config/mailbox/:name",
+				"create": ":DOMAIN/config/mailbox"
 			}],
 			["options", "map", {
 				"idAttr": "name"
-			}]
+			}],
+			["env", "ref", "env"]
 		]],
 		["pages", "map", {
 			"land": ["land/layout", "view", [
@@ -106,6 +107,7 @@
 				["html", "file", "auth/layout.html"],
 				["css", "file", "home/layout.css"],
 				["models", "refs", "models"],
+				["ums", "ref", "ums"],
 				["auth/navbar", "view", [
 					["options", "map", {"class":"navbar-fixed-top align-right"}],
 					["html", "file", "auth/navbar.html"]
@@ -126,7 +128,6 @@
 					["tpl", "file", "auth/modal.asp"],
 					["ums", "ref", "ums"],
 					["config", "ref", "config"],
-					["env", "ref", "env"],
 					["socialBtn", "list", [
 						{"color": "btn-primary", "icon": "fa-facebook", "id": "loginFacebook"},
 						{"color": "btn-info", "icon": "fa-twitter", "id": "loginTwitter"},
