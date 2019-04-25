@@ -4,7 +4,7 @@ return {
 	deps: {
 		tpl: 'file',
 		ums: 'cognito',
-		configMailbox: 'models',
+		config: 'models',
 		socialBtn: 'list',
 		enableReset: 'bool',
 		enableRegister: 'bool',
@@ -28,7 +28,7 @@ return {
 			const deps = this.deps
 			const ums = deps.ums
 
-			deps.configMailbox.read(els.company.name, (err, company) => {
+			deps.config.read(els.company.name, (err, company) => {
 				if (err) return alert(`company name [${els.company.name}] not found`)
 				ums.env(company.env)
 
@@ -40,14 +40,16 @@ return {
 					})
 					break
 				case 'btn-register':
+				{
 					const password = els.password.value
 					if (password !== els.repeat.value) return alert('password not match')
 
-					signup(els.username.value, password, els.email.value, els.phone.value, err => {
+					ums.signup(els.username.value, password, els.email.value, els.phone.value, err => {
 						if (err) return alert(JSON.stringify(err, null, '\t'))
 						alert('Please confirm your account before login', 'Signup Successfully')
 					})
 					break
+				}
 				case 'btn-forget':
 					break
 				default:

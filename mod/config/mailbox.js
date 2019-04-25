@@ -1,6 +1,6 @@
 return {
 	deps: {
-		configMailbox: 'models',
+		config: 'models',
 	},
 	create(deps, params){
 		this.form = this.el.querySelector('form')
@@ -19,7 +19,7 @@ return {
 				ClientId: f['ClientId'].value
 			}
 
-			this.deps.configMailbox.create(data, (err, model) => {
+			this.deps.config.create(data, (err, model) => {
 				console.log(err, model)
 			})
 

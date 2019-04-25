@@ -31,7 +31,7 @@
 			]],
 			["env", "ref", "env"]
 		]],
-		["configMailbox", "models", [
+		["config", "models", [
 			["routes", "map", {
 				"list": "DOMAIN/config/mailbox",
 				"get": "DOMAIN/config/mailbox/:name",
@@ -125,7 +125,8 @@
 					["options", "map", {"class":"position-relative"}],
 					["tpl", "file", "auth/modal.asp"],
 					["ums", "ref", "ums"],
-					["configMailbox", "ref", "configMailbox"],
+					["config", "ref", "config"],
+					["env", "ref", "env"],
 					["socialBtn", "list", [
 						{"color": "btn-primary", "icon": "fa-facebook", "id": "loginFacebook"},
 						{"color": "btn-info", "icon": "fa-twitter", "id": "loginTwitter"},
@@ -197,7 +198,8 @@
 					["home/sidebar", "view", [
 						["options", "map", {"class":"sidebar responsive ace-save-state"}],
 						["tpl", "file", "home/sidebar.asp"],
-						["menu", "ref", "menu"]
+						["menu", "ref", "menu"],
+						["env", "ref", "env"]
 					]],
 					["home/main-content", "view", [
 						["options", "map", {"class":"main-content", "content": [{"class": "main-content-inner"}]}],
@@ -260,13 +262,13 @@
 				["title", "text", "Config"],
 				["desc", "text", "create a new mailbox"],
 				["html", "file", "config/mailbox.html"],
-				["configMailbox", "ref", "configMailbox"]
+				["config", "ref", "config"]
 			]],
 			"config/mailboxes": ["config/mailboxes", "view", [
 				["title", "text", "Config"],
 				["desc", "text", "list of your mailboxes"],
 				["html", "file", "config/mailboxes.html"],
-				["configMailbox", "ref", "configMailbox"]
+				["config", "ref", "config"]
 			]]
 		}],
 		["routes","map",{

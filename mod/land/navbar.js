@@ -43,13 +43,15 @@ return {
 				router.go('/dash')
 				break
 			default:
+			{
 				const $href = $(href)
-				if($href.length == 1) {
+				if($href.length === 1) {
 					const offset = $href.offset()
 					const top = parseInt(Math.max(offset.top - 30, 0))
 					$('html, body').animate({scrollTop: top}, 250)
 				}
 				break
+			}
 			}
 		}
 	}

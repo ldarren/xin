@@ -42,6 +42,7 @@ function activateMenu(el, menu, item){
 return {
 	deps: {
 		menu: 'models',
+		env: 'map',
 		tpl: 'file'
 	},
 	create(deps, params){
@@ -51,6 +52,7 @@ return {
 
 		deps.menu.sort((r1, r2) => r1.id > r2.id)
 
+		// TODO check env.perm
 		deps.menu.forEach((row, i, id, coll) => {
 			const r = Object.assign(menuMap[row.id] || {}, row)
 			if (r.shortcut) shortcuts.push(r)

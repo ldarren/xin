@@ -19,7 +19,8 @@
 		"ace": true,
 		"AWS": true,
 		"emailjs": true,
-		"AmazonCognitoIdentity": true
+		"AmazonCognitoIdentity": true,
+		"Holder": true
 	},
 	"rules": {
 		"brace-style": "error",

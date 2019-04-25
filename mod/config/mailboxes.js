@@ -1,6 +1,6 @@
 return {
 	deps: {
-		configMailbox: 'models',
+		config: 'models',
 	},
 	create(deps, params){
 		this.table
@@ -16,11 +16,11 @@ return {
 				{ title: 'ClientId', data: 'ClientId' }
 			]
 		})
-		const configMailbox = this.deps.configMailbox
-		configMailbox.list(1, 10, (err, models) => {
+		const config = this.deps.config
+		config.list(1, 10, (err, models) => {
 			if (err) alert(JSON.stringify(err))
 
-			configMailbox.forEach(model => {
+			config.forEach(model => {
 				this.table.row.add(model.env).draw()
 			})
 		})
