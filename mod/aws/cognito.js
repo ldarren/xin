@@ -10,14 +10,26 @@ function setConfig(aws, token, cb){
 	AWS.config.credentials.get(cb)
 }
 
-function Cognito(env){
-	this.env(env.aws)
+function readied(ctx, err){
+	if (err) console.error(err)
+	ctx.readyListeners.forEach(cb => cb(err))
+	ctx.readyListeners = void 0
+}
+
+function Cognito(config){
+	if (!config) return
+	let aws
+	const key = window.localStorage.getItem('selected:config')
+	const selected = config.get(key)
+	if (!selected) return
+	this.env(selected.env)
 }
 
 Cognito.prototype = {
 	env(aws){
-		this.readyListeners = void 0
 		if (!aws) return
+
+		this.readyListeners = []
 		this.awsConfig = aws
 
 		this.userPool = new AmazonCognitoIdentity.CognitoUserPool({
@@ -27,16 +39,14 @@ Cognito.prototype = {
 
 		const user = this.userPool.getCurrentUser()
 
-		if (!user) return
-		this.readyListeners = []
+		if (!user) return readied(this)
 
 		user.getSession((err, session) => {
-			if (err) return console.error(err)
-			if (!session.isValid()) return
+			if (err) return readied(this, err)
+			if (!session.isValid()) return readied(this)
 
 			setConfig(aws, session.getIdToken().getJwtToken(), err => {
-				this.readyListeners.forEach(cb => cb(err))
-				this.readyListeners = void 0
+				readied(this, err)
 			})
 		})
 	},

@@ -30,9 +30,13 @@ function readMails(ctx, mails, inbox, cb){
 	})
 }
 
-function S3Bucket(env){
+function S3Bucket(config){
 	this.s3 = new AWS.S3({apiVersion: '2006-03-01'})
-	this.env(env.aws)
+	if (!config) return
+	const key = window.localStorage.getItem('selected:config')
+	const selected = config.get(key)
+	if (!selected) return
+	this.env(selected.env)
 }
 
 S3Bucket.prototype = {

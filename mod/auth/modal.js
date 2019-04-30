@@ -36,6 +36,7 @@ return {
 				case 'btn-login':
 					ums.signin(els.username.value, els.password.value, err => {
 						if (err) return alert(JSON.stringify(err, null, '\t'))
+						window.localStorage.setItem('selected:config', company.name)
 						router.go('/dash')
 					})
 					break
@@ -46,6 +47,7 @@ return {
 
 					ums.signup(els.username.value, password, els.email.value, els.phone.value, err => {
 						if (err) return alert(JSON.stringify(err, null, '\t'))
+						window.localStorage.setItem('selected:config', company.name)
 						alert('Please confirm your account before login', 'Signup Successfully')
 					})
 					break
