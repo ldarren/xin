@@ -32,5 +32,14 @@ return {
 		authColl = auth
 		opt = Object.assign({}, opt, {restParams})
 		Collection.prototype.init.call(this, name, Object.assign({ajax}, opt))
+	},
+	setSelected(key){
+		if (!this.name || !this.get(key)) return
+
+		return window.localStorage.setItem(`sel:${this.name}`, key)
+	},
+	getSelected(){
+		const key = window.localStorage.getItem(`sel:${this.name}`)
+		return this.get(key)
 	}
 }

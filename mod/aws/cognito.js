@@ -19,8 +19,7 @@ function readied(ctx, err){
 function Cognito(config){
 	if (!config) return
 	let aws
-	const key = window.localStorage.getItem('selected:config')
-	const selected = config.get(key)
+	const selected = config.getSelected()
 	if (!selected) return
 	this.env(selected.env)
 }

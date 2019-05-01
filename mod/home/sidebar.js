@@ -39,13 +39,23 @@ function activateMenu(el, menu, item){
 	return activateMenu(el, menu, item)
 }
 
+function auth(userPerm, menuPerm){
+	return !menuPerm.find((p, i) => {
+		if (!p) return false
+		if (p & userPerm[i]) return false
+		return true
+	})
+}
+
 return {
 	deps: {
 		menu: 'models',
-		env: 'map',
+		config: 'models',
 		tpl: 'file'
 	},
 	create(deps, params){
+		let { perm } = deps.config.getSelected()
+		perm = perm || []
 		const shortcuts = []
 		const menu = []
 		const menuMap = {}
@@ -54,6 +64,7 @@ return {
 
 		// TODO check env.perm
 		deps.menu.forEach((row, i, id, coll) => {
+			if (!auth(perm, row.perm)) return	
 			const r = Object.assign(menuMap[row.id] || {}, row)
 			if (r.shortcut) shortcuts.push(r)
 			menuMap[r.id] = r
