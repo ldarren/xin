@@ -1,9 +1,3 @@
-function S3Bucket(env){
-	const ac = this.awsConfig = env.aws
-	this.s3 = new AWS.S3({apiVersion: '2006-03-01'})
-	this.Bucket = ac.Bucket
-}
-
 // get html content if possible
 function getContent(node, contents, attachments){
 	switch(node.contentType.value){
@@ -14,7 +8,7 @@ function getContent(node, contents, attachments){
 	case 'text/plain':
 	case 'text/html':
 		contents[node.contentType.value] = Array.prototype.slice.call(node.content)
-		break;
+		break
 	default:
 		attachments.push({
 			contentType: node.contentType,
@@ -36,7 +30,20 @@ function readMails(ctx, mails, inbox, cb){
 	})
 }
 
+function S3Bucket(config){
+	this.s3 = new AWS.S3({apiVersion: '2006-03-01'})
+	if (!config) return
+	const selected = config.getSelected()
+	if (!selected) return
+	this.env(selected.env)
+}
+
 S3Bucket.prototype = {
+	env(aws){
+		if (!aws) return
+		this.awsConfig = aws
+		this.Bucket = aws.Bucket
+	},
 	list(inbox, cb){
 		this.s3.listObjects({Bucket: this.Bucket}, (err, bucket) => {
 			if (err) return cb(err)

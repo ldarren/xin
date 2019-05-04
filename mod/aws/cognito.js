@@ -1,47 +1,67 @@
-function setConfig(ac, token, cb){
-	AWS.config.region = ac.region
+function setConfig(aws, token, cb){
+	AWS.config.region = aws.region
 	AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-		IdentityPoolId: ac.IdentityPoolId,
+		IdentityPoolId: aws.IdentityPoolId,
 		Logins: {
-			[`cognito-idp.${ac.region}.amazonaws.com/${ac.UserPoolId}`]: token
+			[`cognito-idp.${aws.region}.amazonaws.com/${aws.UserPoolId}`]: token
 		}
 	})
 
 	AWS.config.credentials.get(cb)
 }
 
-function Cognito(env){
-	const ac = this.awsConfig = env.aws
+function readied(ctx, err){
+	if (err) console.error(err)
+	ctx.readyListeners.forEach(cb => cb(err))
+	ctx.readyListeners = void 0
+}
 
-	this.userPool = new AmazonCognitoIdentity.CognitoUserPool({
-		UserPoolId: ac.UserPoolId,
-		ClientId: ac.ClientId
-	})
-	
-	this.readyListeners = void 0
-
-	const user = this.userPool.getCurrentUser()
-	if (!user) return
-
-	this.readyListeners = []
-	user.getSession((err, session) => {
-		if (err) return console.error(err)
-		if (!session.isValid()) return
-
-		setConfig(ac, session.getIdToken().getJwtToken(), err => {
-			this.readyListeners.forEach(cb => cb(err))
-			this.readyListeners = void 0
-		})
-	})
+function Cognito(user, config){
+	this.user = user
+	this.config = config
+	if (!config) return
+	const selected = config.getSelected()
+	if (!selected) return
+	this.env(selected.name, selected.env)
 }
 
 Cognito.prototype = {
+	env(company, aws){
+		if (!aws) return
+
+		this.readyListeners = []
+		this.awsConfig = aws
+
+		this.userPool = new AmazonCognitoIdentity.CognitoUserPool({
+			UserPoolId: aws.UserPoolId,
+			ClientId: aws.ClientId
+		})
+
+		const user = this.userPool.getCurrentUser()
+
+		if (!user) return readied(this)
+
+		user.getSession((err, session) => {
+			if (err) return readied(this, err)
+			if (!session.isValid()) return readied(this)
+
+			setConfig(aws, session.getIdToken().getJwtToken(), err => {
+				this.user.create({
+					username: user.username,
+					company,
+					accessToken: session.getAccessToken().getJwtToken(),
+					idToken: session.getIdToken().getJwtToken(),
+				})
+				readied(this, err)
+			})
+		})
+	},
 	ready(cb){
 		if (this.readyListeners) return this.readyListeners.push(cb)
 		cb()
 	},
 
-	signin(Username, Password, cb){
+	signin(company, Username, Password, cb){
 		const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({
 			Username,
 			Password
@@ -52,14 +72,24 @@ Cognito.prototype = {
 		})
 		cognitoUser.authenticateUser(authDetails, {
 			onSuccess: result => {
-				setConfig(this.awsConfig, result.idToken.jwtToken, cb)
+				const idToken = result.idToken.jwtToken
+				setConfig(this.awsConfig, idToken, err => {
+					if (err) return cb(err)
+					this.user.create({
+						username: Username,
+						company,
+						accessToken: result.accessToken.jwtToken,
+						idToken
+					})
+					cb(err)
+				})
 			},
 
 			onFailure: cb
 		})
 	},
 
-	signup(Username, Password, email, phone, cb){
+	signup(company, Username, Password, email, phone, cb){
 		const attributes = [
 			new AmazonCognitoIdentity.CognitoUserAttribute({
 				Name : 'email',
@@ -73,7 +103,17 @@ Cognito.prototype = {
 
 		this.userPool.signUp(Username, Password, attributes, null, (err, result) => {
 			if (err) return cb(err)
-			cb(null, result.user)
+			if (!result.user || !result.userUnconfirmed) return cb(err, result)
+			result.user.getSession((err, session) => {
+				if (err) return cb(err)
+				this.user.create({
+					username: Username,
+					company,
+					accessToken: session.getAccessToken().getJwtToken(),
+					idToken: session.getIdToken().getJwtToken()
+				})
+				cb(null, result)
+			})
 		})
 	},
 
@@ -81,11 +121,27 @@ Cognito.prototype = {
 		AWS.config.credentials = void 0
 		const user = this.userPool.getCurrentUser()
 		if (!user) return
-		user.signOut()		
+		user.signOut()
 	},
 
 	isValid(){
 		return !!AWS.config.credentials
+	},
+
+	getProfile(cb){
+		const user = this.userPool.getCurrentUser()
+		if (!user) return cb('no current user')
+		user.getSession((err, session) => {
+			if (err) return cb(err)
+			user.getUserAttributes((err, result) => {
+				if (err) return cb(err)
+				const attr = {username: user.username}
+				for (let i = 0; i < result.length; i++) {
+					attr[result[i].getName()] = result[i].getValue()
+				}
+				return cb(null, attr)
+			})
+		})
 	}
 }
 

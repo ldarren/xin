@@ -39,19 +39,32 @@ function activateMenu(el, menu, item){
 	return activateMenu(el, menu, item)
 }
 
+function auth(userPerm, menuPerm){
+	return !menuPerm.find((p, i) => {
+		if (!p) return false
+		if (p & userPerm[i]) return false
+		return true
+	})
+}
+
 return {
 	deps: {
 		menu: 'models',
+		config: 'models',
 		tpl: 'file'
 	},
 	create(deps, params){
+		let { perm } = deps.config.getSelected()
+		perm = perm || []
 		const shortcuts = []
 		const menu = []
 		const menuMap = {}
 
 		deps.menu.sort((r1, r2) => r1.id > r2.id)
 
+		// TODO check env.perm
 		deps.menu.forEach((row, i, id, coll) => {
+			if (!auth(perm, row.perm)) return
 			const r = Object.assign(menuMap[row.id] || {}, row)
 			if (r.shortcut) shortcuts.push(r)
 			menuMap[r.id] = r
@@ -67,7 +80,9 @@ return {
 		this.el.innerHTML = deps.tpl({shortcuts, menu, renderMenu})
 	},
 	render(){
-		try{ace.settings.loadState('sidebar')}catch(e){}
+		try{
+			ace.settings.loadState('sidebar')
+		}catch(e){}
 		ace.demo.functions.enableSidebar()
 		return this.el
 	},

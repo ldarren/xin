@@ -7,10 +7,12 @@ function changeContent(state, params){
 }
 
 function pageChanged(evt, states, params){
-	if (this.deps.ums.isValid()){
-		if (!states || states.includes('auth')) return router.go('/')
-	} else {
-		if (!states || !states.includes('auth')) return router.go('auth')
+	if (!states || !states.includes('land')){
+		if (this.deps.ums.isValid()){
+			if (!states || states.includes('auth')) return router.go('/dash')
+		} else {
+			if (!states || !states.includes('auth')) return router.go('/auth')
+		}
 	}
 
 	this._params = params

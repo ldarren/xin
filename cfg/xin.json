@@ -3,40 +3,127 @@
 		"data", "routes", "name", "options", "auth", "env"
 	]],
 	["cognito", "type", "aws/cognito", [
-		"env"
+		"user", "config"
 	]],
 	["s3bucket", "type", "aws/s3bucket", [
-		"env"
+		"config"
 	]],
 	["body", "view", [
 		["options", "map", {"el": "body"}],
-		["css", "file", "style.css"],
-		["ums", "cognito", [
+		["user", "models", [
+			["routes", "map", {
+				"create": ":DOMAIN/user/create"
+			}],
+			["options", "map", {
+				"idAttr": "username"
+			}],
 			["env", "ref", "env"]
 		]],
-		["bucket", "s3bucket", [
+		["config", "models", [
+			["routes", "map", {
+				"list": ":DOMAIN/config/mailbox",
+				"read": ":DOMAIN/config/mailbox/:name",
+				"create": ":DOMAIN/config/mailbox"
+			}],
+			["name", "text", "config"],
+			["options", "map", {
+				"idAttr": "name"
+			}],
+			["auth", "ref", "user"],
 			["env", "ref", "env"]
 		]],
 		["inbox", "models", [
 			["data", "list", [
 				{"id":1, "sender":"Alex John Red Smith", "time":"1:33 pm", "subject":"Click to open this message", "star":true, "read":false, "clip":false, "status":[]},
-				{"id":2, "sender":"John Doe", "time":"7:15 pm", "subject":"Clik to open this message right here", "star":false, "read":false, "clip":true, "status":[], "tag":"badge-pink"},
-				{"id":3, "sender":"Philip Markov", "time":"10:15 am", "subject":"Photo booth beard raw denim letterpress vegan", "star":false, "read":true, "clip":true, "status":["fa-reply"]},
+				{"id":2, "sender":"John Doe", "time":"7:15 pm", "subject":"Clik to open this message here", "star":false, "read":false, "clip":true, "status":[], "tag":"badge-pink"},
+				{"id":3, "sender":"Philip Markov", "time":"10:15 am", "subject":"Photo booth beard raw denim vegan", "star":false, "read":true, "clip":true, "status":["fa-reply"]},
 				{"id":4, "sender":"Sabrina", "time":"Yesterday", "subject":"Nullam quis risus eget urna mollis ornare", "star":true, "read":true, "clip":false, "status":[]},
-				{"id":5, "sender":"Philip Markov", "time":"Yesterday", "subject":"Vestibulum id ligula porta felis euismod", "star":false, "read":true, "clip":true, "status":[], "tag":"badge-success"},
+				{"id":5, "sender":"Philip Markov", "time":"Yesterday", "subject":"Vestibulum id felis euismod", "star":false, "read":true, "clip":true, "status":[], "tag":"badge-success"},
 				{"id":6, "sender":"Doctor Gomenz", "time":"Yesterday", "subject":"Vim te vivendo convenire, summo fuisset", "star":false, "read":true, "clip":false, "status":[]},
 				{"id":7, "sender":"Robin Hood", "time":"Yesterday", "subject":"No eos veniam equidem mentitum, his porro", "star":false, "read":true, "clip":false, "status":["fa-reply"]},
-				{"id":8, "sender":"Google Inc", "time":"April 3", "subject":"Convallis facilisis euismod urna sodales", "star":false, "read":true, "clip":false, "status":[], "tag":"badge-grey"},
-				{"id":9, "sender":"Shrek", "time":"March 28", "subject":"Photo booth beard raw denim letterpress vegan messenger", "star":false, "read":true, "clip":true, "status":["fa-flag"]},
-				{"id":10, "sender":"Yahoo!", "time":"March 27", "subject":"Tofu biodiesel williamsburg marfa, four loko mcsweeney", "star":false, "read":true, "clip":false, "status":["fa-mail-forward"]}
+				{"id":8, "sender":"Google Inc", "time":"April 3", "subject":"Convallis facilisis urna sodales", "star":false, "read":true, "clip":false, "status":[], "tag":"badge-grey"},
+				{"id":9, "sender":"Shrek", "time":"March 28", "subject":"Photo booth raw denim letterpress vegan messenger", "star":false, "read":true, "clip":true, "status":["fa-flag"]},
+				{"id":10, "sender":"Yahoo!", "time":"March 27", "subject":"Tofu biodiesel marfa, loko mcsweeney", "star":false, "read":true, "clip":false, "status":["fa-mail-forward"]}
 			]],
+			["auth", "ref", "user"],
 			["env", "ref", "env"]
 		]],
+		["ums", "cognito", [
+			["user", "ref", "user"],
+			["config", "ref", "config"]
+		]],
+		["bucket", "s3bucket", [
+			["config", "ref", "config"]
+		]],
 		["pages", "map", {
+			"land": ["land/layout", "view", [
+				["options", "map", {"el": "body", "class":"no-skin pos-rel", "data": {"spy": "scroll", "target": "#menu"}}],
+				["css", "file", "land/layout.css"],
+				["ums", "ref", "ums"],
+				["env", "ref", "env"],
+				["land/navbar", "view", [
+					["options", "map", {"id":"navbar", "class":"navbar navbar-default navbar-fixed-top", "content": [{"id":"navbar-container", "class":"navbar-container container"}]}],
+					["html", "file", "land/navbar.html"],
+					["ums", "ref", "ums"]
+				]],
+				["p/View", "view", [
+					["options", "map", {"id": "top", "class":"main-container"}],
+					["land/hero", "view", [
+						["options", "map", {"tag": "header", "class": "jumbotron main-background"}],
+						["html", "file", "land/hero.html"]
+					]],
+					["p/View", "view", [
+						["options", "map", {"tag": "section", "id": "services", "class": "section section-grey", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/services.html"]
+					]],
+					["p/View", "view", [
+						["options", "map", {"tag": "section", "id": "info", "class": "section", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/info.html"]
+					]],
+					["p/View", "view", [
+						["options", "map", {"tag": "section", "id": "info2", "class": "section section-grey", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/info2.html"]
+					]],
+					["land/slider", "view", [
+						["options", "map", {"tag": "section", "id": "slider", "class": "section no-padding", "content": [
+							{"id": "carousel-example", "class": "carousel slide", "data": {"ride": "carousel"}}
+						]}],
+						["html", "file", "land/slider.html"]
+					]],
+					["p/View", "view", [
+						["options", "map", {"tag": "section", "id": "clients", "class": "section", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/clients.html"]
+					]],
+					["p/View", "view", [
+						["options", "map", {"tag": "section", "id": "contact", "class": "section section-contact", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/contact.html"]
+					]],
+					["p/View", "view", [
+						["options", "map", {"tag": "footer", "id": "footer", "class": "section", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/footer.html"]
+					]]
+				]]
+			]],
 			"auth": ["auth/layout", "view", [
 				["options", "map", {"el": "body", "class":"login-layout"}],
 				["html", "file", "auth/layout.html"],
+				["css", "file", "home/layout.css"],
+				["models", "refs", "models"],
 				["ums", "ref", "ums"],
+				["bucket", "ref", "bucket"],
+				["env", "ref", "env"],
 				["auth/navbar", "view", [
 					["options", "map", {"class":"navbar-fixed-top align-right"}],
 					["html", "file", "auth/navbar.html"]
@@ -56,6 +143,8 @@
 					["options", "map", {"class":"position-relative"}],
 					["tpl", "file", "auth/modal.asp"],
 					["ums", "ref", "ums"],
+					["bucket", "ref", "bucket"],
+					["config", "ref", "config"],
 					["socialBtn", "list", [
 						{"color": "btn-primary", "icon": "fa-facebook", "id": "loginFacebook"},
 						{"color": "btn-info", "icon": "fa-twitter", "id": "loginTwitter"},
@@ -68,7 +157,9 @@
 			]],
 			"home": ["p/View", "view", [
 				["options", "map", {"el": "body", "class":"no-skin"}],
+				["css", "file", "home/layout.css"],
 				["ums", "ref", "ums"],
+				["env", "ref", "env"],
 				["bucket", "ref", "bucket"],
 				["models", "refs", "models"],
 				["p/View", "view", [
@@ -98,7 +189,6 @@
 							["options", "map", {"tag":"li", "class":"light-blue dropdown-modal"}],
 							["tpl", "file", "home/navbar-menu-content.asp"],
 							["greet", "text", "Welcome,"],
-							["text", "text", "Gopal Madala"],
 							["photo", "text", "dat/gopal.png"],
 							["icon_right", "text", "fa-caret-down"],
 							["ums", "ref", "ums"],
@@ -114,21 +204,29 @@
 					["options", "map", {"id":"main-container", "class":"main-container ace-save-state"}],
 					["bucket", "ref", "bucket"],
 					["models", "refs", "models"],
+					["ums", "ref", "ums"],
+					["env", "ref", "env"],
 					["menu", "models", [
 						["data", "list", [
-							{"id":1, "permission":"", "name":"Dashboard", "icon":"fa-tachometer", "href":"#/", "shortcut":123},
-							{"id":10, "permission":"", "name":"Mailbox", "icon":"fa-inbox", "href":"#/mailbox", "shortcut":124}
+							{"id":1, "perm":[], "name":"Dashboard", "icon":"fa-tachometer", "href":"#/dash", "shortcut":123},
+							{"id":10, "perm":[0,1], "name":"Mailbox", "icon":"fa-inbox", "href":"#/dash/mail", "shortcut":124},
+							{"id":20, "perm":[1,0], "name":"Settings", "icon":"fa-cogs", "href":"#/dash/config/mailbox", "shortcut":125},
+							{"id":21, "perm":[1,0], "name":"New Email Account", "icon":"far fa-plus-square", "parent":20, "href":"#/dash/config/mailbox", "shortcut":1548192889},
+							{"id":22, "perm":[1,0], "name":"Email Accounts", "icon":"far fa-plus-square", "parent":20, "href":"#/dash/config/mailboxes", "shortcut":15481929889}
 						]]
 					]],
 					["home/sidebar", "view", [
 						["options", "map", {"class":"sidebar responsive ace-save-state"}],
 						["tpl", "file", "home/sidebar.asp"],
-						["menu", "ref", "menu"]
+						["menu", "ref", "menu"],
+						["config", "ref", "config"]
 					]],
 					["home/main-content", "view", [
 						["options", "map", {"class":"main-content", "content": [{"class": "main-content-inner"}]}],
 						["bucket", "ref", "bucket"],
 						["models", "refs", "models"],
+						["ums", "ref", "ums"],
+						["env", "ref", "env"],
 						["home/breadcrumbs", "view", [
 							["options", "map", {"id": "breadcrumbs", "class":"breadcrumbs ace-save-state"}],
 							["html", "file", "home/breadcrumbs.html"],
@@ -142,6 +240,7 @@
 							["options", "map", {"class":"page-content"}],
 							["bucket", "ref", "bucket"],
 							["models", "refs", "models"],
+							["env", "ref", "env"],
 							["p/View", "view", [
 								["options", "map", {"id":"ace-settings-container", "class":"ace-settings-container"}],
 								["html", "file", "home/settings-container.html"]
@@ -153,7 +252,9 @@
 							["home/page-content", "view", [
 								["options", "map", {"class":"row", "content":[{"class":"col-ex-12"}]}],
 								["bucket", "ref", "bucket"],
-								["models", "refs", "models"]
+								["models", "refs", "models"],
+								["ums", "ref", "ums"],
+								["env", "ref", "env"]
 							]]
 						]]
 					]],
@@ -181,12 +282,28 @@
 				["tpl", "file", "email/mail.asp"],
 				["bucket", "ref", "bucket"],
 				["inbox", "ref", "inbox"]
+			]],
+			"config/mailbox": ["config/mailbox", "view", [
+				["title", "text", "Config"],
+				["desc", "text", "create a new mailbox"],
+				["html", "file", "config/mailbox.html"],
+				["config", "ref", "config"]
+			]],
+			"config/mailboxes": ["config/mailboxes", "view", [
+				["title", "text", "Config"],
+				["desc", "text", "list of your mailboxes"],
+				["html", "file", "config/mailboxes.html"],
+				["config", "ref", "config"]
 			]]
 		}],
 		["routes","map",{
-			"auth":["auth"],
-			"/":["home","mailbox"],
-			"/mail/:id":["home","mail"]
+			"/": ["land"],
+			"/auth":["auth"],
+			"/dash":["home"],
+			"/dash/mail":["home","mailbox"],
+			"/dash/mail/view/:id":["home","mail"],
+			"/dash/config/mailbox":["home","config/mailbox"],
+			"/dash/config/mailboxes":["home","config/mailboxes"]
 		}]
 	]]
 ]
