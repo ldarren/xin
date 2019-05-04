@@ -3,13 +3,22 @@
 		"data", "routes", "name", "options", "auth", "env"
 	]],
 	["cognito", "type", "aws/cognito", [
-		"config"
+		"user", "config"
 	]],
 	["s3bucket", "type", "aws/s3bucket", [
 		"config"
 	]],
 	["body", "view", [
 		["options", "map", {"el": "body"}],
+		["user", "models", [
+			["routes", "map", {
+				"create": ":DOMAIN/user/create"
+			}],
+			["options", "map", {
+				"idAttr": "username"
+			}],
+			["env", "ref", "env"]
+		]],
 		["config", "models", [
 			["routes", "map", {
 				"list": ":DOMAIN/config/mailbox",
@@ -20,6 +29,7 @@
 			["options", "map", {
 				"idAttr": "name"
 			}],
+			["auth", "ref", "user"],
 			["env", "ref", "env"]
 		]],
 		["inbox", "models", [
@@ -35,9 +45,11 @@
 				{"id":9, "sender":"Shrek", "time":"March 28", "subject":"Photo booth raw denim letterpress vegan messenger", "star":false, "read":true, "clip":true, "status":["fa-flag"]},
 				{"id":10, "sender":"Yahoo!", "time":"March 27", "subject":"Tofu biodiesel marfa, loko mcsweeney", "star":false, "read":true, "clip":false, "status":["fa-mail-forward"]}
 			]],
+			["auth", "ref", "user"],
 			["env", "ref", "env"]
 		]],
 		["ums", "cognito", [
+			["user", "ref", "user"],
 			["config", "ref", "config"]
 		]],
 		["bucket", "s3bucket", [
@@ -110,6 +122,7 @@
 				["css", "file", "home/layout.css"],
 				["models", "refs", "models"],
 				["ums", "ref", "ums"],
+				["bucket", "ref", "bucket"],
 				["env", "ref", "env"],
 				["auth/navbar", "view", [
 					["options", "map", {"class":"navbar-fixed-top align-right"}],
@@ -130,6 +143,7 @@
 					["options", "map", {"class":"position-relative"}],
 					["tpl", "file", "auth/modal.asp"],
 					["ums", "ref", "ums"],
+					["bucket", "ref", "bucket"],
 					["config", "ref", "config"],
 					["socialBtn", "list", [
 						{"color": "btn-primary", "icon": "fa-facebook", "id": "loginFacebook"},
@@ -175,7 +189,6 @@
 							["options", "map", {"tag":"li", "class":"light-blue dropdown-modal"}],
 							["tpl", "file", "home/navbar-menu-content.asp"],
 							["greet", "text", "Welcome,"],
-							["text", "text", "Gopal Madala"],
 							["photo", "text", "dat/gopal.png"],
 							["icon_right", "text", "fa-caret-down"],
 							["ums", "ref", "ums"],
@@ -191,6 +204,7 @@
 					["options", "map", {"id":"main-container", "class":"main-container ace-save-state"}],
 					["bucket", "ref", "bucket"],
 					["models", "refs", "models"],
+					["ums", "ref", "ums"],
 					["env", "ref", "env"],
 					["menu", "models", [
 						["data", "list", [
@@ -211,6 +225,7 @@
 						["options", "map", {"class":"main-content", "content": [{"class": "main-content-inner"}]}],
 						["bucket", "ref", "bucket"],
 						["models", "refs", "models"],
+						["ums", "ref", "ums"],
 						["env", "ref", "env"],
 						["home/breadcrumbs", "view", [
 							["options", "map", {"id": "breadcrumbs", "class":"breadcrumbs ace-save-state"}],
@@ -238,6 +253,7 @@
 								["options", "map", {"class":"row", "content":[{"class":"col-ex-12"}]}],
 								["bucket", "ref", "bucket"],
 								["models", "refs", "models"],
+								["ums", "ref", "ums"],
 								["env", "ref", "env"]
 							]]
 						]]

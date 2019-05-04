@@ -64,7 +64,7 @@ return {
 
 		// TODO check env.perm
 		deps.menu.forEach((row, i, id, coll) => {
-			if (!auth(perm, row.perm)) return	
+			if (!auth(perm, row.perm)) return
 			const r = Object.assign(menuMap[row.id] || {}, row)
 			if (r.shortcut) shortcuts.push(r)
 			menuMap[r.id] = r

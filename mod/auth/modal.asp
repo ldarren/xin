@@ -140,7 +140,7 @@
 			<fieldset>
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name=company type=text class=form-control placeholder=Company value=JasaWS required/>
+				<input name=company type=text class=form-control placeholder=Company value=xin.com required/>
 				<i class="ace-icon fa fa-bank"></i>
 				</span>
 				</label>

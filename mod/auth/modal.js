@@ -6,6 +6,7 @@ return {
 		ums: 'cognito',
 		config: 'models',
 		socialBtn: 'list',
+		bucket: 's3bucket',
 		enableReset: 'bool',
 		enableRegister: 'bool',
 	},
@@ -25,33 +26,38 @@ return {
 			const form = target.closest('form')
 			if (!form.reportValidity()) return
 			const els = form.elements
+			const company = els.company.value
 			const deps = this.deps
 			const ums = deps.ums
 
-			deps.config.read(els.company.value, (err, company) => {
-				if (err) return alert(`company name [${els.company.value}] not found`)
-				ums.env(company.env)
+			deps.config.read(company, (err, group) => {
+				if (err) return alert(`company name [${company}] not found`)
+				ums.env(group.name, group.env)
+				deps.bucket.env(group.env)
+				const username = els.username.value
+				const password = els.password.value
 
 				switch(target.id){
 				case 'btn-login':
-					ums.signin(els.username.value, els.password.value, err => {
+					ums.signin(company, username, password, err => {
 						if (err) return alert(JSON.stringify(err, null, '\t'))
-						deps.config.setSelected(company.name)
+						deps.config.setSelected(group.name)
 						router.go('/dash')
 					})
 					break
 				case 'btn-register':
-				{
-					const password = els.password.value
 					if (password !== els.repeat.value) return alert('password not match')
 
-					ums.signup(els.username.value, password, els.email.value, els.phone.value, err => {
+					ums.signup(company, username, password, els.email.value, els.phone.value, (err, result) => {
 						if (err) return alert(JSON.stringify(err, null, '\t'))
-						deps.config.setSelected(company.name)
-						alert('Please confirm your account before login', 'Signup Successfully')
+						if (result.userUnconfirmed){
+							deps.config.setSelected(group.name)
+							router.go('/dash')
+						}else{
+							alert('Please confirm your account before login', 'Signup Successfully')
+						}
 					})
 					break
-				}
 				case 'btn-forget':
 					break
 				default:

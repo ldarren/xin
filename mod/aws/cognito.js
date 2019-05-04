@@ -16,16 +16,17 @@ function readied(ctx, err){
 	ctx.readyListeners = void 0
 }
 
-function Cognito(config){
+function Cognito(user, config){
+	this.user = user
+	this.config = config
 	if (!config) return
-	let aws
 	const selected = config.getSelected()
 	if (!selected) return
-	this.env(selected.env)
+	this.env(selected.name, selected.env)
 }
 
 Cognito.prototype = {
-	env(aws){
+	env(company, aws){
 		if (!aws) return
 
 		this.readyListeners = []
@@ -45,6 +46,12 @@ Cognito.prototype = {
 			if (!session.isValid()) return readied(this)
 
 			setConfig(aws, session.getIdToken().getJwtToken(), err => {
+				this.user.create({
+					username: user.username,
+					company,
+					accessToken: session.getAccessToken().getJwtToken(),
+					idToken: session.getIdToken().getJwtToken(),
+				})
 				readied(this, err)
 			})
 		})
@@ -54,7 +61,7 @@ Cognito.prototype = {
 		cb()
 	},
 
-	signin(Username, Password, cb){
+	signin(company, Username, Password, cb){
 		const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({
 			Username,
 			Password
@@ -65,14 +72,24 @@ Cognito.prototype = {
 		})
 		cognitoUser.authenticateUser(authDetails, {
 			onSuccess: result => {
-				setConfig(this.awsConfig, result.idToken.jwtToken, cb)
+				const idToken = result.idToken.jwtToken
+				setConfig(this.awsConfig, idToken, err => {
+					if (err) return cb(err)
+					this.user.create({
+						username: Username,
+						company,
+						accessToken: result.accessToken.jwtToken,
+						idToken
+					})
+					cb(err)
+				})
 			},
 
 			onFailure: cb
 		})
 	},
 
-	signup(Company, Username, Password, email, phone, cb){
+	signup(company, Username, Password, email, phone, cb){
 		const attributes = [
 			new AmazonCognitoIdentity.CognitoUserAttribute({
 				Name : 'email',
@@ -86,7 +103,17 @@ Cognito.prototype = {
 
 		this.userPool.signUp(Username, Password, attributes, null, (err, result) => {
 			if (err) return cb(err)
-			cb(null, result.user)
+			if (!result.user || !result.userUnconfirmed) return cb(err, result)
+			result.user.getSession((err, session) => {
+				if (err) return cb(err)
+				this.user.create({
+					username: Username,
+					company,
+					accessToken: session.getAccessToken().getJwtToken(),
+					idToken: session.getIdToken().getJwtToken()
+				})
+				cb(null, result)
+			})
 		})
 	},
 
@@ -99,6 +126,22 @@ Cognito.prototype = {
 
 	isValid(){
 		return !!AWS.config.credentials
+	},
+
+	getProfile(cb){
+		const user = this.userPool.getCurrentUser()
+		if (!user) return cb('no current user')
+		user.getSession((err, session) => {
+			if (err) return cb(err)
+			user.getUserAttributes((err, result) => {
+				if (err) return cb(err)
+				const attr = {username: user.username}
+				for (let i = 0; i < result.length; i++) {
+					attr[result[i].getName()] = result[i].getValue()
+				}
+				return cb(null, attr)
+			})
+		})
 	}
 }
 
