@@ -1,5 +1,16 @@
 const router = require('po/router')
 
+/*
+ * variables
+ * sender: name of sender
+ * time: mail created at, has a few display levels: show time(today), yesterday, day month, year
+ * subject: mail subject
+ * star: true or false
+ * read: true or false
+ * clip: true or false, attachment paperclip
+ * status: array: fa-reply, fa-mail-forward
+ * tag: colour: badge-pink, badge-grey, badge-success
+ */
 function renderMail(items, idx) {
 	if (items.length() <= idx) return ''
 	const item = items.at(idx++)

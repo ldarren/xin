@@ -16,7 +16,8 @@ function readied(ctx, err){
 	ctx.readyListeners = void 0
 }
 
-function Cognito(user, config){
+function Cognito(company, user, config){
+	this.company = company
 	this.user = user
 	this.config = config
 	if (!config) return
@@ -46,8 +47,7 @@ Cognito.prototype = {
 			if (!session.isValid()) return readied(this)
 
 			setConfig(aws, session.getIdToken().getJwtToken(), err => {
-				this.user.create({
-					username: user.username,
+				if (company === this.company) this.user.create({
 					company,
 					accessToken: session.getAccessToken().getJwtToken(),
 					idToken: session.getIdToken().getJwtToken(),
@@ -75,8 +75,7 @@ Cognito.prototype = {
 				const idToken = result.idToken.jwtToken
 				setConfig(this.awsConfig, idToken, err => {
 					if (err) return cb(err)
-					this.user.create({
-						username: Username,
+					if (company === this.company) this.user.create({
 						company,
 						accessToken: result.accessToken.jwtToken,
 						idToken
@@ -106,8 +105,7 @@ Cognito.prototype = {
 			if (!result.user || !result.userUnconfirmed) return cb(err, result)
 			result.user.getSession((err, session) => {
 				if (err) return cb(err)
-				this.user.create({
-					username: Username,
+				if (company === this.company) this.user.create({
 					company,
 					accessToken: session.getAccessToken().getJwtToken(),
 					idToken: session.getIdToken().getJwtToken()
