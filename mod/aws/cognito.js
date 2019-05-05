@@ -6,8 +6,9 @@ function setConfig(aws, token, cb){
 			[`cognito-idp.${aws.region}.amazonaws.com/${aws.UserPoolId}`]: token
 		}
 	})
-
+console.log('!!! error here start', aws)
 	AWS.config.credentials.get(cb)
+console.log('!!! error here end')
 }
 
 function readied(ctx, err){
