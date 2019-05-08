@@ -6,9 +6,9 @@ function setConfig(aws, token, cb){
 			[`cognito-idp.${aws.region}.amazonaws.com/${aws.UserPoolId}`]: token
 		}
 	})
-console.log('!!! error here start', aws)
+console.log('!!! outside start', AWS.config)
 	AWS.config.credentials.get(cb)
-console.log('!!! error here end')
+console.log('!!! outside end')
 }
 
 function readied(ctx, err){
@@ -48,12 +48,14 @@ Cognito.prototype = {
 			if (!session.isValid()) return readied(this)
 
 			setConfig(aws, session.getIdToken().getJwtToken(), err => {
+console.log('@@@ inside start')
 				if (company === this.company) this.user.create({
 					company,
 					accessToken: session.getAccessToken().getJwtToken(),
 					idToken: session.getIdToken().getJwtToken(),
 				})
 				readied(this, err)
+console.log('@@@ inside end')
 			})
 		})
 	},

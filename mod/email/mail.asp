@@ -431,7 +431,7 @@
 								<i class="ace-icon fa fa-star orange2"></i>
 
 								&nbsp;
-								<img class="middle" alt="John's Avatar" src="../assets/avatars/avatar.png" width="32">
+								<img class="middle" alt="<%d.sender%>'s Avatar" src="dat/avatar.png" width="32">
 								&nbsp;
 								<a href="#" class="sender"><%d.sender%></a>
 
@@ -468,7 +468,7 @@
 							<div class="attachment-title">
 								<span class="blue bolder bigger-110">Attachments</span>
 								&nbsp;
-								<span class="grey">(2 files, 4.5 MB)</span>
+								<span class="grey">(<%d.attachments.length%> files, <%d.attachmentSize%> MB)</span>
 
 								<div class="inline position-relative">
 									<a href="#" data-toggle="dropdown" class="dropdown-toggle">
@@ -759,7 +759,7 @@
 		<div class="attachment-title">
 			<span class="blue bolder bigger-110">Attachments</span>
 			&nbsp;
-			<span class="grey">(2 files, 4.5 MB)</span>
+			<span class="grey">(<%d.attachments.length%> files, <%d.attachmentSize%> MB)</span>
 
 			<div class="inline position-relative">
 				<a href="#" data-toggle="dropdown" class="dropdown-toggle">

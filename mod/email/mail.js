@@ -1,5 +1,14 @@
 const router = require('po/router')
 
+function attachmentSize(attachments){
+	if (!attachments.length) return 0
+	const bytes = attachments.reduce((acc, a) => {
+		acc += a.content.length
+		return acc
+	}, 0)
+	return (bytes/1048576).toFixed(2)
+}
+
 return {
 	deps: {
 		bucket: 's3bucket',
@@ -13,7 +22,9 @@ return {
 				sender: mail.sender,
 				time: mail.time,
 				subject: mail.subject,
-				content
+				content,
+				attachments: mail.attachments,
+				attachmentSize: attachmentSize(mail.attachments)
 			})
 		})
 	},

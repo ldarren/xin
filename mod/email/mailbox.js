@@ -21,7 +21,7 @@ function mailTime(str){
  * subject: mail subject
  * star: true or false
  * read: true or false
- * clip: true or false, attachment paperclip
+ * attachments: array of attachment, for paperclip icon
  * status: array: fa-reply, fa-mail-forward
  * tag: colour: badge-pink, badge-grey, badge-success
  */
@@ -36,7 +36,7 @@ function renderMail(items, idx) {
 		<span class=sender title="${item.sender}">${item.sender} </span>
 		<span class=time>${mailTime(item.time)}</span>
 	`
-	if (item.clip) {
+	if (item.attachments.length) {
 		mail += '<span class=attachment><i class="ace-icon fa fa-paperclip"></i></span>'
 	}
 	mail += '<span class=summary>'
@@ -61,7 +61,7 @@ return {
 	create(deps, params){
 		deps.bucket.list(deps.inbox, err => {
 			if (err) return alert(err)
-			deps.inbox.sort((r1, r2) => r1.time > r2.time)
+			deps.inbox.sort((r1, r2) => r1.time < r2.time)
 
 			this.el.innerHTML = deps.tpl({inbox:deps.inbox, renderMail})
 		})
