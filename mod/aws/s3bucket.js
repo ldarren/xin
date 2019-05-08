@@ -11,7 +11,7 @@ function getContent(node, contents, attachments){
 		break
 	default:
 		attachments.push({
-			contentType: node.contentType,
+			headers: node.headers,
 			content: Array.prototype.slice.call(node.content)
 		})
 		break

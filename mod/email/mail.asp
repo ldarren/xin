@@ -468,7 +468,7 @@
 							<div class="attachment-title">
 								<span class="blue bolder bigger-110">Attachments</span>
 								&nbsp;
-								<span class="grey">(<%d.attachments.length%> files, <%d.attachmentSize%> MB)</span>
+								<span class="grey">(<%d.attachments.length%> files, <%d.attachmentSize%>)</span>
 
 								<div class="inline position-relative">
 									<a href="#" data-toggle="dropdown" class="dropdown-toggle">
