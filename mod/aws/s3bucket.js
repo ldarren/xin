@@ -11,7 +11,7 @@ function getContent(node, contents, attachments){
 		break
 	default:
 		attachments.push({
-			contentType: node.contentType,
+			headers: node.headers,
 			content: Array.prototype.slice.call(node.content)
 		})
 		break
@@ -69,7 +69,7 @@ S3Bucket.prototype = {
 				inbox.create({
 					id: Key,
 					sender: headers.from[0].value[0].name,
-					time: headers.date[0].value,
+					time: new Date(headers.date[0].value),
 					subject: headers.subject[0].value,
 					headers,
 					body: contents['text/html'] || contents['text/plain'],

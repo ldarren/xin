@@ -429,7 +429,7 @@
 
 				<!-- #section:pages/inbox.message-footer -->
 				<div class="message-footer clearfix">
-					<div class="pull-left"> 151 messages total </div>
+					<div class="pull-left"> <%d.inbox.length()%> messages total </div>
 
 					<div class="pull-right">
 						<div class="inline middle"> page 1 of 16 </div>

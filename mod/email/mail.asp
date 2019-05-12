@@ -431,7 +431,7 @@
 								<i class="ace-icon fa fa-star orange2"></i>
 
 								&nbsp;
-								<img class="middle" alt="John's Avatar" src="../assets/avatars/avatar.png" width="32">
+								<img class="middle" alt="<%d.sender%>'s Avatar" src="dat/avatar.png" width="32">
 								&nbsp;
 								<a href="#" class="sender"><%d.sender%></a>
 
@@ -468,7 +468,7 @@
 							<div class="attachment-title">
 								<span class="blue bolder bigger-110">Attachments</span>
 								&nbsp;
-								<span class="grey">(2 files, 4.5 MB)</span>
+								<span class="grey">(<%d.attachments.length%> files, <%d.attachmentSize%>)</span>
 
 								<div class="inline position-relative">
 									<a href="#" data-toggle="dropdown" class="dropdown-toggle">
@@ -490,49 +490,34 @@
 
 							&nbsp;
 							<ul class="attachment-list pull-left list-unstyled">
-								<li>
-									<a href="#" class="attached-file">
-										<i class="ace-icon fa fa-file-o bigger-110"></i>
-										<span class="attached-name">Document1.pdf</span>
-									</a>
-
-									<span class="action-buttons">
-										<a href="#">
-											<i class="ace-icon fa fa-download bigger-125 blue"></i>
+								<%for(var i = 0, a, icon, name, t; (a = d.attachments[i]); i++){%>
+									<%if ('image' === a.contentType.type) continue;%>
+									<li>
+										<a href="#" class="attached-file">
+											<i class="ace-icon fa <%'video' === a.contentType.type ? 'fa-film' : 'fa-file-o'%> bigger-110"></i>
+											<span class="attached-name"><%a.contentType.params.name%></span>
 										</a>
 
-										<a href="#">
-											<i class="ace-icon fa fa-trash-o bigger-125 red"></i>
-										</a>
-									</span>
-								</li>
+										<span class="action-buttons">
+											<a href="<%`data:${a.contentType.value};base64, ${a.content}`%>" download="<%a.contentType.params.name%>">
+												<i class="ace-icon fa fa-download bigger-125 blue"></i>
+											</a>
 
-								<li>
-									<a href="#" class="attached-file">
-										<i class="ace-icon fa fa-film bigger-110"></i>
-										<span class="attached-name">Sample.mp4</span>
-									</a>
-
-									<span class="action-buttons">
-										<a href="#">
-											<i class="ace-icon fa fa-download bigger-125 blue"></i>
-										</a>
-
-										<a href="#">
-											<i class="ace-icon fa fa-trash-o bigger-125 red"></i>
-										</a>
-									</span>
-								</li>
+											<a href="#">
+												<i class="ace-icon fa fa-trash-o bigger-125 red"></i>
+											</a>
+										</span>
+									</li>
+								<%}%>
 							</ul>
 
 							<div class="attachment-images pull-right">
 								<div class="vspace-4-sm"></div>
-
+								<%for(var i = 0, a; (a = d.attachments[i]); i++){%>
+									<%if ('image' !== a.contentType.type) continue;%>
+									<img width="36" alt="<%a.contentType.params.name%>" src="<%`data:${a.contentType.value};base64, ${a.content}`%>">
+								<%}%>
 								<div>
-									<img width="36" alt="image 4" src="../assets/images/gallery/thumb-4.jpg">
-									<img width="36" alt="image 3" src="../assets/images/gallery/thumb-3.jpg">
-									<img width="36" alt="image 2" src="../assets/images/gallery/thumb-2.jpg">
-									<img width="36" alt="image 1" src="../assets/images/gallery/thumb-1.jpg">
 								</div>
 							</div>
 						</div>
@@ -759,7 +744,7 @@
 		<div class="attachment-title">
 			<span class="blue bolder bigger-110">Attachments</span>
 			&nbsp;
-			<span class="grey">(2 files, 4.5 MB)</span>
+			<span class="grey">(<%d.attachments.length%> files, <%d.attachmentSize%> MB)</span>
 
 			<div class="inline position-relative">
 				<a href="#" data-toggle="dropdown" class="dropdown-toggle">
