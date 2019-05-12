@@ -499,7 +499,7 @@
 										</a>
 
 										<span class="action-buttons">
-											<a href="#">
+											<a href="<%`data:${a.contentType.value};base64, ${a.content}`%>" download="<%a.contentType.params.name%>">
 												<i class="ace-icon fa fa-download bigger-125 blue"></i>
 											</a>
 
