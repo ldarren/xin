@@ -22,8 +22,10 @@
 		["config", "models", [
 			["routes", "map", {
 				"list": ":DOMAIN/config/mailbox",
+				"create": ":DOMAIN/config/mailbox",
 				"read": ":DOMAIN/config/mailbox/:name",
-				"create": ":DOMAIN/config/mailbox"
+				"update": ":DOMAIN/config/mailbox/:name",
+				"delete": ":DOMAIN/config/mailbox/:name"
 			}],
 			["name", "text", "config"],
 			["options", "map", {
@@ -292,6 +294,7 @@
 			"/dash/mail":["home","mailbox"],
 			"/dash/mail/view/:id":["home","mail"],
 			"/dash/config/mailbox":["home","config/mailbox"],
+			"/dash/config/mailbox/:name":["home","config/mailbox"],
 			"/dash/config/mailboxes":["home","config/mailboxes"]
 		}]
 	]]

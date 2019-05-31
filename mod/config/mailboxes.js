@@ -1,9 +1,8 @@
+const router = require('po/router')
+
 return {
 	deps: {
 		config: 'models',
-	},
-	create(deps, params){
-		this.table
 	},
 	render(){
 		this.table = $('#dynamic-table').DataTable({
@@ -13,7 +12,13 @@ return {
 				{ title: 'Bucket', data: 'Bucket' },
 				{ title: 'IdentityPoolId', data: 'IdentityPoolId' },
 				{ title: 'UserPoolId', data: 'UserPoolId' },
-				{ title: 'ClientId', data: 'ClientId' }
+				{ title: 'ClientId', data: 'ClientId' },
+				{
+					title: 'Actions',
+					data: null,
+					className: 'center',
+					defaultContent: '<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Delete</a>',
+				}
 			]
 		})
 		const config = this.deps.config
@@ -25,5 +30,21 @@ return {
 			})
 		})
 		return this.el
+	},
+	events: {
+		'click a.editor_edit': function(evt, target){
+			evt.preventDefault()
+			const tr = target.closest('tr')
+			const name = tr.getElementsByTagName('td')[0].innerHTML
+			router.go('/dash/config/mailbox/' + name)
+		},
+		'click a.editor_remove': function(evt, target){
+			evt.preventDefault()
+			const tr = target.closest('tr')
+			const name = tr.getElementsByTagName('td')[0].innerHTML
+			if (name && __.dialogs.confirm(`Are you sure you wish to remove [${name}] record?`)){
+				this.deps.config.remove(name)
+			}
+		}
 	}
 }
