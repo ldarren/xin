@@ -22,10 +22,10 @@
 		["config", "models", [
 			["routes", "map", {
 				"list": ":DOMAIN/config/mailbox",
-				"create": ":DOMAIN/config/mailbox",
-				"read": ":DOMAIN/config/mailbox/:name",
-				"update": ":DOMAIN/config/mailbox/:name",
-				"delete": ":DOMAIN/config/mailbox/:name"
+				"create": ":DOMAIN/config/mailbox/name/:name",
+				"read": ":DOMAIN/config/mailbox/name/:name",
+				"update": ":DOMAIN/config/mailbox/:id",
+				"delete": ":DOMAIN/config/mailbox/name/:name"
 			}],
 			["name", "text", "config"],
 			["options", "map", {

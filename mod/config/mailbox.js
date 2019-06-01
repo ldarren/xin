@@ -1,3 +1,5 @@
+const router = require('po/router')
+
 return {
 	deps: {
 		config: 'models',
@@ -5,6 +7,8 @@ return {
 	create(deps, params){
 		this.form = this.el.querySelector('form')
 		const data = deps.config.get(params.name)
+		if (!data) return router.go('/dash/config/mailboxes')
+		this.configId = data.id
 		if (data.name){
 			const f = this.form
 			const env = data.env
@@ -22,6 +26,7 @@ return {
 			if (!f.reportValidity()) return
 
 			const data = {
+				id: this.configId,
 				name: f['name'].value,
 				region: f['region'].value,
 				Bucket: f['Bucket'].value,
@@ -30,7 +35,7 @@ return {
 				ClientId: f['ClientId'].value
 			}
 
-			if (this.deps.config.get(data.name)){
+			if (data.id){
 				this.deps.config.replace(data, (err, model) => {
 					console.log(err, model)
 				})
