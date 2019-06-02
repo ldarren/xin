@@ -1,5 +1,11 @@
 const router = require('po/router')
 
+function saved(err, model){
+	if (err) return alert(err)
+	alert('saved')
+	router.go('/dash/config/mailboxes')
+}
+
 return {
 	deps: {
 		config: 'models',
@@ -36,13 +42,9 @@ return {
 			}
 
 			if (data.id){
-				this.deps.config.replace(data, (err, model) => {
-					console.log(err, model)
-				})
+				this.deps.config.replace(data, saved)
 			}else{
-				this.deps.config.create(data, (err, model) => {
-					console.log(err, model)
-				})
+				this.deps.config.create(data, saved)
 			}
 
 		},
