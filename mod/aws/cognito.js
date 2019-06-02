@@ -1,3 +1,18 @@
+// https://github.com/aws-amplify/amplify-js/tree/master/packages/amazon-cognito-identity-js # Use case 32
+const router = require('po/router')
+
+function getSession(ctx, cb){
+	const user = ctx.userPool.getCurrentUser()
+	if (!user) return readied(ctx)
+
+	user.getSession((err, session) => {
+		if (err) return readied(ctx, err)
+		if (!session.isValid()) return readied(ctx)
+
+		user.refreshSession(session.getRefreshToken(), cb)
+	})
+}
+
 function setConfig(aws, token, cb){
 	AWS.config.region = aws.region
 	AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -6,15 +21,14 @@ function setConfig(aws, token, cb){
 			[`cognito-idp.${aws.region}.amazonaws.com/${aws.UserPoolId}`]: token
 		}
 	})
-	console.log('!!! outside start', AWS.config)
 	AWS.config.credentials.get(cb)
-	console.log('!!! outside end')
 }
 
 function readied(ctx, err){
 	if (err) console.error(err)
 	ctx.readyListeners.forEach(cb => cb(err))
 	ctx.readyListeners = void 0
+	router.go('/auth')
 }
 
 function Cognito(company, user, config){
@@ -39,23 +53,17 @@ Cognito.prototype = {
 			ClientId: aws.ClientId
 		})
 
-		const user = this.userPool.getCurrentUser()
-
-		if (!user) return readied(this)
-
-		user.getSession((err, session) => {
+		getSession(this, (err, session) => {
 			if (err) return readied(this, err)
 			if (!session.isValid()) return readied(this)
 
 			setConfig(aws, session.getIdToken().getJwtToken(), err => {
-				console.log('@@@ inside start')
 				if (company === this.company) this.user.create({
 					company,
 					accessToken: session.getAccessToken().getJwtToken(),
 					idToken: session.getIdToken().getJwtToken(),
 				})
 				readied(this, err)
-				console.log('@@@ inside end')
 			})
 		})
 	},
