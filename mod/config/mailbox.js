@@ -1,7 +1,7 @@
 const router = require('po/router')
 
 function saved(err, model){
-	if (err) return alert(err)
+	if (err) return alert(JSON.stringify(err))
 	alert('saved')
 	router.go('/dash/config/mailboxes')
 }
@@ -13,7 +13,7 @@ return {
 	create(deps, params){
 		this.form = this.el.querySelector('form')
 		const data = deps.config.get(params.name)
-		if (!data) return router.go('/dash/config/mailboxes')
+		if (!data) return
 		this.configId = data.id
 		if (data.name){
 			const f = this.form

@@ -22,7 +22,7 @@
 		["config", "models", [
 			["routes", "map", {
 				"list": ":DOMAIN/config/mailbox",
-				"create": ":DOMAIN/config/mailbox/name/:name",
+				"create": ":DOMAIN/config/mailbox",
 				"read": ":DOMAIN/config/mailbox/name/:name",
 				"update": ":DOMAIN/config/mailbox/:id",
 				"delete": ":DOMAIN/config/mailbox/name/:name"
@@ -201,7 +201,7 @@
 						["data", "list", [
 							{"id":1, "perm":[], "name":"Dashboard", "icon":"fa-tachometer", "href":"#/dash", "shortcut":123},
 							{"id":10, "perm":[0,1], "name":"Mailbox", "icon":"fa-inbox", "href":"#/dash/mail", "shortcut":124},
-							{"id":20, "perm":[1,0], "name":"Settings", "icon":"fa-cogs", "href":"#/dash/config/mailbox", "shortcut":125},
+							{"id":20, "perm":[1,0], "name":"Settings", "icon":"fa-cogs"},
 							{"id":21, "perm":[1,0], "name":"New Email Account", "icon":"far fa-plus-square", "parent":20, "href":"#/dash/config/mailbox", "shortcut":1548192889},
 							{"id":22, "perm":[1,0], "name":"Email Accounts", "icon":"far fa-plus-square", "parent":20, "href":"#/dash/config/mailboxes", "shortcut":15481929889}
 						]]

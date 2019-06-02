@@ -42,9 +42,14 @@ return {
 			evt.preventDefault()
 			const tr = target.closest('tr')
 			const name = tr.getElementsByTagName('td')[0].innerHTML
-			if (name && __.dialogs.confirm(`Are you sure you wish to remove [${name}] record?`)){
-				this.deps.config.remove(name)
-			}
+			if (!name) return
+			__.dialogs.confirm(`Are you sure you wish to remove [${name}] record?`, 'Remove Mailbox Config', 'ok,cancel', btn => {
+				if (2 === btn) return
+				this.deps.config.remove(name, (err, model) => {
+					if (err) return alert(JSON.stringify(err))
+					this.table.row(tr).remove().draw()
+				})
+			})
 		}
 	}
 }
