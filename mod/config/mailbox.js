@@ -1,9 +1,30 @@
+const router = require('po/router')
+
+function saved(err, model){
+	if (err) return alert(JSON.stringify(err))
+	alert('saved')
+	router.go('/dash/config/mailboxes')
+}
+
 return {
 	deps: {
 		config: 'models',
 	},
 	create(deps, params){
 		this.form = this.el.querySelector('form')
+		const data = deps.config.get(params.name)
+		if (!data) return
+		this.configId = data.id
+		if (data.name){
+			const f = this.form
+			const env = data.env
+			f['name'].value = env.name,
+			f['region'].value = env.region,
+			f['Bucket'].value = env.Bucket,
+			f['IdentityPoolId'].value = env.IdentityPoolId,
+			f['UserPoolId'].value = env.UserPoolId,
+			f['ClientId'].value = env.ClientId
+		}
 	},
 	events: {
 		'click button#mailbox-submit': function(evt, target){
@@ -11,6 +32,7 @@ return {
 			if (!f.reportValidity()) return
 
 			const data = {
+				id: this.configId,
 				name: f['name'].value,
 				region: f['region'].value,
 				Bucket: f['Bucket'].value,
@@ -19,9 +41,11 @@ return {
 				ClientId: f['ClientId'].value
 			}
 
-			this.deps.config.create(data, (err, model) => {
-				console.log(err, model)
-			})
+			if (data.id){
+				this.deps.config.replace(data, saved)
+			}else{
+				this.deps.config.create(data, saved)
+			}
 
 		},
 		'click button#mailbox-reset': function(evt, target){
