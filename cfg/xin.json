@@ -3,7 +3,7 @@
 		"data", "routes", "name", "options", "auth", "env"
 	]],
 	["cognito", "type", "aws/cognito", [
-		"company", "user", "config"
+		"company", "user", "config", "bucket"
 	]],
 	["s3bucket", "type", "aws/s3bucket", [
 		"config"
@@ -38,13 +38,12 @@
 			["auth", "ref", "user"],
 			["env", "ref", "env"]
 		]],
+		["bucket", "s3bucket", []],
 		["ums", "cognito", [
 			["company", "text", "xin.com"],
 			["user", "ref", "user"],
-			["config", "ref", "config"]
-		]],
-		["bucket", "s3bucket", [
-			["config", "ref", "config"]
+			["config", "ref", "config"],
+			["bucket", "ref", "bucket"]
 		]],
 		["pages", "map", {
 			"land": ["land/layout", "view", [

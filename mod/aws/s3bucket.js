@@ -31,16 +31,17 @@ function readMails(ctx, mails, inbox, cb){
 }
 
 function S3Bucket(config){
-	this.s3 = new AWS.S3({apiVersion: '2006-03-01'})
-	if (!config) return
-	const selected = config.getSelected()
-	if (!selected) return
-	this.env(selected.env)
+	this.env(config)
 }
 
 S3Bucket.prototype = {
-	env(aws){
+	env(config){
+		if (!config) return
+		const selected = config.getSelected()
+		if (!selected) return
+		const aws = selected.env
 		if (!aws) return
+		this.s3 = new AWS.S3({apiVersion: '2006-03-01'})
 		this.awsConfig = aws
 		this.Bucket = aws.Bucket
 	},

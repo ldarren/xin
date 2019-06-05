@@ -1,4 +1,5 @@
 // https://github.com/aws-amplify/amplify-js/tree/master/packages/amazon-cognito-identity-js # Use case 32
+// https://github.com/aws-amplify/amplify-js/issues/405 # missing credentials in config
 const router = require('po/router')
 
 function getSession(ctx, cb){
@@ -14,12 +15,14 @@ function getSession(ctx, cb){
 }
 
 function setConfig(aws, token, cb){
-	AWS.config.region = aws.region
-	AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-		IdentityPoolId: aws.IdentityPoolId,
-		Logins: {
-			[`cognito-idp.${aws.region}.amazonaws.com/${aws.UserPoolId}`]: token
-		}
+	AWS.config.update({
+		region: aws.region,
+		credentials: new AWS.CognitoIdentityCredentials({
+			IdentityPoolId: aws.IdentityPoolId,
+			Logins: {
+				[`cognito-idp.${aws.region}.amazonaws.com/${aws.UserPoolId}`]: token
+			}
+		})
 	})
 	AWS.config.credentials.get(cb)
 }
@@ -31,10 +34,11 @@ function readied(ctx, err){
 	router.go('/auth')
 }
 
-function Cognito(company, user, config){
+function Cognito(company, user, config, dependant){
 	this.company = company
 	this.user = user
 	this.config = config
+	this.dependant = dependant
 	if (!config) return
 	const selected = config.getSelected()
 	if (!selected) return
@@ -63,6 +67,7 @@ Cognito.prototype = {
 					accessToken: session.getAccessToken().getJwtToken(),
 					idToken: session.getIdToken().getJwtToken(),
 				})
+				this.dependant.env(this.config)
 				readied(this, err)
 			})
 		})
@@ -134,6 +139,7 @@ Cognito.prototype = {
 	},
 
 	isValid(){
+	//TODO check AWS.config.credentials.needsRefresh()
 		return !!AWS.config.credentials
 	},
 

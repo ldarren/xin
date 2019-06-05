@@ -582,7 +582,7 @@
 			<i class="ace-icon fa fa-star orange2"></i>
 
 			&nbsp;
-			<img class="middle" alt="John's Avatar" src="dat/gopal.png" width="32" />
+			<img class="middle" alt="John&#39;s Avatar" src="dat/gopal.png" width="32" />
 			&nbsp;
 			<a href="#" class="sender">John Doe</a>
 
