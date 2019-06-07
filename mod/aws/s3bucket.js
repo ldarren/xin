@@ -31,11 +31,11 @@ function readMails(ctx, mails, inbox, cb){
 }
 
 function S3Bucket(config){
-	this.env(config)
+	this.init(config)
 }
 
 S3Bucket.prototype = {
-	env(config){
+	init(config){
 		if (!config) return
 		const selected = config.getSelected()
 		if (!selected) return

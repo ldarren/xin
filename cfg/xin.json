@@ -1,23 +1,40 @@
 [
 	["models", "type", "models", [
-		"data", "routes", "name", "options", "auth", "env"
+		"data", "routes", "name", "options", "ums", "env"
 	]],
 	["cognito", "type", "aws/cognito", [
-		"company", "user", "config", "bucket"
+		"company", "user", "config", "dependant"
 	]],
 	["s3bucket", "type", "aws/s3bucket", [
 		"config"
 	]],
 	["body", "view", [
 		["options", "map", {"el": "body"}],
-		["user", "models", [
+		["bucket", "s3bucket", []],
+		["configRO", "models", [
 			["routes", "map", {
-				"create": ":DOMAIN/user/create"
+				"read": ":DOMAIN/config/mailbox/name/:name"
 			}],
+			["name", "text", "config"],
 			["options", "map", {
-				"idAttr": "username"
+				"idAttr": "name"
 			}],
 			["env", "ref", "env"]
+		]],
+		["ums", "cognito", [
+			["company", "text", "xin.com"],
+			["env", "ref", "env"],
+			["user", "models", [
+				["routes", "map", {
+					"create": ":DOMAIN/user/create"
+				}],
+				["options", "map", {
+					"idAttr": "username"
+				}],
+				["env", "ref", "env"]
+			]],
+			["config", "ref", "configRO"],
+			["dependant", "ref", "bucket"]
 		]],
 		["config", "models", [
 			["routes", "map", {
@@ -27,23 +44,15 @@
 				"update": ":DOMAIN/config/mailbox/:id",
 				"delete": ":DOMAIN/config/mailbox/name/:name"
 			}],
-			["name", "text", "config"],
 			["options", "map", {
 				"idAttr": "name"
 			}],
-			["auth", "ref", "user"],
+			["ums", "ref", "ums"],
 			["env", "ref", "env"]
 		]],
 		["inbox", "models", [
-			["auth", "ref", "user"],
+			["ums", "ref", "ums"],
 			["env", "ref", "env"]
-		]],
-		["bucket", "s3bucket", []],
-		["ums", "cognito", [
-			["company", "text", "xin.com"],
-			["user", "ref", "user"],
-			["config", "ref", "config"],
-			["bucket", "ref", "bucket"]
 		]],
 		["pages", "map", {
 			"land": ["land/layout", "view", [
@@ -112,7 +121,6 @@
 				["css", "file", "home/layout.css"],
 				["models", "refs", "models"],
 				["ums", "ref", "ums"],
-				["bucket", "ref", "bucket"],
 				["env", "ref", "env"],
 				["auth/navbar", "view", [
 					["options", "map", {"class":"navbar-fixed-top align-right"}],
@@ -133,8 +141,7 @@
 					["options", "map", {"class":"position-relative"}],
 					["tpl", "file", "auth/modal.asp"],
 					["ums", "ref", "ums"],
-					["bucket", "ref", "bucket"],
-					["config", "ref", "config"],
+					["config", "ref", "configRO"],
 					["socialBtn", "list", [
 						{"color": "btn-primary", "icon": "fa-facebook", "id": "loginFacebook"},
 						{"color": "btn-info", "icon": "fa-twitter", "id": "loginTwitter"},
@@ -209,7 +216,7 @@
 						["options", "map", {"class":"sidebar responsive ace-save-state"}],
 						["tpl", "file", "home/sidebar.asp"],
 						["menu", "ref", "menu"],
-						["config", "ref", "config"]
+						["config", "ref", "configRO"]
 					]],
 					["home/main-content", "view", [
 						["options", "map", {"class":"main-content", "content": [{"class": "main-content-inner"}]}],

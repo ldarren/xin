@@ -1,36 +1,39 @@
 const Collection = inherit('po/Collection')
 
+function getAccessToken(ctx, cb){
+	if (!ctx.ums) return cb()
+	ctx.ums.getAccessToken(cb)
+}
+
 function ajax(method, route, params, cb){
-	if (!route) return cb(null,params)
+	if (!route) return cb(null, params)
 
 	let headers = {
 		'Content-Type': 'application/json'
 	}
 
-	if (this.authColl){
-		const user = this.authColl.at(0)
-		if (user){
-			headers = Object.assign(headers, {
-				Authorization: 'Bearer ' + user.accessToken
-			})
-		}
-	}
-
-	pico.ajax(method,route,params,{headers},function(err,state,res){
-		if (4!==state) return
+	getAccessToken(this, (err, token) => {
 		if (err) return cb(err)
-		try{
-			var obj=JSON.parse(res)
-		} catch(ex){
-			return cb(ex)
-		}
-		cb(null, obj.Contents ? obj.Contents : obj)
+		headers = Object.assign(headers, {
+			Authorization: 'Bearer ' + token
+		})
+
+		pico.ajax(method, route, params, {headers}, function(err, state, res){
+			if (4 !== state) return
+			if (err) return cb(err)
+			try{
+				var obj = JSON.parse(res)
+			} catch(ex){
+				return cb(ex)
+			}
+			cb(null, obj.Contents ? obj.Contents : obj)
+		})
 	})
 }
 
 return {
-	init(name, opt, auth, restParams){
-		this.authColl = auth
+	init(name, opt, ums, restParams){
+		this.ums = ums
 		opt = Object.assign({}, opt, {restParams})
 		Collection.prototype.init.call(this, name, Object.assign({ajax}, opt))
 	},

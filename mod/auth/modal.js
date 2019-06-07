@@ -6,7 +6,6 @@ return {
 		ums: 'cognito',
 		config: 'models',
 		socialBtn: 'list',
-		bucket: 's3bucket',
 		enableReset: 'bool',
 		enableRegister: 'bool',
 	},
@@ -32,8 +31,7 @@ return {
 
 			deps.config.read(company, (err, group) => {
 				if (err) return alert(`company name [${company}] not found`)
-				ums.env(group.name, group.env)
-				deps.bucket.env(group.env)
+				ums.setGroup(group)
 				const username = els.username.value
 				const password = els.password.value
 
