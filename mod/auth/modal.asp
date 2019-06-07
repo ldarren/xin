@@ -12,14 +12,24 @@
 			<fieldset>
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name=company type=text class=form-control placeholder=Company value=xin.com required/>
+				<input name=company type=text class=form-control placeholder=Company value=<%d.company%>
+					autocapitalize=off
+					autocomplete=off
+					spellcheck=false
+					autocorrect=off
+					required/>
 				<i class="ace-icon fa fa-bank"></i>
 				</span>
 				</label>
 
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name=username type=text class=form-control placeholder=Username required/>
+				<input name=username type=text class=form-control placeholder=Username
+					autocapitalize=off
+					autocomplete=off
+					spellcheck=false
+					autocorrect=off
+					required/>
 				<i class="ace-icon fa fa-user"></i>
 				</span>
 				</label>
@@ -140,14 +150,19 @@
 			<fieldset>
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name=company type=text class=form-control placeholder=Company value=xin.com required/>
+				<input name=company type=text class=form-control placeholder=Company value=<%d.company%>
+					autocapitalize=off
+					autocomplete=off
+					spellcheck=false
+					autocorrect=off
+					required/>
 				<i class="ace-icon fa fa-bank"></i>
 				</span>
 				</label>
 
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name="email" type=email class="form-control" placeholder="darren@pmail.com" required/>
+				<input name="email" type=email class="form-control" placeholder="name@pmail.com" required/>
 				<i class="ace-icon fa fa-envelope"></i>
 				</span>
 				</label>
@@ -161,7 +176,12 @@
 
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name="username" type="text" class="form-control" placeholder="Username" required/>
+				<input name="username" type=text class="form-control" placeholder=Username
+					autocapitalize=off
+					autocomplete=off
+					spellcheck=false
+					autocorrect=off
+					required/>
 				<i class="ace-icon fa fa-user"></i>
 				</span>
 				</label>

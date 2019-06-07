@@ -1,96 +1,116 @@
 // https://github.com/aws-amplify/amplify-js/tree/master/packages/amazon-cognito-identity-js # Use case 32
-const router = require('po/router')
+// https://github.com/aws-amplify/amplify-js/issues/405 # missing credentials in config
+const pObj = pico.export('pico/obj')
 
-function getSession(ctx, cb){
-	const user = ctx.userPool.getCurrentUser()
-	if (!user) return readied(ctx)
+function setAWSConfig(aws, token, cb){
+	AWS.config.update({
+		region: aws.region,
+		credentials: new AWS.CognitoIdentityCredentials({
+			IdentityPoolId: aws.IdentityPoolId,
+			Logins: {
+				[`cognito-idp.${aws.region}.amazonaws.com/${aws.UserPoolId}`]: token
+			}
+		})
+	})
+	AWS.config.credentials.get(cb)
+}
 
-	user.getSession((err, session) => {
-		if (err) return readied(ctx, err)
-		if (!session.isValid()) return readied(ctx)
+function refreshToken(user, aws, session, cb){
+	const cred = pObj.dot(AWS, ['config', 'credentials'])
+	if (cred && !cred.needsRefresh()) return cb(null, session, false)
 
-		user.refreshSession(session.getRefreshToken(), cb)
+	user.refreshSession(session.getRefreshToken(), (err, session) => {
+		if (err) return cb(err)
+		cred.params.Logins[`cognito-idp.${aws.region}.amazonaws.com/${aws.UserPoolId}`] = session.getIdToken().getJwtToken()
+		cred.refresh(err => cb(err, session, true))
 	})
 }
 
-function setConfig(aws, token, cb){
-	AWS.config.region = aws.region
-	AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-		IdentityPoolId: aws.IdentityPoolId,
-		Logins: {
-			[`cognito-idp.${aws.region}.amazonaws.com/${aws.UserPoolId}`]: token
-		}
+function createUser(ctx, company, accessToken, idToken){
+	if (company !== ctx.company0) return
+	ctx.user.create({
+		company,
+		accessToken,
+		idToken
 	})
-	AWS.config.credentials.get(cb)
 }
 
 function readied(ctx, err){
 	if (err) console.error(err)
 	ctx.readyListeners.forEach(cb => cb(err))
-	ctx.readyListeners = void 0
-	router.go('/auth')
+	ctx.readyListeners.length = 0
+	ctx.readied = [err]
 }
 
-function Cognito(company, user, config){
-	this.company = company
+function Cognito(company0, user, config, dependant){
+	this.company0 = company0
 	this.user = user
 	this.config = config
-	if (!config) return
-	const selected = config.getSelected()
-	if (!selected) return
-	this.env(selected.name, selected.env)
+	this.dependant = dependant
+
+	this.readyListeners = []
+
+	this.setGroup(config.getSelected() || {})
 }
 
 Cognito.prototype = {
-	env(company, aws){
-		if (!aws) return
-
-		this.readyListeners = []
+	setGroup({name: company, env: aws}){
+		this.readied = void 0
+		if (!company || !aws) return readied(this)
 		this.awsConfig = aws
-
 		this.userPool = new AmazonCognitoIdentity.CognitoUserPool({
 			UserPoolId: aws.UserPoolId,
 			ClientId: aws.ClientId
 		})
 
-		getSession(this, (err, session) => {
+		const user = this.userPool.getCurrentUser()
+		if (!user) return readied(this)
+
+		user.getSession((err, session) => {
 			if (err) return readied(this, err)
 			if (!session.isValid()) return readied(this)
 
-			setConfig(aws, session.getIdToken().getJwtToken(), err => {
-				if (company === this.company) this.user.create({
-					company,
-					accessToken: session.getAccessToken().getJwtToken(),
-					idToken: session.getIdToken().getJwtToken(),
+			setAWSConfig(aws, session.idToken.jwtToken, err => {
+				if (err) return readied(this, err)
+				refreshToken(user, aws, session, (err, session) => {
+					if (err) return readied(this, err)
+					createUser(
+						this,
+						company,
+						session.accessToken.jwtToken,
+						session.idToken.jwtToken)
+					this.dependant.init(this.config)
+					readied(this)
 				})
-				readied(this, err)
 			})
 		})
 	},
-	ready(cb){
-		if (this.readyListeners) return this.readyListeners.push(cb)
-		cb()
+	onReady(cb){
+		if (this.readied) return cb.apply(this.readied)
+		this.readyListeners.push(cb)
 	},
-
+	isValid(){
+		return !!AWS.config.credentials
+	},
 	signin(company, Username, Password, cb){
-		const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({
-			Username,
-			Password
-		})
 		const cognitoUser = new AmazonCognitoIdentity.CognitoUser({
 			Username,
 			Pool: this.userPool
 		})
+		const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({
+			Username,
+			Password
+		})
 		cognitoUser.authenticateUser(authDetails, {
 			onSuccess: result => {
 				const idToken = result.idToken.jwtToken
-				setConfig(this.awsConfig, idToken, err => {
+				setAWSConfig(this.awsConfig, idToken, err => {
 					if (err) return cb(err)
-					if (company === this.company) this.user.create({
+					createUser(
+						this,
 						company,
-						accessToken: result.accessToken.jwtToken,
-						idToken
-					})
+						result.accessToken.jwtToken,
+						idToken)
 					cb(err)
 				})
 			},
@@ -98,7 +118,6 @@ Cognito.prototype = {
 			onFailure: cb
 		})
 	},
-
 	signup(company, Username, Password, email, phone, cb){
 		const attributes = [
 			new AmazonCognitoIdentity.CognitoUserAttribute({
@@ -116,27 +135,48 @@ Cognito.prototype = {
 			if (!result.user || !result.userUnconfirmed) return cb(err, result)
 			result.user.getSession((err, session) => {
 				if (err) return cb(err)
-				if (company === this.company) this.user.create({
-					company,
-					accessToken: session.getAccessToken().getJwtToken(),
-					idToken: session.getIdToken().getJwtToken()
+				if (!session.isValid()) return cb('invalid session')
+
+				setAWSConfig(this.awsConfig, session.getIDToken().getJwtToken(), err => {
+					if (err) return cb(err)
+					createUser(
+						this,
+						company,
+						session.getAccessToken().getJwtToken(),
+						session.getIdToken().getJwtToken()),
+					cb(null, result)
 				})
-				cb(null, result)
 			})
 		})
 	},
-
 	signout(){
 		AWS.config.credentials = void 0
 		const user = this.userPool.getCurrentUser()
 		if (!user) return
 		user.signOut()
 	},
+	getAccessToken(cb){
+		const user = this.userPool.getCurrentUser()
+		if (!user) return cb('invalid userpool')
 
-	isValid(){
-		return !!AWS.config.credentials
+		user.getSession((err, session) => {
+			if (err) return cb(err)
+			if (!session.isValid()) return cb('invalid session')
+
+			refreshToken(user, this.awsConfig, session, (err, session, refreshed) => {
+				if (err) return cb(err)
+				const accessToken = session.getAccessToken().getJwtToken()
+				cb(null, accessToken)
+				if (!refreshed) return
+				const {name:company} = this.config.getSelected()
+				createUser(
+					this,
+					company,
+					accessToken,
+					session.getIdToken().getJwtToken())
+			})
+		})
 	},
-
 	getProfile(cb){
 		const user = this.userPool.getCurrentUser()
 		if (!user) return cb('no current user')

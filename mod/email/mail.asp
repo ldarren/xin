@@ -431,7 +431,7 @@
 								<i class="ace-icon fa fa-star orange2"></i>
 
 								&nbsp;
-								<img class="middle" alt="<%d.sender%>'s Avatar" src="dat/avatar.png" width="32">
+								<img class="middle" alt="<%d.sender%>&#39;s Avatar" src="dat/avatar.png" width="32">
 								&nbsp;
 								<a href="#" class="sender"><%d.sender%></a>
 
@@ -491,10 +491,10 @@
 							&nbsp;
 							<ul class="attachment-list pull-left list-unstyled">
 								<%for(var i = 0, a, icon, name, t; (a = d.attachments[i]); i++){%>
-									<%if ('image' === a.contentType.type) continue;%>
+									<%if ("image" === a.contentType.type) continue;%>
 									<li>
 										<a href="#" class="attached-file">
-											<i class="ace-icon fa <%'video' === a.contentType.type ? 'fa-film' : 'fa-file-o'%> bigger-110"></i>
+											<i class="ace-icon fa <%"video" === a.contentType.type ? "fa-film" : "fa-file-o"%> bigger-110"></i>
 											<span class="attached-name"><%a.contentType.params.name%></span>
 										</a>
 
@@ -514,7 +514,7 @@
 							<div class="attachment-images pull-right">
 								<div class="vspace-4-sm"></div>
 								<%for(var i = 0, a; (a = d.attachments[i]); i++){%>
-									<%if ('image' !== a.contentType.type) continue;%>
+									<%if ("image" !== a.contentType.type) continue;%>
 									<img width="36" alt="<%a.contentType.params.name%>" src="<%`data:${a.contentType.value};base64, ${a.content}`%>">
 								<%}%>
 								<div>
@@ -682,7 +682,7 @@
 			<i class="ace-icon fa fa-star orange2"></i>
 
 			&nbsp;
-			<img class="middle" alt="John's Avatar" src="dat/gopal.png" width="32" />
+			<img class="middle" alt="John&#39;s Avatar" src="dat/gopal.png" width="32" />
 			&nbsp;
 			<a href="#" class="sender">John Doe</a>
 

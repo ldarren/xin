@@ -6,13 +6,13 @@ return {
 		ums: 'cognito',
 		config: 'models',
 		socialBtn: 'list',
-		bucket: 's3bucket',
 		enableReset: 'bool',
 		enableRegister: 'bool',
 	},
 	create(deps, params){
 		this.super.create.call(this, deps, params)
-		this.el.innerHTML = deps.tpl(deps)
+		const group = deps.config.getSelected() || {name: 'xin.com'}
+		this.el.innerHTML = deps.tpl(Object.assign({company: group.name}, deps))
 	},
 	events: {
 		'click .toolbar a[data-target]': function(evt, target){
@@ -32,8 +32,7 @@ return {
 
 			deps.config.read(company, (err, group) => {
 				if (err) return alert(`company name [${company}] not found`)
-				ums.env(group.name, group.env)
-				deps.bucket.env(group.env)
+				ums.setGroup(group)
 				const username = els.username.value
 				const password = els.password.value
 
