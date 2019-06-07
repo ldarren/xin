@@ -39,6 +39,7 @@ function readied(ctx, err){
 	if (err) console.error(err)
 	ctx.readyListeners.forEach(cb => cb(err))
 	ctx.readyListeners.length = 0
+	ctx.readied = [err]
 }
 
 function Cognito(company0, user, config, dependant){
@@ -54,7 +55,8 @@ function Cognito(company0, user, config, dependant){
 
 Cognito.prototype = {
 	setGroup({name: company, env: aws}){
-		if (!company || !aws) return
+		this.readied = void 0
+		if (!company || !aws) return readied(this)
 		this.awsConfig = aws
 		this.userPool = new AmazonCognitoIdentity.CognitoUserPool({
 			UserPoolId: aws.UserPoolId,
@@ -78,13 +80,13 @@ Cognito.prototype = {
 						session.accessToken.jwtToken,
 						session.idToken.jwtToken)
 					this.dependant.init(this.config)
-					readied(this, err)
+					readied(this)
 				})
 			})
 		})
 	},
 	onReady(cb){
-		if (AWS.config.credentials) return cb()
+		if (this.readied) return cb.apply(this.readied)
 		this.readyListeners.push(cb)
 	},
 	isValid(){

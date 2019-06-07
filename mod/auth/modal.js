@@ -11,7 +11,8 @@ return {
 	},
 	create(deps, params){
 		this.super.create.call(this, deps, params)
-		this.el.innerHTML = deps.tpl(deps)
+		const group = deps.config.getSelected() || {name: 'xin.com'}
+		this.el.innerHTML = deps.tpl(Object.assign({company: group.name}, deps))
 	},
 	events: {
 		'click .toolbar a[data-target]': function(evt, target){
