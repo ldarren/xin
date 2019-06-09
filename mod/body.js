@@ -7,11 +7,15 @@ function changeContent(state, params){
 }
 
 function pageChanged(evt, states, params){
-	if (!states || !states.includes('land')){
+	if (!states){
+		if (this.deps.ums.isValid()) return router.go('/dash')
+		else return router.go('/')
+	}
+	if (!states.includes('land')){
 		if (this.deps.ums.isValid()){
-			if (!states || states.includes('auth')) return router.go('/dash')
+			if (states.includes('auth')) return router.go('/dash')
 		} else {
-			if (!states || !states.includes('auth')) return router.go('/auth')
+			if (!states.includes('auth')) return router.go('/auth')
 		}
 	}
 
