@@ -130,7 +130,7 @@
 					["options", "map", {"class":"center"}],
 					["tpl", "file", "auth/title.asp"],
 					["appIcon", "text", "fa-inbox"],
-					["appName", "text", "Xin Mailbox"],
+					["appName", "text", "Kloud Konsole"],
 					["appVer", "text", "1.0"],
 					["companyName", "text", "Jasa Web Services"]
 				]],
@@ -175,7 +175,7 @@
 						["options", "map", {"class":"navbar-header pull-left"}],
 						["tpl", "file", "home/navbar-header.asp"],
 						["icon", "text", "fa-inbox"],
-						["name", "text", "Xin Mailbox 1.0"]
+						["name", "text", "Kloud Konsole"]
 					]],
 					["home/navbar-menu", "view", [
 						["options", "map", {"class":"navbar-header navbar-buttons pull-right", "role":"navigation", "content":[
@@ -213,7 +213,7 @@
 						]]
 					]],
 					["home/sidebar", "view", [
-						["options", "map", {"class":"sidebar responsive ace-save-state"}],
+						["options", "map", {"id":"sidebar", "class":"sidebar responsive ace-save-state"}],
 						["tpl", "file", "home/sidebar.asp"],
 						["menu", "ref", "menu"],
 						["config", "ref", "configRO"]
