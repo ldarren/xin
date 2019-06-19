@@ -6,6 +6,7 @@ pico.run({
 		live:false,
 		dataset:(function(el){
 			if (el) return el.dataset
+			return {}
 		})(document.getElementById('picoEnv'))
 	},
 	preprocessors:{

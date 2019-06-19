@@ -130,8 +130,7 @@
 					["options", "map", {"class":"center"}],
 					["tpl", "file", "auth/title.asp"],
 					["appIcon", "text", "fa-inbox"],
-					["appName", "text", "Kloud Konsole"],
-					["appVer", "text", "1.0"],
+					["appName", "list", ["Kloud", "Konsole"]],
 					["companyName", "text", "Jasa Web Services"]
 				]],
 				["p/View", "view", [
@@ -142,13 +141,6 @@
 					["tpl", "file", "auth/modal.asp"],
 					["ums", "ref", "ums"],
 					["config", "ref", "configRO"],
-					["socialBtn", "list", [
-						{"color": "btn-primary", "icon": "fa-facebook", "id": "loginFacebook"},
-						{"color": "btn-info", "icon": "fa-twitter", "id": "loginTwitter"},
-						{"color": "btn-danger", "icon": "fa-google-plus", "id": "loginGoogle"},
-						{"color": "btn-default", "icon": "fa-github", "id": "loginGithub"}
-					]],
-					["enableReset", "bool", true],
 					["enableRegister", "bool", true]
 				]]
 			]],
