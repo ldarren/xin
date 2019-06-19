@@ -37,7 +37,6 @@
 
 <script src=lib/lean/lean.js></script>
 <script src=lib/common/pico.js></script>
-<script src=main/xin.js id=picoEnv></script>
 <script src=lib/jquery/dist/jquery.min.js></script>
 <script src=lib/bootstrap/bootstrap.min.js></script>
 <script src=lib/holderjs/holder.min.js></script>
@@ -53,10 +52,8 @@
 <script src=lib/components/datatables.net-buttons/js/buttons.colVis.js></script>
 <script src=lib/components/datatables.net-select/js/dataTables.select.js></script>
 
-<script src=lib/ace/ace.js></script>
-<script src=lib/ace/ace.basics.js></script>
-<script src=lib/ace/ace-extra.min.js></script>
-<script src=lib/ace/ace.sidebar.js></script>
+<!-- ace.min.js includes ace.basics and ace.sidebars and others? --!>
+<script src=lib/ace/ace.min.js></script>
 <script src=lib/ace/elements.typeahead.js></script>
 
 <script src=lib/emailjs/ramda.min.js></script>
@@ -66,5 +63,6 @@
 </script>
 <script src=lib/aws/amazon-cognito-identity.min.js></script>
 <script src=lib/aws/aws-sdk.min.js></script>
+<script src=main/xin.js id=picoEnv></script>
 </body>
 </html>
