@@ -33,6 +33,7 @@ return {
 			deps.config.read(company, (err, group) => {
 				if (err) return alert(`company name [${company}] not found`)
 				ums.setGroup(group)
+				deps.config.setSelected(group.name)
 				const username = els.username.value
 				const password = els.password.value
 
@@ -40,7 +41,6 @@ return {
 				case 'btn-login':
 					ums.signin(company, username, password, err => {
 						if (err) return alert(JSON.stringify(err, null, '\t'))
-						deps.config.setSelected(group.name)
 						router.go('/dash')
 					})
 					break
@@ -50,7 +50,6 @@ return {
 					ums.signup(company, username, password, els.email.value, els.phone.value, (err, result) => {
 						if (err) return alert(JSON.stringify(err, null, '\t'))
 						if (result.userUnconfirmed){
-							deps.config.setSelected(group.name)
 							router.go('/dash')
 						}else{
 							alert('Please confirm your account before login', 'Signup Successfully')
