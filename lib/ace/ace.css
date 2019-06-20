@@ -13784,7 +13784,7 @@ li.item-default {
   position: relative;
   margin-left: 30px;
   max-width: 250px;
-  max-width: calc(100% - 300px);
+  max-width: calc(100% - 320px);
   min-width: 200px;
   white-space: nowrap;
 }
@@ -13817,7 +13817,7 @@ li.item-default {
 }
 .message-item .time {
   float: right;
-  width: 60px;
+  width: 80px;
   height: 18px;
   text-overflow: ellipsis;
   overflow: hidden;
