@@ -49,18 +49,32 @@ function renderMail(items, idx, now = new Date) {
 	return mail + renderMail(items, idx, now)
 }
 
+function sortCB(orderby){
+	switch(orderby){
+	case 'subject':
+		return (a, b) => ((a.subject < b.subject) ? 1 : (a.subject > b.subject) ? -1 : 0)
+	case 'from':
+		return (a, b) => ((a.sender < b.sender) ? 1 : (a.sender > b.sender) ? -1 : 0)
+	default:
+		return (a, b) => ((a.time < b.time) ? 1 : (a.time > b.time) ? -1 : 0)
+	}
+}
+
 return {
 	deps: {
 		bucket: 's3bucket',
 		inbox: 'models',
-		tpl: 'file'
+		config: 'cache',
+		tpl: 'file',
 	},
 	create(deps, params){
-		deps.bucket.list(deps.inbox, err => {
+		const inbox = deps.inbox
+		const config = deps.config
+		deps.bucket.list(inbox, err => {
 			if (err) return alert(err)
-			deps.inbox.sort((r1, r2) => (r1.time < r2.time) ? 1 : (r1.time > r2.time) ? -1 : 0)
+			inbox.sort(sortCB(config.get('sort')))
 
-			this.el.innerHTML = deps.tpl({inbox:deps.inbox, renderMail})
+			this.el.innerHTML = deps.tpl({inbox, renderMail, pageSize: config.get('size')})
 		})
 	},
 	events: {

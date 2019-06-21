@@ -83,7 +83,7 @@
 					<div class="message-bar">
 						<div class="message-infobar" id="id-message-infobar">
 							<span class="blue bigger-150">Inbox</span>
-							<span class="grey bigger-110">(2 unread messages)</span>
+							<span class="grey bigger-110">(<%d.inbox.reduce((acc, m) => {acc += m.unread ? 1 : 0; return acc}, 0)%> unread messages)</span>
 						</div>
 
 						<div class="message-toolbar hide">
@@ -432,7 +432,7 @@
 					<div class="pull-left"> <%d.inbox.length()%> messages total </div>
 
 					<div class="pull-right">
-						<div class="inline middle"> page 1 of 16 </div>
+						<div class="inline middle"> page 1 of <%Math.ceil(d.inbox.length() / d.pageSize)%> </div>
 
 						&nbsp; &nbsp;
 						<ul class="pagination middle">
