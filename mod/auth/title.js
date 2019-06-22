@@ -2,8 +2,7 @@ return {
 	deps: {
 		tpl: 'file',
 		appIcon: ['text', 'fa-cogs'],
-		appName: ['text', 'Ace'],
-		appVer: ['text', '1.0'],
+		appName: ['list', ['App', 'Name']],
 		companyName: ['text', 'Company Name']
 	},
 	create(deps, params){

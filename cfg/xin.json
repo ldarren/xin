@@ -2,6 +2,9 @@
 	["models", "type", "models", [
 		"data", "routes", "name", "options", "ums", "env"
 	]],
+	["cache", "type", "cache", [
+		"name", "ums", "default"
+	]],
 	["cognito", "type", "aws/cognito", [
 		"company", "user", "config", "dependant"
 	]],
@@ -54,12 +57,20 @@
 			["ums", "ref", "ums"],
 			["env", "ref", "env"]
 		]],
+		["mailboxConfig", "cache", [
+			["name", "text", "mbconfig"],
+			["ums", "ref", "ums"],
+			["default", "map", {
+				"sort": "time",
+				"size": 25,
+				"index": 1
+			}]
+		]],
 		["pages", "map", {
 			"land": ["land/layout", "view", [
 				["options", "map", {"el": "body", "class":"no-skin pos-rel", "data": {"spy": "scroll", "target": "#menu"}}],
 				["css", "file", "land/layout.css"],
 				["ums", "ref", "ums"],
-				["env", "ref", "env"],
 				["land/navbar", "view", [
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default navbar-fixed-top", "content": [{"id":"navbar-container", "class":"navbar-container container"}]}],
 					["html", "file", "land/navbar.html"],
@@ -121,7 +132,6 @@
 				["css", "file", "home/layout.css"],
 				["models", "refs", "models"],
 				["ums", "ref", "ums"],
-				["env", "ref", "env"],
 				["auth/navbar", "view", [
 					["options", "map", {"class":"navbar-fixed-top align-right"}],
 					["html", "file", "auth/navbar.html"]
@@ -130,8 +140,7 @@
 					["options", "map", {"class":"center"}],
 					["tpl", "file", "auth/title.asp"],
 					["appIcon", "text", "fa-inbox"],
-					["appName", "text", "Xin Mailbox"],
-					["appVer", "text", "1.0"],
+					["appName", "list", ["Kloud", "Konsole"]],
 					["companyName", "text", "Jasa Web Services"]
 				]],
 				["p/View", "view", [
@@ -142,13 +151,6 @@
 					["tpl", "file", "auth/modal.asp"],
 					["ums", "ref", "ums"],
 					["config", "ref", "configRO"],
-					["socialBtn", "list", [
-						{"color": "btn-primary", "icon": "fa-facebook", "id": "loginFacebook"},
-						{"color": "btn-info", "icon": "fa-twitter", "id": "loginTwitter"},
-						{"color": "btn-danger", "icon": "fa-google-plus", "id": "loginGoogle"},
-						{"color": "btn-default", "icon": "fa-github", "id": "loginGithub"}
-					]],
-					["enableReset", "bool", true],
 					["enableRegister", "bool", true]
 				]]
 			]],
@@ -156,9 +158,9 @@
 				["options", "map", {"el": "body", "class":"no-skin"}],
 				["css", "file", "home/layout.css"],
 				["ums", "ref", "ums"],
-				["env", "ref", "env"],
 				["bucket", "ref", "bucket"],
 				["models", "refs", "models"],
+				["cache", "refs", "cache"],
 				["p/View", "view", [
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default ace-save-state", "content":[
 						{"id":"navbar-container", "class":"navbar-container ace-save-state"}
@@ -175,7 +177,7 @@
 						["options", "map", {"class":"navbar-header pull-left"}],
 						["tpl", "file", "home/navbar-header.asp"],
 						["icon", "text", "fa-inbox"],
-						["name", "text", "Xin Mailbox 1.0"]
+						["name", "text", "Kloud Konsole"]
 					]],
 					["home/navbar-menu", "view", [
 						["options", "map", {"class":"navbar-header navbar-buttons pull-right", "role":"navigation", "content":[
@@ -201,8 +203,8 @@
 					["options", "map", {"id":"main-container", "class":"main-container ace-save-state"}],
 					["bucket", "ref", "bucket"],
 					["models", "refs", "models"],
+					["cache", "refs", "cache"],
 					["ums", "ref", "ums"],
-					["env", "ref", "env"],
 					["menu", "models", [
 						["data", "list", [
 							{"id":1, "perm":[], "name":"Dashboard", "icon":"fa-tachometer", "href":"#/dash", "shortcut":123},
@@ -213,7 +215,7 @@
 						]]
 					]],
 					["home/sidebar", "view", [
-						["options", "map", {"class":"sidebar responsive ace-save-state"}],
+						["options", "map", {"id":"sidebar", "class":"sidebar responsive ace-save-state"}],
 						["tpl", "file", "home/sidebar.asp"],
 						["menu", "ref", "menu"],
 						["config", "ref", "configRO"]
@@ -222,8 +224,8 @@
 						["options", "map", {"class":"main-content", "content": [{"class": "main-content-inner"}]}],
 						["bucket", "ref", "bucket"],
 						["models", "refs", "models"],
+						["cache", "refs", "cache"],
 						["ums", "ref", "ums"],
-						["env", "ref", "env"],
 						["home/breadcrumbs", "view", [
 							["options", "map", {"id": "breadcrumbs", "class":"breadcrumbs ace-save-state"}],
 							["html", "file", "home/breadcrumbs.html"],
@@ -237,7 +239,7 @@
 							["options", "map", {"class":"page-content"}],
 							["bucket", "ref", "bucket"],
 							["models", "refs", "models"],
-							["env", "ref", "env"],
+							["cache", "refs", "cache"],
 							["p/View", "view", [
 								["options", "map", {"id":"ace-settings-container", "class":"ace-settings-container"}],
 								["html", "file", "home/settings-container.html"]
@@ -250,8 +252,8 @@
 								["options", "map", {"class":"row", "content":[{"class":"col-ex-12"}]}],
 								["bucket", "ref", "bucket"],
 								["models", "refs", "models"],
-								["ums", "ref", "ums"],
-								["env", "ref", "env"]
+								["cache", "refs", "cache"],
+								["ums", "ref", "ums"]
 							]]
 						]]
 					]],
@@ -271,7 +273,8 @@
 				["desc", "text", "jasaws-cognito-s3"],
 				["tpl", "file", "email/mailbox.asp"],
 				["bucket", "ref", "bucket"],
-				["inbox", "ref", "inbox"]
+				["inbox", "ref", "inbox"],
+				["config", "ref", "mailboxConfig"]
 			]],
 			"mail": ["email/mail", "view", [
 				["title", "text", "Mail"],
