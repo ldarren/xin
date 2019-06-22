@@ -62,7 +62,8 @@
 			["ums", "ref", "ums"],
 			["default", "map", {
 				"sort": "time",
-				"size": 25
+				"size": 25,
+				"index": 1
 			}]
 		]],
 		["pages", "map", {

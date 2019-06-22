@@ -83,7 +83,7 @@
 					<div class="message-bar">
 						<div class="message-infobar" id="id-message-infobar">
 							<span class="blue bigger-150">Inbox</span>
-							<span class="grey bigger-110">(<%d.inbox.reduce((acc, m) => {acc += m.unread ? 1 : 0; return acc}, 0)%> unread messages)</span>
+							<span class="grey bigger-110">(<%d.unread%> unread messages)</span>
 						</div>
 
 						<div class="message-toolbar hide">
@@ -229,22 +229,22 @@
 
 								<ul class="dropdown-menu dropdown-lighter dropdown-menu-right dropdown-100">
 									<li>
-										<a href="#">
-											<i class="ace-icon fa fa-check green"></i>
+										<a class=orderby href="#date">
+											<i class="ace-icon fa fa-check <%'time' === d.pageSort ? 'green' : 'invisible'%>"></i>
 											Date
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
-											<i class="ace-icon fa fa-check invisible"></i>
+										<a class=orderby href="#from">
+											<i class="ace-icon fa fa-check <%'from' === d.pageSort ? 'green' : 'invisible'%>"></i>
 											From
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
-											<i class="ace-icon fa fa-check invisible"></i>
+										<a class=orderby href="#subject">
+											<i class="ace-icon fa fa-check <%'subject' === d.pageSort ? 'green' : 'invisible'%>"></i>
 											Subject
 										</a>
 									</li>
@@ -421,7 +421,9 @@
 				<div class="message-list-container">
 					<!-- #section:pages/inbox.message-list -->
 					<div class="message-list" id="message-list">
-						<% d.renderMail(d.inbox, 0) %>
+						<% for(let i = d.pageSize * (d.pageIndex - 1), l = Math.min(d.pageSize * d.pageIndex, d.inbox.length()); i < l; i++){ %>
+							<% d.renderMail(d.inbox.at(i)) %>
+						<% } %>
 					</div>
 
 					<!-- /section:pages/inbox.message-list -->
@@ -432,36 +434,36 @@
 					<div class="pull-left"> <%d.inbox.length()%> messages total </div>
 
 					<div class="pull-right">
-						<div class="inline middle"> page 1 of <%Math.ceil(d.inbox.length() / d.pageSize)%> </div>
+						<div class="inline middle"> page <%d.pageIndex%> of <%d.pageMax%> </div>
 
 						&nbsp; &nbsp;
 						<ul class="pagination middle">
-							<li class="disabled">
-								<span>
+							<li class="<%1 === d.pageIndex ? 'disabled' : ''%>">
+								<a href="#first">
 									<i class="ace-icon fa fa-step-backward middle"></i>
-								</span>
+								</a>
 							</li>
 
-							<li class="disabled">
-								<span>
+							<li class="<%1 === d.pageIndex ? 'disabled' : ''%>">
+								<a href="#prev">
 									<i class="ace-icon fa fa-caret-left bigger-140 middle"></i>
-								</span>
-							</li>
-
-							<li>
-								<span>
-									<input value="1" maxlength="3" type="text" />
-								</span>
-							</li>
-
-							<li>
-								<a href="#">
-									<i class="ace-icon fa fa-caret-right bigger-140 middle"></i>
 								</a>
 							</li>
 
 							<li>
-								<a href="#">
+								<span>
+									<input value=<%d.pageIndex%> maxlength=<%d.pageMax%> type=text />
+								</span>
+							</li>
+
+							<li class="<%d.pageMax === d.pageIndex ? 'disabled' : ''%>">
+								<a href="#next">
+									<i class="ace-icon fa fa-caret-right bigger-140 middle"></i>
+								</a>
+							</li>
+
+							<li class="<%d.pageMax === d.pageIndex ? 'disabled' : ''%>">
+								<a href="#last">
 									<i class="ace-icon fa fa-step-forward middle"></i>
 								</a>
 							</li>

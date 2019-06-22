@@ -22,9 +22,7 @@ function mailTime(time, now){
  * status: array: fa-reply, fa-mail-forward
  * tag: colour: badge-pink, badge-grey, badge-success
  */
-function renderMail(items, idx, now = new Date) {
-	if (items.length() <= idx) return ''
-	const item = items.at(idx++)
+function renderMail(item, now = new Date) {
 	let mail = `
 	<div class="message-item ${item.read ? '' : 'message-unread'}">
 		<label class=inline><input type=checkbox class=ace /><span class=lbl></span></label>
@@ -46,7 +44,7 @@ function renderMail(items, idx, now = new Date) {
 		mail += `<span class="badge ${item.tag} mail-tag"></span>`
 	}
 	mail += `<span class=text id="${item.id}">${item.subject}</span></span></div>`
-	return mail + renderMail(items, idx, now)
+	return mail
 }
 
 function sortCB(orderby){
@@ -60,6 +58,35 @@ function sortCB(orderby){
 	}
 }
 
+function countUnread(inbox){
+	let count = 0
+	inbox.forEach(m => {
+		count += m.unread ? 1 : 0
+	})
+	return count
+}
+
+function refresh(ctx){
+	const {
+		config,
+		tpl,
+		inbox
+	} = ctx.deps
+	const pageSort = config.get('sort')
+	const pageSize = config.get('size')
+	inbox.sort(sortCB(pageSort))
+
+	ctx.el.innerHTML = tpl({
+		inbox,
+		renderMail,
+		pageIndex: config.get('index'),
+		pageMax: Math.ceil(inbox.length() / pageSize),
+		pageSize,
+		pageSort,
+		unread: countUnread(inbox),
+	})
+}
+
 return {
 	deps: {
 		bucket: 's3bucket',
@@ -68,18 +95,46 @@ return {
 		tpl: 'file',
 	},
 	create(deps, params){
-		const inbox = deps.inbox
-		const config = deps.config
-		deps.bucket.list(inbox, err => {
+		deps.bucket.list(deps.inbox, err => {
 			if (err) return alert(err)
-			inbox.sort(sortCB(config.get('sort')))
-
-			this.el.innerHTML = deps.tpl({inbox, renderMail, pageSize: config.get('size')})
+			refresh(this)
 		})
 	},
 	events: {
 		'click .message-list .text': function(evt, target){
 			router.go('/dash/mail/view/'+target.id)
+		},
+		'click a.orderby': function(evt, target){
+			evt.preventDefault()
+			const type = target.href.split('#')[1]
+			const config = this.deps.config
+			if (config.get('sort') === type) return
+			config.set('sort', type)
+			refresh(this)
+		},
+		'click ul.pagination li a': function(evt, target){
+			evt.preventDefault()
+			if (target.classList.contains('disabled')) return
+			const config = this.deps.config
+			let index = config.get('index')
+			switch(target.href.split('#')[1]){
+			case 'first':
+				index = 1
+				break
+			case 'prev':
+				index -= 1
+				break
+			case 'next':
+				index += 1
+				break
+			case 'last':
+				index = Math.ceil(this.deps.inbox.length() / this.deps.config.get('size'))
+				break
+			default:
+				return
+			}
+			config.set('index', index)
+			refresh(this)
 		}
 	}
 }
