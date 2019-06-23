@@ -31,12 +31,13 @@ function readMails(ctx, mails, inbox, cb){
 	})
 }
 
-function S3Bucket(config){
-	this.init(config)
+function S3Bucket(ums){
+	this.ums = ums
+	ums.callback.on('load', this.init, this)
 }
 
 S3Bucket.prototype = {
-	init(config){
+	init(evt, config){
 		if (!config) return
 		const selected = config.getSelected()
 		if (!selected) return
@@ -47,9 +48,12 @@ S3Bucket.prototype = {
 		this.Bucket = aws.Bucket
 	},
 	list(inbox, cb){
-		this.s3.listObjects({Bucket: this.Bucket}, (err, bucket) => {
+		this.ums.getAccessToken(err => {
 			if (err) return cb(err)
-			readMails(this, bucket.Contents, inbox, cb)
+			this.s3.listObjects({Bucket: this.Bucket}, (err, bucket) => {
+				if (err) return cb(err)
+				readMails(this, bucket.Contents, inbox, cb)
+			})
 		})
 	},
 	read(Key, inbox, cb){
@@ -60,28 +64,31 @@ S3Bucket.prototype = {
 			Bucket: this.Bucket,
 			Key
 		}
-		this.s3.getObject(params, (err, detail) => {
+		this.ums.getAccessToken(err => {
 			if (err) return cb(err)
-			try{
-				const mimeNode = emailjs.parse(detail.Body)
-				const headers = mimeNode.headers
-				const attachments = []
-				const contents = {}
-				getContent(mimeNode, contents, attachments)
-				inbox.create({
-					id: Key,
-					sender: headers.from[0].value[0].name,
-					time: new Date(headers.date[0].value),
-					subject: headers.subject[0].value,
-					headers,
-					body: contents['text/html'] || contents['text/plain'],
-					attachments
-				})
-			}catch(exp){
-				// supress parse exception
-				return cb(exp)
-			}
-			cb(null, inbox.get(Key))
+			this.s3.getObject(params, (err, detail) => {
+				if (err) return cb(err)
+				try{
+					const mimeNode = emailjs.parse(detail.Body)
+					const headers = mimeNode.headers
+					const attachments = []
+					const contents = {}
+					getContent(mimeNode, contents, attachments)
+					inbox.create({
+						id: Key,
+						sender: headers.from[0].value[0].name,
+						time: new Date(headers.date[0].value),
+						subject: headers.subject[0].value,
+						headers,
+						body: contents['text/html'] || contents['text/plain'],
+						attachments
+					})
+				}catch(exp){
+					// supress parse exception
+					return cb(exp)
+				}
+				cb(null, inbox.get(Key))
+			})
 		})
 	}
 }

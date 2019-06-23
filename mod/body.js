@@ -58,7 +58,7 @@ return {
 				specMap[k]=spec.shift()
 			}
 
-			deps.ums.onReady(() => {
+			deps.ums.callback.on('ready', () => {
 				router.on('change',pageChanged,this).start(deps.routes)
 			})
 		})

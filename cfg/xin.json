@@ -9,11 +9,10 @@
 		"company", "user", "config", "dependant"
 	]],
 	["s3bucket", "type", "aws/s3bucket", [
-		"config"
+		"ums"
 	]],
 	["body", "view", [
 		["options", "map", {"el": "body"}],
-		["bucket", "s3bucket", []],
 		["configRO", "models", [
 			["routes", "map", {
 				"read": ":DOMAIN/config/mailbox/name/:name"
@@ -36,8 +35,10 @@
 				}],
 				["env", "ref", "env"]
 			]],
-			["config", "ref", "configRO"],
-			["dependant", "ref", "bucket"]
+			["config", "ref", "configRO"]
+		]],
+		["bucket", "s3bucket", [
+			["ums", "ref", "ums"]
 		]],
 		["config", "models", [
 			["routes", "map", {

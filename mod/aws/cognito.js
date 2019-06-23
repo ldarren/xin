@@ -1,6 +1,7 @@
 // https://github.com/aws-amplify/amplify-js/tree/master/packages/amazon-cognito-identity-js # Use case 32
 // https://github.com/aws-amplify/amplify-js/issues/405 # missing credentials in config
 const pObj = pico.export('pico/obj')
+const Callback = require('po/Callback')
 
 function setAWSConfig(aws, token, cb){
 	AWS.config.update({
@@ -37,25 +38,21 @@ function createUser(ctx, company, accessToken, idToken){
 
 function readied(ctx, err){
 	if (err) console.error(err)
-	ctx.readyListeners.forEach(cb => cb(err))
-	ctx.readyListeners.length = 0
-	ctx.readied = [err]
+	ctx.callback.toggle('ready', true)
 }
 
-function Cognito(company0, user, config, dependant){
+function Cognito(company0, user, config){
 	this.company0 = company0
 	this.user = user
 	this.config = config
-	this.dependant = dependant
 
-	this.readyListeners = []
+	this.callback = new Callback
 
 	this.setGroup(config.getSelected() || {})
 }
 
 Cognito.prototype = {
 	setGroup({name: company, env: aws}){
-		this.readied = void 0
 		if (!company || !aws) return readied(this)
 		this.awsConfig = aws
 		this.userPool = new AmazonCognitoIdentity.CognitoUserPool({
@@ -79,15 +76,11 @@ Cognito.prototype = {
 						company,
 						session.accessToken.jwtToken,
 						session.idToken.jwtToken)
-					this.dependant.init(this.config)
+					this.callback.trigger('load', this.config)
 					readied(this)
 				})
 			})
 		})
-	},
-	onReady(cb){
-		if (this.readied) return cb.apply(this.readied)
-		this.readyListeners.push(cb)
 	},
 	isValid(){
 		return !!AWS.config.credentials
@@ -111,7 +104,7 @@ Cognito.prototype = {
 						company,
 						result.accessToken.jwtToken,
 						idToken)
-					this.dependant.init(this.config)
+					this.callback.trigger('load', this.config)
 					cb(err)
 				})
 			},
@@ -145,7 +138,7 @@ Cognito.prototype = {
 						company,
 						session.getAccessToken().getJwtToken(),
 						session.getIdToken().getJwtToken()),
-					this.dependant.init(this.config)
+					this.callback.trigger('load', this.config)
 					cb(null, result)
 				})
 			})
