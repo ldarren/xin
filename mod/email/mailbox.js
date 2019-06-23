@@ -6,7 +6,7 @@ const DATE_OPTIONS = { day: 'numeric', month: 'short' }
 function mailTime(time, now){
 	if (time.getFullYear() !== now.getFullYear())
 		return time.toLocaleDateString()
-	if (time.getMonth() === now.getMonth() && time.getDay() === now.getDay())
+	if (time.getMonth() === now.getMonth() && time.getDate() === now.getDate())
 		return time.toLocaleTimeString(LOCALE, TIME_OPTIONS)
 	return time.toLocaleDateString(LOCALE, DATE_OPTIONS)
 }

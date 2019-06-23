@@ -230,21 +230,21 @@
 								<ul class="dropdown-menu dropdown-lighter dropdown-menu-right dropdown-100">
 									<li>
 										<a class=orderby href="#date">
-											<i class="ace-icon fa fa-check <%'time' === d.pageSort ? 'green' : 'invisible'%>"></i>
+											<i class="ace-icon fa fa-check <%"time" === d.pageSort ? "green" : "invisible"%>"></i>
 											Date
 										</a>
 									</li>
 
 									<li>
 										<a class=orderby href="#from">
-											<i class="ace-icon fa fa-check <%'from' === d.pageSort ? 'green' : 'invisible'%>"></i>
+											<i class="ace-icon fa fa-check <%"from" === d.pageSort ? "green" : "invisible"%>"></i>
 											From
 										</a>
 									</li>
 
 									<li>
 										<a class=orderby href="#subject">
-											<i class="ace-icon fa fa-check <%'subject' === d.pageSort ? 'green' : 'invisible'%>"></i>
+											<i class="ace-icon fa fa-check <%"subject" === d.pageSort ? "green" : "invisible"%>"></i>
 											Subject
 										</a>
 									</li>
@@ -438,13 +438,13 @@
 
 						&nbsp; &nbsp;
 						<ul class="pagination middle">
-							<li class="<%1 === d.pageIndex ? 'disabled' : ''%>">
+							<li class="<%1 === d.pageIndex ? "disabled" : ""%>">
 								<a href="#first">
 									<i class="ace-icon fa fa-step-backward middle"></i>
 								</a>
 							</li>
 
-							<li class="<%1 === d.pageIndex ? 'disabled' : ''%>">
+							<li class="<%1 === d.pageIndex ? "disabled" : ""%>">
 								<a href="#prev">
 									<i class="ace-icon fa fa-caret-left bigger-140 middle"></i>
 								</a>
@@ -456,13 +456,13 @@
 								</span>
 							</li>
 
-							<li class="<%d.pageMax === d.pageIndex ? 'disabled' : ''%>">
+							<li class="<%d.pageMax === d.pageIndex ? "disabled" : ""%>">
 								<a href="#next">
 									<i class="ace-icon fa fa-caret-right bigger-140 middle"></i>
 								</a>
 							</li>
 
-							<li class="<%d.pageMax === d.pageIndex ? 'disabled' : ''%>">
+							<li class="<%d.pageMax === d.pageIndex ? "disabled" : ""%>">
 								<a href="#last">
 									<i class="ace-icon fa fa-step-forward middle"></i>
 								</a>
