@@ -6,7 +6,7 @@
 		"name", "ums", "default"
 	]],
 	["cognito", "type", "aws/cognito", [
-		"company", "user", "config", "dependant"
+		"company", "user", "config"
 	]],
 	["s3bucket", "type", "aws/s3bucket", [
 		"ums"

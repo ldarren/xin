@@ -31,19 +31,33 @@ function ajax(method, route, params, cb){
 	})
 }
 
+function encodeCacheKey(id){
+	return this.name + ':' + this.ums.getId() + ':' + id
+}
+
+function decodeCacheKey(key){
+	var arr = key.split(':')
+	if (arr[0] !== this.name) return
+	if (arr[1] !== this.user.getId()) return
+	return arr
+}
+
 return {
 	init(name, opt, ums, restParams){
 		this.ums = ums
 		opt = Object.assign({}, opt, {restParams})
-		Collection.prototype.init.call(this, name, Object.assign({ajax}, opt))
+		Collection.prototype.init.call(this, name, opt)
 	},
 	setSelected(key){
 		if (!this.name || !this.get(key)) return
 
-		return window.localStorage.setItem(`sel:${this.name}`, key)
+		return window.localStorage.setItem(encodeCacheKey('sel'), key)
 	},
 	getSelected(){
-		const key = window.localStorage.getItem(`sel:${this.name}`)
+		const key = window.localStorage.getItem(encodeCacheKey('sel'))
 		return this.get(key)
-	}
+	},
+	ajax,
+	encodeCacheKey,
+	decodeCacheKey,
 }

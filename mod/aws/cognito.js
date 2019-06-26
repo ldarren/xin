@@ -150,6 +150,9 @@ Cognito.prototype = {
 		if (!user) return
 		user.signOut()
 	},
+	getId(){
+		return this.user.id
+	},
 	getAccessToken(cb){
 		const user = this.userPool.getCurrentUser()
 		if (!user) return cb('invalid userpool')
