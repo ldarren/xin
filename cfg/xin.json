@@ -1,9 +1,9 @@
 [
+	["shared", "type", "shared", [
+		"data", "routes", "name", "options", "env"
+	]],
 	["models", "type", "models", [
 		"data", "routes", "name", "options", "ums", "env"
-	]],
-	["cache", "type", "cache", [
-		"name", "ums", "default"
 	]],
 	["cognito", "type", "aws/cognito", [
 		"company", "user", "config"
@@ -13,7 +13,7 @@
 	]],
 	["body", "view", [
 		["options", "map", {"el": "body"}],
-		["configRO", "models", [
+		["configRO", "shared", [
 			["routes", "map", {
 				"read": ":DOMAIN/config/mailbox/name/:name"
 			}],
@@ -26,7 +26,7 @@
 		["ums", "cognito", [
 			["company", "text", "xin.com"],
 			["env", "ref", "env"],
-			["user", "models", [
+			["user", "shared", [
 				["routes", "map", {
 					"create": ":DOMAIN/user/create"
 				}],
@@ -55,17 +55,19 @@
 			["env", "ref", "env"]
 		]],
 		["inbox", "models", [
+			["name", "text", "inbox"],
 			["ums", "ref", "ums"],
 			["env", "ref", "env"]
 		]],
-		["mailboxConfig", "cache", [
-			["name", "text", "mbconfig"],
+		["setting", "models", [
+			["name", "text", "setting"],
 			["ums", "ref", "ums"],
-			["default", "map", {
-				"sort": "time",
-				"size": 25,
-				"index": 1
-			}]
+			["options", "map", {
+				"idAttr": "name"
+			}],
+			["data", "list", [
+				{"name":"mailbox", "sort":"time", "size":25, "index":1}
+			]]
 		]],
 		["pages", "map", {
 			"land": ["land/layout", "view", [
@@ -131,6 +133,7 @@
 				["options", "map", {"el": "body", "class":"login-layout"}],
 				["html", "file", "auth/layout.html"],
 				["css", "file", "home/layout.css"],
+				["shared", "refs", "shared"],
 				["models", "refs", "models"],
 				["ums", "ref", "ums"],
 				["auth/navbar", "view", [
@@ -160,8 +163,8 @@
 				["css", "file", "home/layout.css"],
 				["ums", "ref", "ums"],
 				["bucket", "ref", "bucket"],
+				["shared", "refs", "shared"],
 				["models", "refs", "models"],
-				["cache", "refs", "cache"],
 				["p/View", "view", [
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default ace-save-state", "content":[
 						{"id":"navbar-container", "class":"navbar-container ace-save-state"}
@@ -203,8 +206,8 @@
 				["home/main-container", "view", [
 					["options", "map", {"id":"main-container", "class":"main-container ace-save-state"}],
 					["bucket", "ref", "bucket"],
+					["shared", "refs", "shared"],
 					["models", "refs", "models"],
-					["cache", "refs", "cache"],
 					["ums", "ref", "ums"],
 					["menu", "models", [
 						["data", "list", [
@@ -224,23 +227,25 @@
 					["home/main-content", "view", [
 						["options", "map", {"class":"main-content", "content": [{"class": "main-content-inner"}]}],
 						["bucket", "ref", "bucket"],
+						["shared", "refs", "shared"],
 						["models", "refs", "models"],
-						["cache", "refs", "cache"],
 						["ums", "ref", "ums"],
 						["home/breadcrumbs", "view", [
 							["options", "map", {"id": "breadcrumbs", "class":"breadcrumbs ace-save-state"}],
 							["html", "file", "home/breadcrumbs.html"],
 							["tpl", "file", "home/breadcrumb.asp"],
+							["ums", "ref", "ums"],
 							["breadcrumbs", "models", [
-								["name", "text", "breadcrumbs"]
+								["name", "text", "breadcrumb"],
+								["ums", "ref", "ums"]
 							]],
 							["menu", "ref", "menu"]
 						]],
 						["p/View", "view", [
 							["options", "map", {"class":"page-content"}],
 							["bucket", "ref", "bucket"],
+							["shared", "refs", "shared"],
 							["models", "refs", "models"],
-							["cache", "refs", "cache"],
 							["p/View", "view", [
 								["options", "map", {"id":"ace-settings-container", "class":"ace-settings-container"}],
 								["html", "file", "home/settings-container.html"]
@@ -252,8 +257,8 @@
 							["home/page-content", "view", [
 								["options", "map", {"class":"row", "content":[{"class":"col-ex-12"}]}],
 								["bucket", "ref", "bucket"],
+								["shared", "refs", "shared"],
 								["models", "refs", "models"],
-								["cache", "refs", "cache"],
 								["ums", "ref", "ums"]
 							]]
 						]]
@@ -275,7 +280,7 @@
 				["tpl", "file", "email/mailbox.asp"],
 				["bucket", "ref", "bucket"],
 				["inbox", "ref", "inbox"],
-				["config", "ref", "mailboxConfig"]
+				["setting", "ref", "setting"]
 			]],
 			"mail": ["email/mail", "view", [
 				["title", "text", "Mail"],

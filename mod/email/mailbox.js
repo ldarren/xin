@@ -68,18 +68,19 @@ function countUnread(inbox){
 
 function refresh(ctx){
 	const {
-		config,
 		tpl,
-		inbox
+		inbox,
+		setting,
 	} = ctx.deps
-	const pageSort = config.get('sort')
-	const pageSize = config.get('size')
+	const config = setting.get('mailbox')
+	const pageSort = config.sort
+	const pageSize = config.size
 	inbox.sort(sortCB(pageSort))
 
 	ctx.el.innerHTML = tpl({
 		inbox,
 		renderMail,
-		pageIndex: config.get('index'),
+		pageIndex: config.index,
 		pageMax: Math.ceil(inbox.length() / pageSize),
 		pageSize,
 		pageSort,
@@ -91,7 +92,7 @@ return {
 	deps: {
 		bucket: 's3bucket',
 		inbox: 'models',
-		config: 'cache',
+		setting: 'models',
 		tpl: 'file',
 	},
 	create(deps, params){
@@ -106,17 +107,17 @@ return {
 		},
 		'click a.orderby': function(evt, target){
 			evt.preventDefault()
-			const type = target.href.split('#')[1]
-			const config = this.deps.config
-			if (config.get('sort') === type) return
-			config.set('sort', type)
+			const sort = target.href.split('#')[1]
+			const config = this.deps.setting.get('mailbox')
+			if (config.sort === sort) return
+			config.sort = sort
 			refresh(this)
 		},
 		'click ul.pagination li a': function(evt, target){
 			evt.preventDefault()
 			if (target.classList.contains('disabled')) return
-			const config = this.deps.config
-			let index = config.get('index')
+			const config = this.deps.setting.get('mailbox')
+			let index = config.index
 			switch(target.href.split('#')[1]){
 			case 'first':
 				index = 1
@@ -128,12 +129,12 @@ return {
 				index += 1
 				break
 			case 'last':
-				index = Math.ceil(this.deps.inbox.length() / this.deps.config.get('size'))
+				index = Math.ceil(this.deps.inbox.length() / config.size)
 				break
 			default:
 				return
 			}
-			config.set('index', index)
+			config.index = index
 			refresh(this)
 		}
 	}

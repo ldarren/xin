@@ -149,9 +149,12 @@ Cognito.prototype = {
 		const user = this.userPool.getCurrentUser()
 		if (!user) return
 		user.signOut()
+		this.callback.trigger('unload')
 	},
 	getId(){
-		return this.user.id
+		const user = this.userPool.getCurrentUser()
+		if (!user) return 0
+		return user.username || 0
 	},
 	getAccessToken(cb){
 		const user = this.userPool.getCurrentUser()
