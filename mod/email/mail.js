@@ -55,18 +55,19 @@ function replaceCID(el, attachments){
 
 return {
 	deps: {
-		bucket: 's3bucket',
+		tpl: 'file',
 		inbox: 'models',
-		tpl: 'file'
+		mails: 'models',
+		bucket: 's3bucket',
 	},
 	create(deps, params){
-		deps.bucket.read(params.id, deps.inbox, (err, mail) => {
+		deps.bucket.read(params.id, deps.inbox, deps.mails, (err, item, mail) => {
 			const content = new TextDecoder('utf-8').decode(new Uint8Array(mail.body))
 			const attachments = decodeAttachment(mail.attachments, [])
 			this.el.innerHTML = deps.tpl({
-				sender: mail.sender,
-				time: mail.time,
-				subject: mail.subject,
+				sender: item.sender,
+				time: item.time,
+				subject: item.subject,
 				content,
 				attachments,
 				attachmentSize: attachmentSize(mail.attachments)

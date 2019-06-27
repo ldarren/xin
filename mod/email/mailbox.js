@@ -31,7 +31,7 @@ function renderMail(item, now = new Date) {
 		<span class=sender title="${item.sender}">${item.sender} </span>
 		<span class=time>${mailTime(new Date(item.time), now)}</span>
 	`
-	if (item.attachments.length) {
+	if (item.attachments) {
 		mail += '<span class=attachment><i class="ace-icon fa fa-paperclip"></i></span>'
 	}
 	mail += '<span class=summary>'
@@ -90,13 +90,15 @@ function refresh(ctx){
 
 return {
 	deps: {
-		bucket: 's3bucket',
+		tpl: 'file',
+		mails: 'models',
 		inbox: 'models',
 		setting: 'models',
-		tpl: 'file',
+		bucket: 's3bucket',
 	},
 	create(deps, params){
-		deps.bucket.list(deps.inbox, err => {
+		refresh(this)
+		deps.bucket.list(deps.inbox, deps.mails, err => {
 			if (err) return alert(err)
 			refresh(this)
 		})

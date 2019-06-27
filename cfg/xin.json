@@ -56,8 +56,10 @@
 		]],
 		["inbox", "models", [
 			["name", "text", "inbox"],
-			["ums", "ref", "ums"],
-			["env", "ref", "env"]
+			["ums", "ref", "ums"]
+		]],
+		["mails", "models", [
+			["ums", "ref", "ums"]
 		]],
 		["setting", "models", [
 			["name", "text", "setting"],
@@ -258,8 +260,7 @@
 								["options", "map", {"class":"row", "content":[{"class":"col-ex-12"}]}],
 								["bucket", "ref", "bucket"],
 								["shared", "refs", "shared"],
-								["models", "refs", "models"],
-								["ums", "ref", "ums"]
+								["models", "refs", "models"]
 							]]
 						]]
 					]],
@@ -280,6 +281,7 @@
 				["tpl", "file", "email/mailbox.asp"],
 				["bucket", "ref", "bucket"],
 				["inbox", "ref", "inbox"],
+				["mails", "ref", "mails"],
 				["setting", "ref", "setting"]
 			]],
 			"mail": ["email/mail", "view", [
@@ -287,7 +289,8 @@
 				["desc", "text", "mail"],
 				["tpl", "file", "email/mail.asp"],
 				["bucket", "ref", "bucket"],
-				["inbox", "ref", "inbox"]
+				["inbox", "ref", "inbox"],
+				["mails", "ref", "mails"]
 			]],
 			"config/mailbox": ["config/mailbox", "view", [
 				["title", "text", "Config"],
