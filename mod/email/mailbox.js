@@ -61,7 +61,7 @@ function sortCB(orderby){
 function countUnread(inbox){
 	let count = 0
 	inbox.forEach(m => {
-		count += m.unread ? 1 : 0
+		count += m.read ? 0 : 1
 	})
 	return count
 }
