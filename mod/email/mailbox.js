@@ -22,7 +22,7 @@ function mailTime(time, now){
  * status: array: fa-reply, fa-mail-forward
  * tag: colour: badge-pink, badge-grey, badge-success
  */
-function renderMail(item, now = new Date) {
+function renderMail(item, search, select, now = new Date) {
 	let mail = `
 	<div class="message-item ${item.read ? '' : 'message-unread'}">
 		<label class=inline><input type=checkbox class=ace /><span class=lbl></span></label>
@@ -50,9 +50,9 @@ function renderMail(item, now = new Date) {
 function sortCB(orderby){
 	switch(orderby){
 	case 'subject':
-		return (a, b) => ((a.subject < b.subject) ? 1 : (a.subject > b.subject) ? -1 : 0)
+		return (a, b) => ((a.subject > b.subject) ? 1 : (a.subject < b.subject) ? -1 : 0)
 	case 'from':
-		return (a, b) => ((a.sender < b.sender) ? 1 : (a.sender > b.sender) ? -1 : 0)
+		return (a, b) => ((a.sender > b.sender) ? 1 : (a.sender < b.sender) ? -1 : 0)
 	default:
 		return (a, b) => ((a.time < b.time) ? 1 : (a.time > b.time) ? -1 : 0)
 	}
@@ -66,7 +66,7 @@ function countUnread(inbox){
 	return count
 }
 
-function refresh(ctx){
+function refresh(ctx, search, select){
 	const {
 		tpl,
 		inbox,
@@ -85,6 +85,8 @@ function refresh(ctx){
 		pageSize,
 		pageSort,
 		unread: countUnread(inbox),
+		search,
+		select
 	})
 }
 
@@ -138,6 +140,12 @@ return {
 			}
 			config.index = index
 			refresh(this)
+		},
+		'input .nav-search-input': function(evt, target){
+			refresh(this, target.value)
+		},
+		'click .select-message': function(evt, target){
+			refresh(this, null, target.id.slice('id-select-message-'.length))
 		}
 	}
 }
