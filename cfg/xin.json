@@ -68,7 +68,7 @@
 				"idAttr": "name"
 			}],
 			["data", "list", [
-				{"name":"mailbox", "sort":"time", "size":25, "index":1}
+				{"name":"mailbox", "sort":"time", "size":25, "index":1, "select":null, "search":null}
 			]]
 		]],
 		["pages", "map", {
@@ -275,14 +275,22 @@
 					]]
 				]]
 			]],
-			"mailbox": ["email/mailbox", "view", [
+			"mailbox": ["email/frame", "view", [
 				["title", "text", "Mailbox"],
-				["desc", "text", "jasaws-cognito-s3"],
-				["tpl", "file", "email/mailbox.asp"],
+				["desc", "text", "mails from your s3 bucket"],
+				["tpl", "file", "email/frame.asp"],
 				["bucket", "ref", "bucket"],
 				["inbox", "ref", "inbox"],
 				["mails", "ref", "mails"],
-				["setting", "ref", "setting"]
+				["setting", "ref", "setting"],
+				["email/mailbox", "view", [
+					["options", "map", {"el": ".message-list-container"}],
+					["tpl", "file", "email/mailbox.asp"],
+					["bucket", "ref", "bucket"],
+					["inbox", "ref", "inbox"],
+					["mails", "ref", "mails"],
+					["setting", "ref", "setting"]
+				]]
 			]],
 			"mail": ["email/mail", "view", [
 				["title", "text", "Mail"],
@@ -290,7 +298,8 @@
 				["tpl", "file", "email/mail.asp"],
 				["bucket", "ref", "bucket"],
 				["inbox", "ref", "inbox"],
-				["mails", "ref", "mails"]
+				["mails", "ref", "mails"],
+				["setting", "ref", "setting"]
 			]],
 			"config/mailbox": ["config/mailbox", "view", [
 				["title", "text", "Config"],

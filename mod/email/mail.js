@@ -62,6 +62,7 @@ return {
 	},
 	create(deps, params){
 		deps.bucket.read(params.id, deps.inbox, deps.mails, (err, item, mail) => {
+			if (err) return console.error(err)
 			item.read = 1
 			const content = new TextDecoder('utf-8').decode(new Uint8Array(mail.body))
 			const attachments = decodeAttachment(mail.attachments, [])

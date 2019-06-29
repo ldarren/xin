@@ -22,10 +22,16 @@ function mailTime(time, now){
  * status: array: fa-reply, fa-mail-forward
  * tag: colour: badge-pink, badge-grey, badge-success
  */
-function renderMail(item, search, select, now = new Date) {
+function renderMail(item, select, now = new Date) {
+	let selected = false
+	switch(select){
+	case 'all': selected = true; break
+	case 'read': selected = !!item.read; break
+	case 'unread': selected = !item.read; break
+	}
 	let mail = `
 	<div class="message-item ${item.read ? '' : 'message-unread'}">
-		<label class=inline><input type=checkbox class=ace /><span class=lbl></span></label>
+		<label class=inline><input type=checkbox class=ace ${selected ? 'checked' : ''}><span class=lbl></span></label>
 
 		<i class="message-star ace-icon fa ${item.star ? 'fa-star orange2' : 'fa-star-o light-grey'}"></i>
 		<span class=sender title="${item.sender}">${item.sender} </span>
@@ -66,21 +72,42 @@ function countUnread(inbox){
 	return count
 }
 
-function refresh(ctx, search, select){
+function refresh(ctx){
 	const {
 		tpl,
 		inbox,
 		setting,
 	} = ctx.deps
 	const config = setting.get('mailbox')
+	const search = config.search
+	const select = config.select
+
+	let all = []
+	if (search){
+		all = inbox.filter(m => {
+			return -1 !== m.sender.toLowerCase().indexOf(search) || -1 !== m.subject.toLowerCase().indexOf(search)
+		})
+	} else {
+		inbox.forEach(m => {
+			all.push(m)
+		})
+	}
+
 	const pageSort = config.sort
-	const pageSize = config.size
-	inbox.sort(sortCB(pageSort))
+	all.sort(sortCB(pageSort))
+
+	let items = []
+	const pageSize = parseInt(config.size)
+	const pageIndex = parseInt(config.index)
+	for(let i = pageSize * (pageIndex - 1), l = Math.min(pageSize * pageIndex, all.length); i < l; i++){
+		items.push(all[i])
+	}
 
 	ctx.el.innerHTML = tpl({
 		inbox,
+		items,
 		renderMail,
-		pageIndex: config.index,
+		pageIndex,
 		pageMax: Math.ceil(inbox.length() / pageSize),
 		pageSize,
 		pageSort,
@@ -104,48 +131,16 @@ return {
 			if (err) return alert(err)
 			refresh(this)
 		})
+		this.super.create.call(this, deps, params)
 	},
 	events: {
-		'click .message-list .text': function(evt, target){
+		'click .text': function(evt, target){
 			router.go('/dash/mail/view/'+target.id)
 		},
-		'click a.orderby': function(evt, target){
-			evt.preventDefault()
-			const sort = target.href.split('#')[1]
-			const config = this.deps.setting.get('mailbox')
-			if (config.sort === sort) return
-			config.sort = sort
+	},
+	slots: {
+		mailboxRefresh(sender, from){
 			refresh(this)
-		},
-		'click ul.pagination li a': function(evt, target){
-			evt.preventDefault()
-			if (target.classList.contains('disabled')) return
-			const config = this.deps.setting.get('mailbox')
-			let index = config.index
-			switch(target.href.split('#')[1]){
-			case 'first':
-				index = 1
-				break
-			case 'prev':
-				index -= 1
-				break
-			case 'next':
-				index += 1
-				break
-			case 'last':
-				index = Math.ceil(this.deps.inbox.length() / config.size)
-				break
-			default:
-				return
-			}
-			config.index = index
-			refresh(this)
-		},
-		'input .nav-search-input': function(evt, target){
-			refresh(this, target.value)
-		},
-		'click .select-message': function(evt, target){
-			refresh(this, null, target.id.slice('id-select-message-'.length))
 		}
 	}
 }
