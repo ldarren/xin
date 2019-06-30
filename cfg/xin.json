@@ -286,9 +286,7 @@
 				["email/mailbox", "view", [
 					["options", "map", {"el": ".message-list-container"}],
 					["tpl", "file", "email/mailbox.asp"],
-					["bucket", "ref", "bucket"],
 					["inbox", "ref", "inbox"],
-					["mails", "ref", "mails"],
 					["setting", "ref", "setting"]
 				]]
 			]],

@@ -120,17 +120,11 @@ function refresh(ctx){
 return {
 	deps: {
 		tpl: 'file',
-		mails: 'models',
 		inbox: 'models',
 		setting: 'models',
-		bucket: 's3bucket',
 	},
 	create(deps, params){
 		refresh(this)
-		deps.bucket.list(deps.inbox, deps.mails, err => {
-			if (err) return alert(err)
-			refresh(this)
-		})
 		this.super.create.call(this, deps, params)
 	},
 	events: {

@@ -31,16 +31,27 @@ return {
 	signals: ['mailboxRefresh'],
 	deps: {
 		tpl: 'file',
+		mails: 'models',
 		inbox: 'models',
 		setting: 'models',
-		'email/mailbox': 'view'
+		bucket: 's3bucket',
+		'email/mailbox': 'view',
 	},
 	create(deps, params){
 		update.call(this)
-		deps.inbox.callback.on('*', update, this)
+		const inbox = deps.inbox
+		const len = inbox.length()
+		deps.bucket.list(inbox, deps.mails, err => {
+			if (err) return alert(err)
+			if (len !== inbox.length()){
+				update.call(this)
+			}
+			inbox.callback.off('*', update, this)
+			inbox.callback.on('*', update, this)
+		})
 	},
 	remove(){
-		this.deps.inbox.callback.off('*')
+		this.deps.inbox.callback.off('*', update, this)
 		this.super.remove.call(this)
 	},
 	events: {
