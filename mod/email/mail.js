@@ -63,10 +63,12 @@ return {
 	create(deps, params){
 		deps.bucket.read(params.id, deps.inbox, deps.mails, (err, item, mail) => {
 			if (err) return console.error(err)
-			item.read = 1
+			item.read = Date.now()
 			const content = new TextDecoder('utf-8').decode(new Uint8Array(mail.body))
 			const attachments = decodeAttachment(mail.attachments, [])
 			this.el.innerHTML = deps.tpl({
+				inbox: deps.inbox,
+				index: deps.inbox.indexOf(item.id),
 				sender: item.sender,
 				time: item.time,
 				subject: item.subject,
@@ -80,6 +82,13 @@ return {
 	events: {
 		'click .messagebar-item-left': function(evt, target){
 			router.go('/dash/mail')
+		},
+		'click ul.pagination.middle li': function(evt, target){
+			evt.preventDefault()
+			if (target.classList.contains('disabled')) return
+			const a = target.querySelector('a')
+			const id = a.href.split('#')[1]
+			router.go('/dash/mail/view/'+id)
 		}
 	}
 }

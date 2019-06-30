@@ -528,7 +528,7 @@
 				</div>
 
 				<!-- #section:pages/inbox.message-footer -->
-				<div class="message-footer clearfix">
+				<div class="hide message-footer clearfix">
 					<div class="pull-left"> 151 messages total </div>
 
 					<div class="pull-right">
@@ -569,22 +569,22 @@
 					</div>
 				</div>
 
-				<div class="hide message-footer message-footer-style2 clearfix">
-					<div class="pull-left"> simpler footer </div>
+				<div class="message-footer message-footer-style2 clearfix">
+					<div class="pull-left"> last read on <%d.read ? new Date(d.read) : new Date()%> </div>
 
 					<div class="pull-right">
-						<div class="inline middle"> message 1 of 151 </div>
+						<div class="inline middle"> message <%d.index + 1%> of <%d.inbox.length()%> </div>
 
 						&nbsp; &nbsp;
 						<ul class="pagination middle">
-							<li class="disabled">
-								<span>
+							<li class="<%d.index ? "" : "disabled"%>">
+								<a href="#<%d.inbox.at(d.index - 1).id%>">
 									<i class="ace-icon fa fa-angle-left bigger-150"></i>
-								</span>
+								</a>
 							</li>
 
-							<li>
-								<a href="#">
+							<li class="<%(d.index + 1) >= d.inbox.length() ? "disabled" : ""%>">
+								<a href="#<%d.inbox.at(d.index + 1).id%>">
 									<i class="ace-icon fa fa-angle-right bigger-150"></i>
 								</a>
 							</li>
