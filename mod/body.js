@@ -59,9 +59,14 @@ return {
 			}
 
 			deps.ums.callback.on('ready', () => {
+				router.off('change',pageChanged,this)
 				router.on('change',pageChanged,this).start(deps.routes)
 			})
 		})
+	},
+	remove: function(){
+		router.off('change',pageChanged,this)
+		this.super.remove.call(this)
 	},
 	slots: {
 		moduleAdded: function(from, sender){

@@ -152,6 +152,7 @@ Cognito.prototype = {
 		this.callback.trigger('unload')
 	},
 	getId(){
+		if (!this.userPool) return 0
 		const user = this.userPool.getCurrentUser()
 		if (!user) return 0
 		return user.username || 0
