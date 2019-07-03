@@ -88,10 +88,10 @@
 						["html", "file", "land/hero.html"]
 					]],
 					["p/View", "view", [
-						["options", "map", {"tag": "section", "id": "services", "class": "section section-grey", "content": [
+						["options", "map", {"tag": "section", "id": "why", "class": "section section-grey", "content": [
 							{"class": "container"}
 						]}],
-						["html", "file", "land/services.html"]
+						["html", "file", "land/why.html"]
 					]],
 					["p/View", "view", [
 						["options", "map", {"tag": "section", "id": "info", "class": "section", "content": [
