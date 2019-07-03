@@ -1,6 +1,7 @@
 // get html content if possible
 function getContent(node, contents, attachments){
 	switch(node.contentType.value){
+	case 'multipart/mixed':
 	case 'multipart/related':
 	case 'multipart/alternative':
 		node.childNodes.forEach(n => getContent(n, contents, attachments))
@@ -18,24 +19,43 @@ function getContent(node, contents, attachments){
 	}
 }
 
-function readMails(ctx, mails, inbox, cb){
-	if (!mails || !mails.length) return cb()
+function readMails(ctx, list, inbox, mails, cb){
+	if (!list || !list.length) return cb()
 
-	const mail = mails.shift()
-	console.log('reading', mail.Key, mail.Size)
+	const item = list.shift()
+	if (inbox.get(item.Key)) return readMails(ctx, list, inbox, mails, cb)
+	console.log('reading', item.Key, item.Size)
 
-	ctx.read(mail.Key, inbox, err => {
+	ctx.read(item.Key, inbox, mails, err => {
 		if (err) return cb(err)
-		return readMails(ctx, mails, inbox, cb)
+		return readMails(ctx, list, inbox, mails, cb)
 	})
 }
 
-function S3Bucket(config){
-	this.init(config)
+function list(ctx, params, inbox, mails, cb){
+	ctx.ums.getAccessToken(err => {
+		if (err) return cb(err)
+		ctx.s3.listObjectsV2(params, (err, bucket) => {
+			if (err) return cb(err)
+			readMails(ctx, bucket.Contents, inbox, mails, err => {
+				if (err) return cb(err)
+				if (bucket.IsTruncated){
+					params.ContinuationToken = bucket.NextContinuationToken
+					return list(ctx, params, inbox, mails, cb)
+				}
+				cb()
+			})
+		})
+	})
+}
+
+function S3Bucket(ums){
+	this.ums = ums
+	ums.callback.on('load', this.init, this)
 }
 
 S3Bucket.prototype = {
-	init(config){
+	init(evt, config){
 		if (!config) return
 		const selected = config.getSelected()
 		if (!selected) return
@@ -45,42 +65,46 @@ S3Bucket.prototype = {
 		this.awsConfig = aws
 		this.Bucket = aws.Bucket
 	},
-	list(inbox, cb){
-		this.s3.listObjects({Bucket: this.Bucket}, (err, bucket) => {
-			if (err) return cb(err)
-			readMails(this, bucket.Contents, inbox, cb)
-		})
+	list(inbox, mails, cb){
+		list(this, {Bucket: this.Bucket}, inbox, mails, cb)
 	},
-	read(Key, inbox, cb){
-		let mail = inbox.get(Key)
-		if (mail) return cb(null, mail)
+	read(Key, inbox, mails, cb){
+		let mail = mails.get(Key)
+		if (mail) return cb(null, inbox.get(Key), mail)
 
 		const params = {
 			Bucket: this.Bucket,
 			Key
 		}
-		this.s3.getObject(params, (err, detail) => {
+		this.ums.getAccessToken(err => {
 			if (err) return cb(err)
-			try{
-				const mimeNode = emailjs.parse(detail.Body)
-				const headers = mimeNode.headers
-				const attachments = []
-				const contents = {}
-				getContent(mimeNode, contents, attachments)
-				inbox.create({
-					id: Key,
-					sender: headers.from[0].value[0].name,
-					time: new Date(headers.date[0].value),
-					subject: headers.subject[0].value,
-					headers,
-					body: contents['text/html'] || contents['text/plain'],
-					attachments
-				})
-			}catch(exp){
-				// supress parse exception
-				return cb(exp)
-			}
-			cb(null, inbox.get(Key))
+			this.s3.getObject(params, (err, detail) => {
+				if (err) return cb(err)
+				try{
+					const mimeNode = emailjs.parse(detail.Body)
+					const headers = mimeNode.headers
+					const attachments = []
+					const contents = {}
+					getContent(mimeNode, contents, attachments)
+					inbox.create({
+						id: Key,
+						sender: headers.from[0].value[0].name,
+						time: new Date(headers.date[0].value),
+						subject: headers.subject[0].value,
+						attachments: attachments.length
+					})
+					mails.create({
+						id: Key,
+						headers,
+						body: contents['text/html'] || contents['text/plain'],
+						attachments
+					})
+				}catch(exp){
+					// supress parse exception
+					return cb(exp)
+				}
+				cb(null, inbox.get(Key), mails.get(Key))
+			})
 		})
 	}
 }

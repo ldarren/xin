@@ -4,7 +4,7 @@ return {
 	deps: {
 		tpl: 'file',
 		menu: 'models',
-		breadcrumbs: 'models'
+		breadcrumbs: 'models',
 	},
 	create(deps, params){
 		this.super.create.call(this, deps, params)

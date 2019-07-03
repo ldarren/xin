@@ -79,11 +79,11 @@
 		<div id="inbox" class="tab-pane in active">
 			<div class="message-container">
 				<!-- #section:pages/inbox.navbar -->
-				<div id="id-message-list-navbar" class="hide message-navbar clearfix">
+				<div id="id-message-list-navbar" class="message-navbar clearfix">
 					<div class="message-bar">
 						<div class="message-infobar" id="id-message-infobar">
 							<span class="blue bigger-150">Inbox</span>
-							<span class="grey bigger-110">(2 unread messages)</span>
+							<span class="grey bigger-110">(<%d.unread%> unread messages)</span>
 						</div>
 
 						<div class="message-toolbar hide">
@@ -200,21 +200,21 @@
 
 								<ul class="dropdown-menu dropdown-lighter dropdown-100">
 									<li>
-										<a id="id-select-message-all" href="#">All</a>
+										<a id="id-select-message-all" class=select-message href="#">All</a>
 									</li>
 
 									<li>
-										<a id="id-select-message-none" href="#">None</a>
+										<a id="id-select-message-none" class=select-message href="#">None</a>
 									</li>
 
 									<li class="divider"></li>
 
 									<li>
-										<a id="id-select-message-unread" href="#">Unread</a>
+										<a id="id-select-message-unread" class=select-message href="#">Unread</a>
 									</li>
 
 									<li>
-										<a id="id-select-message-read" href="#">Read</a>
+										<a id="id-select-message-read" class=select-message href="#">Read</a>
 									</li>
 								</ul>
 							</div>
@@ -229,22 +229,22 @@
 
 								<ul class="dropdown-menu dropdown-lighter dropdown-menu-right dropdown-100">
 									<li>
-										<a href="#">
-											<i class="ace-icon fa fa-check green"></i>
+										<a class=orderby href="#date">
+											<i class="ace-icon fa fa-check <%"time" === d.pageSort ? "green" : "invisible"%>"></i>
 											Date
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
-											<i class="ace-icon fa fa-check invisible"></i>
+										<a class=orderby href="#from">
+											<i class="ace-icon fa fa-check <%"from" === d.pageSort ? "green" : "invisible"%>"></i>
 											From
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
-											<i class="ace-icon fa fa-check invisible"></i>
+										<a class=orderby href="#subject">
+											<i class="ace-icon fa fa-check <%"subject" === d.pageSort ? "green" : "invisible"%>"></i>
 											Subject
 										</a>
 									</li>
@@ -253,10 +253,11 @@
 						</div>
 
 						<!-- #section:pages/inbox.navbar-search -->
-						<div class="nav-search minimized">
+						<!-- <div class="nav-search minimized"> -->
+						<div class=nav-search>
 							<form class="form-search">
 								<span class="input-icon">
-									<input type="text" autocomplete="off" class="input-small nav-search-input" placeholder="Search inbox ..." />
+									<input type="text" autocomplete="off" class="input-small nav-search-input" placeholder="Search inbox ..." value=<%d.search%> >
 									<i class="ace-icon fa fa-search nav-search-icon"></i>
 								</span>
 							</form>
@@ -266,7 +267,7 @@
 					</div>
 				</div>
 
-				<div id="id-message-item-navbar" class="message-navbar clearfix">
+				<div id="id-message-item-navbar" class="hide message-navbar clearfix">
 					<div class="message-bar">
 						<div class="message-toolbar">
 							<div class="inline position-relative align-left">
@@ -419,149 +420,43 @@
 
 				<!-- /section:pages/inbox.navbar -->
 				<div class="message-list-container">
-					<!-- #section:pages/inbox.message-list -->
-					<div class="message-content" id="id-message-content">
-						<!-- #section:pages/inbox.message-header -->
-						<div class="message-header clearfix">
-							<div class="pull-left">
-								<span class="blue bigger-125"> <%d.subject%> </span>
-
-								<div class="space-4"></div>
-
-								<i class="ace-icon fa fa-star orange2"></i>
-
-								&nbsp;
-								<img class="middle" alt="<%d.sender%>&#39;s Avatar" src="dat/avatar.png" width="32">
-								&nbsp;
-								<a href="#" class="sender"><%d.sender%></a>
-
-								&nbsp;
-								<i class="ace-icon fa fa-clock-o bigger-110 orange middle"></i>
-								<span class="time grey"><%d.time%></span>
-							</div>
-
-							<div class="pull-right action-buttons">
-								<a href="#">
-									<i class="ace-icon fa fa-reply green icon-only bigger-130"></i>
-								</a>
-
-								<a href="#">
-									<i class="ace-icon fa fa-mail-forward blue icon-only bigger-130"></i>
-								</a>
-
-								<a href="#">
-									<i class="ace-icon fa fa-trash-o red icon-only bigger-130"></i>
-								</a>
-							</div>
-						</div>
-
-						<!-- /section:pages/inbox.message-header -->
-						<div class="hr hr-double"></div>
-
-						<!-- #section:pages/inbox.message-body -->
-						<%d.content%>
-						<!-- /section:pages/inbox.message-body -->
-						<div class="hr hr-double"></div>
-
-						<!-- #section:pages/inbox.message-attachment -->
-						<div class="message-attachment clearfix">
-							<div class="attachment-title">
-								<span class="blue bolder bigger-110">Attachments</span>
-								&nbsp;
-								<span class="grey">(<%d.attachments.length%> files, <%d.attachmentSize%>)</span>
-
-								<div class="inline position-relative">
-									<a href="#" data-toggle="dropdown" class="dropdown-toggle">
-										&nbsp;
-										<i class="ace-icon fa fa-caret-down bigger-125 middle"></i>
-									</a>
-
-									<ul class="dropdown-menu dropdown-lighter">
-										<li>
-											<a href="#">Download all as zip</a>
-										</li>
-
-										<li>
-											<a href="#">Display in slideshow</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-
-							&nbsp;
-							<ul class="attachment-list pull-left list-unstyled">
-								<%for(var i = 0, a, icon, name, t; (a = d.attachments[i]); i++){%>
-									<%if ("image" === a.contentType.type) continue;%>
-									<li>
-										<a href="#" class="attached-file">
-											<i class="ace-icon fa <%"video" === a.contentType.type ? "fa-film" : "fa-file-o"%> bigger-110"></i>
-											<span class="attached-name"><%a.contentType.params.name%></span>
-										</a>
-
-										<span class="action-buttons">
-											<a href="<%`data:${a.contentType.value};base64, ${a.content}`%>" download="<%a.contentType.params.name%>">
-												<i class="ace-icon fa fa-download bigger-125 blue"></i>
-											</a>
-
-											<a href="#">
-												<i class="ace-icon fa fa-trash-o bigger-125 red"></i>
-											</a>
-										</span>
-									</li>
-								<%}%>
-							</ul>
-
-							<div class="attachment-images pull-right">
-								<div class="vspace-4-sm"></div>
-								<%for(var i = 0, a; (a = d.attachments[i]); i++){%>
-									<%if ("image" !== a.contentType.type) continue;%>
-									<img width="36" alt="<%a.contentType.params.name%>" src="<%`data:${a.contentType.value};base64, ${a.content}`%>">
-								<%}%>
-								<div>
-								</div>
-							</div>
-						</div>
-
-						<!-- /section:pages/inbox.message-attachment -->
-					</div>
-					<!-- /section:pages/inbox.message-list -->
 				</div>
 
 				<!-- #section:pages/inbox.message-footer -->
-				<div class="hide message-footer clearfix">
-					<div class="pull-left"> 151 messages total </div>
+				<div class="message-footer clearfix">
+					<div class="pull-left"> <%d.inbox.length()%> messages total </div>
 
 					<div class="pull-right">
-						<div class="inline middle"> page 1 of 16 </div>
+						<div class="inline middle"> page <%d.pageIndex%> of <%d.pageMax%> </div>
 
 						&nbsp; &nbsp;
 						<ul class="pagination middle">
-							<li class="disabled">
-								<span>
+							<li class="<%1 === d.pageIndex ? "disabled" : ""%>">
+								<a href="#first">
 									<i class="ace-icon fa fa-step-backward middle"></i>
-								</span>
+								</a>
 							</li>
 
-							<li class="disabled">
-								<span>
+							<li class="<%1 === d.pageIndex ? "disabled" : ""%>">
+								<a href="#prev">
 									<i class="ace-icon fa fa-caret-left bigger-140 middle"></i>
-								</span>
+								</a>
 							</li>
 
 							<li>
 								<span>
-									<input value="1" maxlength="3" type="text" />
+									<input value=<%d.pageIndex%> maxlength=<%d.pageMax%> type=text />
 								</span>
 							</li>
 
-							<li>
-								<a href="#">
+							<li class="<%d.pageMax === d.pageIndex ? "disabled" : ""%>">
+								<a href="#next">
 									<i class="ace-icon fa fa-caret-right bigger-140 middle"></i>
 								</a>
 							</li>
 
-							<li>
-								<a href="#">
+							<li class="<%d.pageMax === d.pageIndex ? "disabled" : ""%>">
+								<a href="#last">
 									<i class="ace-icon fa fa-step-forward middle"></i>
 								</a>
 							</li>
@@ -569,22 +464,22 @@
 					</div>
 				</div>
 
-				<div class="message-footer message-footer-style2 clearfix">
-					<div class="pull-left"> last read on <%d.read ? new Date(d.read) : new Date()%> </div>
+				<div class="hide message-footer message-footer-style2 clearfix">
+					<div class="pull-left"> simpler footer </div>
 
 					<div class="pull-right">
-						<div class="inline middle"> message <%d.index + 1%> of <%d.inbox.length()%> </div>
+						<div class="inline middle"> message 1 of 151 </div>
 
 						&nbsp; &nbsp;
 						<ul class="pagination middle">
-							<li class="<%d.index ? "" : "disabled"%>">
-								<a href="#<%d.inbox.at(d.index - 1).id%>">
+							<li class="disabled">
+								<span>
 									<i class="ace-icon fa fa-angle-left bigger-150"></i>
-								</a>
+								</span>
 							</li>
 
-							<li class="<%(d.index + 1) >= d.inbox.length() ? "disabled" : ""%>">
-								<a href="#<%d.inbox.at(d.index + 1).id%>">
+							<li>
+								<a href="#">
 									<i class="ace-icon fa fa-angle-right bigger-150"></i>
 								</a>
 							</li>
@@ -744,7 +639,7 @@
 		<div class="attachment-title">
 			<span class="blue bolder bigger-110">Attachments</span>
 			&nbsp;
-			<span class="grey">(<%d.attachments.length%> files, <%d.attachmentSize%> MB)</span>
+			<span class="grey">(2 files, 4.5 MB)</span>
 
 			<div class="inline position-relative">
 				<a href="#" data-toggle="dropdown" class="dropdown-toggle">

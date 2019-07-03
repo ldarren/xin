@@ -1,6 +1,6 @@
 {
   "name": "xin",
-  "version": "0.5.4",
+  "version": "0.6.6",
   "description": "xin client",
   "main": "pclient-build",
   "scripts": {
@@ -27,11 +27,11 @@
   },
   "homepage": "https://github.com/ldarren/xin#readme",
   "dependencies": {
-    "amazon-cognito-identity-js": "^3.0.12",
-    "aws-sdk": "^2.471.0",
+    "amazon-cognito-identity-js": "^3.0.13",
+    "aws-sdk": "^2.485.0",
     "emailjs-mime-parser": "^2.0.7",
     "holderjs": "^2.9.6",
-    "pico-client": "^0.5.15"
+    "pico-client": "^0.5.18"
   },
   "devDependencies": {
     "pico-args": "^1.0.13"
