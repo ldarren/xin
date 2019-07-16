@@ -123,7 +123,57 @@
 						]}],
 						["html", "file", "land/contact.html"]
 					]],
+					["land/footer", "view", [
+						["options", "map", {"tag": "footer", "id": "footer", "class": "section", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/footer.html"]
+					]]
+				]]
+			]],
+			"privacy": ["land/layout", "view", [
+				["options", "map", {"el": "body", "class":"no-skin pos-rel", "data": {"spy": "scroll", "target": "#menu"}}],
+				["css", "file", "land/layout.css"],
+				["ums", "ref", "ums"],
+				["land/navbar", "view", [
+					["options", "map", {"id":"navbar", "class":"navbar navbar-default navbar-fixed-top", "content": [{"id":"navbar-container", "class":"navbar-container container"}]}],
+					["html", "file", "land/navbar.html"],
+					["ums", "ref", "ums"]
+				]],
+				["p/View", "view", [
+					["options", "map", {"id": "top", "class":"main-container"}],
 					["p/View", "view", [
+						["options", "map", {"tag": "section", "id": "privacy", "class": "section", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/privacy.html"]
+					]],
+					["land/footer", "view", [
+						["options", "map", {"tag": "footer", "id": "footer", "class": "section", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/footer.html"]
+					]]
+				]]
+			]],
+			"terms": ["land/layout", "view", [
+				["options", "map", {"el": "body", "class":"no-skin pos-rel", "data": {"spy": "scroll", "target": "#menu"}}],
+				["css", "file", "land/layout.css"],
+				["ums", "ref", "ums"],
+				["land/navbar", "view", [
+					["options", "map", {"id":"navbar", "class":"navbar navbar-default navbar-fixed-top", "content": [{"id":"navbar-container", "class":"navbar-container container"}]}],
+					["html", "file", "land/navbar.html"],
+					["ums", "ref", "ums"]
+				]],
+				["p/View", "view", [
+					["options", "map", {"id": "top", "class":"main-container"}],
+					["p/View", "view", [
+						["options", "map", {"tag": "section", "id": "privacy", "class": "section", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/terms.html"]
+					]],
+					["land/footer", "view", [
 						["options", "map", {"tag": "footer", "id": "footer", "class": "section", "content": [
 							{"class": "container"}
 						]}],
@@ -314,6 +364,8 @@
 		}],
 		["routes","map",{
 			"/": ["land"],
+			"/privacy": ["privacy"],
+			"/terms": ["terms"],
 			"/auth":["auth"],
 			"/dash":["home"],
 			"/dash/mail":["home","mailbox"],

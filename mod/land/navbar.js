@@ -34,13 +34,11 @@ return {
 		'click a': function(e, target){
 			const href = $(target).attr('href')
 			switch(href){
+			case '#land#top':
 			case '#login':
-				e.preventDefault
-				router.go('/auth')
-				break
 			case '#dash':
-				e.preventDefault
-				router.go('/dash')
+				e.preventDefault()
+				router.go(href.replace('#','/'))
 				break
 			default:
 			{
