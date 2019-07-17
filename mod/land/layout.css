@@ -8,13 +8,6 @@ body {
 .main-container:before {
   display: none;
 }
-.img-main-background {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  max-width: none;
-  z-index: 0;
-}
 .jumbotron {
   border-radius: 0;
   height: 100%;
@@ -23,8 +16,8 @@ body {
   margin-bottom: 0;
 }
 .jumbotron.has-background {
-	background: transparent url("dat/home-bg.jpg") top center no-repeat;
-	/* background source: https://pixabay.com/en/apple-steve-jobs-quotes-scrabble-758334/ */
+	background: transparent url("dat/hero-bg.jpg") top center no-repeat;
+	/* background source: https://unsplash.com/@joannakosinska?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText */
 }
 .navbar {
   background-color: #69b9ff; 

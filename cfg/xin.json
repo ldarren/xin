@@ -83,8 +83,8 @@
 				]],
 				["p/View", "view", [
 					["options", "map", {"id": "top", "class":"main-container"}],
-					["land/hero", "view", [
-						["options", "map", {"tag": "header", "class": "jumbotron main-background"}],
+					["p/View", "view", [
+						["options", "map", {"tag": "header", "class": "jumbotron has-background main-background"}],
 						["html", "file", "land/hero.html"]
 					]],
 					["p/View", "view", [
