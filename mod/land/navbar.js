@@ -3,8 +3,11 @@ const router = require('po/router')
 return {
 	deps: {
 		ums: 'cognito',
+		tpl: 'file',
+		shortcuts: ['boolean', false]
 	},
 	create(deps, params){
+		this.el.innerHTML = deps.tpl(deps)
 		///make navbar compact when scrolling down
 		var isCompact = false
 		$(window).on('scroll.scroll_nav', function() {

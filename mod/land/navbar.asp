@@ -17,6 +17,7 @@
 <div class=" navbar-header navbar-right" role="navigation">
 	<div id="menu" class="collapse navbar-collapse">
 		<ul class="nav navbar-nav navbar-right" role="tablist">
+			<%if (d.shortcuts) {%>
 			<li>
 				<a href="#why">Why</a>
 			</li>
@@ -48,10 +49,11 @@
 			<li class="sep visible-md visible-lg">
 				<i class="ace-icon fa fa-circle white"></i>
 			</li>
+			<%}%>
 			
 			<li id=auth>
 				<a href="#login">
-					<span class="light-green">Login</span> &nbsp;<i class="fa fa-user bigger-110 light-green"></i>
+					<span class=dark>Login</span> &nbsp;<i class="fa fa-user bigger-110"></i>
 				</a>
 			</li>
 		</ul>

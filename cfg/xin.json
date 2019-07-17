@@ -78,7 +78,8 @@
 				["ums", "ref", "ums"],
 				["land/navbar", "view", [
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default navbar-fixed-top", "content": [{"id":"navbar-container", "class":"navbar-container container"}]}],
-					["html", "file", "land/navbar.html"],
+					["tpl", "file", "land/navbar.asp"],
+					["shortcuts", "bool", true],
 					["ums", "ref", "ums"]
 				]],
 				["p/View", "view", [
@@ -137,7 +138,7 @@
 				["ums", "ref", "ums"],
 				["land/navbar", "view", [
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default navbar-fixed-top", "content": [{"id":"navbar-container", "class":"navbar-container container"}]}],
-					["html", "file", "land/navbar.html"],
+					["tpl", "file", "land/navbar.asp"],
 					["ums", "ref", "ums"]
 				]],
 				["p/View", "view", [
@@ -162,7 +163,7 @@
 				["ums", "ref", "ums"],
 				["land/navbar", "view", [
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default navbar-fixed-top", "content": [{"id":"navbar-container", "class":"navbar-container container"}]}],
-					["html", "file", "land/navbar.html"],
+					["tpl", "file", "land/navbar.asp"],
 					["ums", "ref", "ums"]
 				]],
 				["p/View", "view", [
