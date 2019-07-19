@@ -34,21 +34,6 @@
 				<i class="ace-icon fa fa-circle white"></i>
 			</li>
 			
-			<li>
-				<a href="#slider">Slider</a>
-			</li>
-			
-			<li class="sep visible-md visible-lg">
-				<i class="ace-icon fa fa-circle white"></i>
-			</li>
-			
-			<li>
-				<a href="#contact">Contact</a>
-			</li>
-			
-			<li class="sep visible-md visible-lg">
-				<i class="ace-icon fa fa-circle white"></i>
-			</li>
 			<%}%>
 			
 			<li id=auth>

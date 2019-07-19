@@ -106,23 +106,11 @@
 						]}],
 						["html", "file", "land/info2.html"]
 					]],
-					["land/slider", "view", [
-						["options", "map", {"tag": "section", "id": "slider", "class": "section no-padding", "content": [
-							{"id": "carousel-example", "class": "carousel slide", "data": {"ride": "carousel"}}
-						]}],
-						["html", "file", "land/slider.html"]
-					]],
 					["p/View", "view", [
-						["options", "map", {"tag": "section", "id": "clients", "class": "section", "content": [
+						["options", "map", {"tag": "section", "id": "info3", "class": "section", "content": [
 							{"class": "container"}
 						]}],
-						["html", "file", "land/clients.html"]
-					]],
-					["p/View", "view", [
-						["options", "map", {"tag": "section", "id": "contact", "class": "section section-contact", "content": [
-							{"class": "container"}
-						]}],
-						["html", "file", "land/contact.html"]
+						["html", "file", "land/info3.html"]
 					]],
 					["land/footer", "view", [
 						["options", "map", {"tag": "footer", "id": "footer", "class": "section", "content": [
