@@ -112,6 +112,12 @@
 						]}],
 						["html", "file", "land/info3.html"]
 					]],
+					["p/View", "view", [
+						["options", "map", {"tag": "section", "id": "info4", "class": "section section-grey", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/info4.html"]
+					]],
 					["land/footer", "view", [
 						["options", "map", {"tag": "footer", "id": "footer", "class": "section", "content": [
 							{"class": "container"}

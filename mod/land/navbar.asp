@@ -37,7 +37,7 @@
 			<%}%>
 			
 			<li id=auth>
-				<a href="#login">
+				<a href="#auth">
 					<span class=dark>Login</span> &nbsp;<i class="fa fa-user bigger-110"></i>
 				</a>
 			</li>

@@ -31,7 +31,7 @@ return {
 			a.href= '#dash'
 			span.innerText = 'Dashboard'
 		}else{
-			a.href= '#login'
+			a.href= '#auth'
 			span.innerText = 'Login'
 		}
 	},
@@ -39,8 +39,8 @@ return {
 		'click a': function(e, target){
 			const href = $(target).attr('href')
 			switch(href){
-			case '#land#top':
-			case '#login':
+			case '#land':
+			case '#auth':
 			case '#dash':
 				e.preventDefault()
 				router.go(href.replace('#','/'))
