@@ -11,7 +11,7 @@ function pageChanged(evt, states, params){
 		if (this.deps.ums.isValid()) return router.go('/dash')
 		else return router.go('/')
 	}
-	if (!states.includes('land')){
+	if (states.includes('home') || states.includes('auth')){
 		if (this.deps.ums.isValid()){
 			if (states.includes('auth')) return router.go('/dash')
 		} else {

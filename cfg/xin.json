@@ -78,20 +78,21 @@
 				["ums", "ref", "ums"],
 				["land/navbar", "view", [
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default navbar-fixed-top", "content": [{"id":"navbar-container", "class":"navbar-container container"}]}],
-					["html", "file", "land/navbar.html"],
+					["tpl", "file", "land/navbar.asp"],
+					["shortcuts", "bool", true],
 					["ums", "ref", "ums"]
 				]],
 				["p/View", "view", [
 					["options", "map", {"id": "top", "class":"main-container"}],
-					["land/hero", "view", [
-						["options", "map", {"tag": "header", "class": "jumbotron main-background"}],
+					["p/View", "view", [
+						["options", "map", {"tag": "header", "class": "jumbotron has-background main-background"}],
 						["html", "file", "land/hero.html"]
 					]],
 					["p/View", "view", [
-						["options", "map", {"tag": "section", "id": "services", "class": "section section-grey", "content": [
+						["options", "map", {"tag": "section", "id": "why", "class": "section section-grey", "content": [
 							{"class": "container"}
 						]}],
-						["html", "file", "land/services.html"]
+						["html", "file", "land/why.html"]
 					]],
 					["p/View", "view", [
 						["options", "map", {"tag": "section", "id": "info", "class": "section", "content": [
@@ -105,25 +106,69 @@
 						]}],
 						["html", "file", "land/info2.html"]
 					]],
-					["land/slider", "view", [
-						["options", "map", {"tag": "section", "id": "slider", "class": "section no-padding", "content": [
-							{"id": "carousel-example", "class": "carousel slide", "data": {"ride": "carousel"}}
-						]}],
-						["html", "file", "land/slider.html"]
-					]],
 					["p/View", "view", [
-						["options", "map", {"tag": "section", "id": "clients", "class": "section", "content": [
+						["options", "map", {"tag": "section", "id": "info3", "class": "section", "content": [
 							{"class": "container"}
 						]}],
-						["html", "file", "land/clients.html"]
+						["html", "file", "land/info3.html"]
 					]],
 					["p/View", "view", [
-						["options", "map", {"tag": "section", "id": "contact", "class": "section section-contact", "content": [
+						["options", "map", {"tag": "section", "id": "info4", "class": "section section-grey", "content": [
 							{"class": "container"}
 						]}],
-						["html", "file", "land/contact.html"]
+						["html", "file", "land/info4.html"]
 					]],
+					["land/footer", "view", [
+						["options", "map", {"tag": "footer", "id": "footer", "class": "section", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/footer.html"]
+					]]
+				]]
+			]],
+			"privacy": ["land/layout", "view", [
+				["options", "map", {"el": "body", "class":"no-skin pos-rel", "data": {"spy": "scroll", "target": "#menu"}}],
+				["css", "file", "land/layout.css"],
+				["ums", "ref", "ums"],
+				["land/navbar", "view", [
+					["options", "map", {"id":"navbar", "class":"navbar navbar-default navbar-fixed-top", "content": [{"id":"navbar-container", "class":"navbar-container container"}]}],
+					["tpl", "file", "land/navbar.asp"],
+					["ums", "ref", "ums"]
+				]],
+				["p/View", "view", [
+					["options", "map", {"id": "top", "class":"main-container"}],
 					["p/View", "view", [
+						["options", "map", {"tag": "section", "id": "privacy", "class": "section", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/privacy.html"]
+					]],
+					["land/footer", "view", [
+						["options", "map", {"tag": "footer", "id": "footer", "class": "section", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/footer.html"]
+					]]
+				]]
+			]],
+			"terms": ["land/layout", "view", [
+				["options", "map", {"el": "body", "class":"no-skin pos-rel", "data": {"spy": "scroll", "target": "#menu"}}],
+				["css", "file", "land/layout.css"],
+				["ums", "ref", "ums"],
+				["land/navbar", "view", [
+					["options", "map", {"id":"navbar", "class":"navbar navbar-default navbar-fixed-top", "content": [{"id":"navbar-container", "class":"navbar-container container"}]}],
+					["tpl", "file", "land/navbar.asp"],
+					["ums", "ref", "ums"]
+				]],
+				["p/View", "view", [
+					["options", "map", {"id": "top", "class":"main-container"}],
+					["p/View", "view", [
+						["options", "map", {"tag": "section", "id": "privacy", "class": "section", "content": [
+							{"class": "container"}
+						]}],
+						["html", "file", "land/terms.html"]
+					]],
+					["land/footer", "view", [
 						["options", "map", {"tag": "footer", "id": "footer", "class": "section", "content": [
 							{"class": "container"}
 						]}],
@@ -314,6 +359,8 @@
 		}],
 		["routes","map",{
 			"/": ["land"],
+			"/privacy": ["privacy"],
+			"/terms": ["terms"],
 			"/auth":["auth"],
 			"/dash":["home"],
 			"/dash/mail":["home","mailbox"],

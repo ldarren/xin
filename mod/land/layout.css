@@ -8,13 +8,6 @@ body {
 .main-container:before {
   display: none;
 }
-.img-main-background {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  max-width: none;
-  z-index: 0;
-}
 .jumbotron {
   border-radius: 0;
   height: 100%;
@@ -23,11 +16,15 @@ body {
   margin-bottom: 0;
 }
 .jumbotron.has-background {
-	background: transparent url("dat/home-bg.jpg") top center no-repeat;
-	/* background source: https://pixabay.com/en/apple-steve-jobs-quotes-scrabble-758334/ */
+	background: transparent url("dat/hero-bg.jpg") top center no-repeat;
+	/* background source: https://unsplash.com/@joannakosinska?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText */
+}
+.jumbotron div.text-center {
+	background-color: rgba(255, 255, 255, 0.6);
+	padding: 20px;
 }
 .navbar {
-  background-color: #69b9ff; 
+  background-color: rgba(105, 185, 255);
   padding: 20px;
   -webkit-transition: padding 0.2s, background-color 0.2s;
   -o-transition: padding 0.2s, background-color 0.2s;
@@ -86,7 +83,7 @@ body {
 }
 .navbar-compact.navbar {
   padding: 5px;
-  background-color: rgba(67, 142, 185, 0.92);
+  background-color: rgba(105, 185, 255, 0.92);
 }
 .navbar-compact.navbar .navbar-brand {
   font-size: 24px;
@@ -97,7 +94,7 @@ body {
   }
   .navbar.navbar {
     padding: 5px;
-    background-color: rgba(67, 142, 185, 0.92);
+    background-color: rgba(105, 185, 255, 0.92);
   }
   .navbar.navbar .navbar-brand {
     font-size: 24px;

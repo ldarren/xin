@@ -3,8 +3,13 @@ const router = require('po/router')
 return {
 	deps: {
 		ums: 'cognito',
+		tpl: 'file',
+		shortcuts: ['boolean', false]
 	},
 	create(deps, params){
+		const el = this.el.querySelector('#navbar-container')
+		this.setElement(el)
+		el.innerHTML = deps.tpl(deps)
 		///make navbar compact when scrolling down
 		var isCompact = false
 		$(window).on('scroll.scroll_nav', function() {
@@ -20,13 +25,13 @@ return {
 			}
 		}).triggerHandler('scroll.scroll_nav')
 
-		const a = this.el.querySelector('li#auth a')
+		const a = el.querySelector('li#auth a')
 		const span = a.querySelector('span')
 		if (deps.ums.isValid()){
 			a.href= '#dash'
 			span.innerText = 'Dashboard'
 		}else{
-			a.href= '#login'
+			a.href= '#auth'
 			span.innerText = 'Login'
 		}
 	},
@@ -34,13 +39,11 @@ return {
 		'click a': function(e, target){
 			const href = $(target).attr('href')
 			switch(href){
-			case '#login':
-				e.preventDefault
-				router.go('/auth')
-				break
+			case '#land':
+			case '#auth':
 			case '#dash':
-				e.preventDefault
-				router.go('/dash')
+				e.preventDefault()
+				router.go(href.replace('#','/'))
 				break
 			default:
 			{
