@@ -1,15 +1,5 @@
 const router = require('po/router')
-const LOCALE = 'en-US'
-const TIME_OPTIONS = { hour12: true, hour: '2-digit', minute: '2-digit' }
-const DATE_OPTIONS = { day: 'numeric', month: 'short' }
-
-function mailTime(time, now){
-	if (time.getFullYear() !== now.getFullYear())
-		return time.toLocaleDateString()
-	if (time.getMonth() === now.getMonth() && time.getDate() === now.getDate())
-		return time.toLocaleTimeString(LOCALE, TIME_OPTIONS)
-	return time.toLocaleDateString(LOCALE, DATE_OPTIONS)
-}
+const util = require('email/util')
 
 /*
  * variables
@@ -35,7 +25,7 @@ function renderMail(item, select, now = new Date) {
 
 		<i class="message-star ace-icon fa ${item.star ? 'fa-star orange2' : 'fa-star-o light-grey'}"></i>
 		<span class=sender title="${item.sender}">${item.sender} </span>
-		<span class=time>${mailTime(new Date(item.time), now)}</span>
+		<span class=time>${util.mailTime(new Date(item.time), now)}</span>
 	`
 	if (item.attachments) {
 		mail += '<span class=attachment><i class="ace-icon fa fa-paperclip"></i></span>'
