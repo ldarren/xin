@@ -4,12 +4,13 @@ const pObj = pico.export('pico/obj')
 const Callback = require('po/Callback')
 
 function setAWSConfig(aws, token, cb){
+	const region = aws.IdentityPoolId.split(':')[0]
 	AWS.config.update({
 		region: aws.region,
 		credentials: new AWS.CognitoIdentityCredentials({
 			IdentityPoolId: aws.IdentityPoolId,
 			Logins: {
-				[`cognito-idp.${aws.region}.amazonaws.com/${aws.UserPoolId}`]: token
+				[`cognito-idp.${region}.amazonaws.com/${aws.UserPoolId}`]: token
 			}
 		})
 	})
@@ -22,7 +23,8 @@ function refreshToken(user, aws, session, cb){
 
 	user.refreshSession(session.getRefreshToken(), (err, session) => {
 		if (err) return cb(err)
-		cred.params.Logins[`cognito-idp.${aws.region}.amazonaws.com/${aws.UserPoolId}`] = session.getIdToken().getJwtToken()
+		const region = aws.IdentityPoolId.split(':')[0]
+		cred.params.Logins[`cognito-idp.${region}.amazonaws.com/${aws.UserPoolId}`] = session.getIdToken().getJwtToken()
 		cred.refresh(err => cb(err, session, true))
 	})
 }
