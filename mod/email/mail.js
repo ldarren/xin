@@ -1,5 +1,6 @@
 const router = require('po/router')
 const pObj = pico.export('pico/obj')
+const util = require('email/util')
 const KB = 1024
 const MB = KB * KB
 
@@ -70,7 +71,7 @@ return {
 				inbox: deps.inbox,
 				index: deps.inbox.indexOf(item.id),
 				sender: item.sender,
-				time: item.time,
+				time: util.mailTime(new Date(item.time)),
 				subject: item.subject,
 				content,
 				attachments,
@@ -89,6 +90,31 @@ return {
 			const a = target.querySelector('a')
 			const id = a.href.split('#')[1]
 			router.go('/dash/mail/view/'+id)
+		},
+		'click ul#inbox-tabs a': function(evt, target){
+			const route = target.href.split('#')[1]
+			switch(route){
+			case 'write':
+			case 'sent':
+			case 'draft':
+			case '':
+				evt.preventDefault()
+				alert('Coming soon')
+				break
+			}
+		},
+		'click a': function(evt, target){
+			const route = target.href.split('#')[1]
+			switch(route){
+			case 'preview':
+			case 'reply':
+			case 'forward':
+			case 'delete':
+			case 'soon':
+				evt.preventDefault()
+				alert('Coming soon')
+				break
+			}
 		}
 	}
 }

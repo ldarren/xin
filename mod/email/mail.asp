@@ -3,7 +3,7 @@
 	<ul id="inbox-tabs" class="inbox-tabs nav nav-tabs padding-16 tab-size-bigger tab-space-1">
 		<!-- #section:pages/inbox.compose-btn -->
 		<li class="li-new-mail pull-right">
-			<a data-toggle="tab" href="#write" data-target="write" class="btn-new-mail">
+			<a data-toggle="tab-disable" href="#write" data-target="write" class="btn-new-mail">
 				<span class="btn btn-purple no-border">
 					<i class="ace-icon fa fa-envelope bigger-130"></i>
 					<span class="bigger-110">Write Mail</span>
@@ -20,21 +20,21 @@
 		</li>
 
 		<li>
-			<a data-toggle="tab" href="#sent" data-target="sent">
+			<a data-toggle="tab-disable" href="#sent" data-target="sent">
 				<i class="orange ace-icon fa fa-location-arrow bigger-130"></i>
 				<span class="bigger-110">Sent</span>
 			</a>
 		</li>
 
 		<li>
-			<a data-toggle="tab" href="#draft" data-target="draft">
+			<a data-toggle="tab-disable" href="#draft" data-target="draft">
 				<i class="green ace-icon fa fa-pencil bigger-130"></i>
 				<span class="bigger-110">Draft</span>
 			</a>
 		</li>
 
 		<li class="dropdown">
-			<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+			<a data-toggle="dropdown-disable" class="dropdown-toggle" href="#">
 				<i class="pink ace-icon fa fa-tags bigger-130"></i>
 
 				<span class="bigger-110">
@@ -96,19 +96,19 @@
 
 								<ul class="dropdown-menu dropdown-lighter dropdown-caret dropdown-125">
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-mail-reply blue"></i>&nbsp; Reply
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-mail-forward green"></i>&nbsp; Forward
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-folder-open orange"></i>&nbsp; Archive
 										</a>
 									</li>
@@ -116,19 +116,19 @@
 									<li class="divider"></li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-eye blue"></i>&nbsp; Mark as read
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-eye-slash green"></i>&nbsp; Mark unread
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-flag-o red"></i>&nbsp; Flag
 										</a>
 									</li>
@@ -136,7 +136,7 @@
 									<li class="divider"></li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-trash-o red bigger-110"></i>&nbsp; Delete
 										</a>
 									</li>
@@ -153,25 +153,25 @@
 
 								<ul class="dropdown-menu dropdown-lighter dropdown-caret dropdown-125">
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-stop pink2"></i>&nbsp; Tag#1
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-stop blue"></i>&nbsp; Family
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-stop green"></i>&nbsp; Friends
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-stop grey"></i>&nbsp; Work
 										</a>
 									</li>
@@ -278,19 +278,19 @@
 
 								<ul class="dropdown-menu dropdown-lighter dropdown-caret dropdown-125">
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-mail-reply blue"></i>&nbsp; Reply
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-mail-forward green"></i>&nbsp; Forward
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-folder-open orange"></i>&nbsp; Archive
 										</a>
 									</li>
@@ -298,19 +298,19 @@
 									<li class="divider"></li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-eye blue"></i>&nbsp; Mark as read
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-eye-slash green"></i>&nbsp; Mark unread
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-flag-o red"></i>&nbsp; Flag
 										</a>
 									</li>
@@ -318,7 +318,7 @@
 									<li class="divider"></li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-trash-o red bigger-110"></i>&nbsp; Delete
 										</a>
 									</li>
@@ -335,25 +335,25 @@
 
 								<ul class="dropdown-menu dropdown-lighter dropdown-caret dropdown-125">
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-stop pink2"></i>&nbsp; Tag#1
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-stop blue"></i>&nbsp; Family
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-stop green"></i>&nbsp; Friends
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-stop grey"></i>&nbsp; Work
 										</a>
 									</li>
@@ -377,7 +377,7 @@
 
 						<div class="messagebar-item-right">
 							<i class="ace-icon fa fa-clock-o bigger-110 orange"></i>
-							<span class="grey">Today, 7:15 pm</span>
+							<span class="grey"><%d.time%></span>
 						</div>
 					</div>
 				</div>
@@ -431,7 +431,7 @@
 								<i class="ace-icon fa fa-star orange2"></i>
 
 								&nbsp;
-								<img class="middle" alt="<%d.sender%>&#39;s Avatar" src="dat/avatar.png" width="32">
+								<img class="middle" alt="<%d.sender%>&#39;s Avatar" src="dat/avatar2.png" width="32">
 								&nbsp;
 								<a href="#" class="sender"><%d.sender%></a>
 
@@ -441,15 +441,15 @@
 							</div>
 
 							<div class="pull-right action-buttons">
-								<a href="#">
+								<a href="#reply">
 									<i class="ace-icon fa fa-reply green icon-only bigger-130"></i>
 								</a>
 
-								<a href="#">
+								<a href="#forward">
 									<i class="ace-icon fa fa-mail-forward blue icon-only bigger-130"></i>
 								</a>
 
-								<a href="#">
+								<a href="#delete">
 									<i class="ace-icon fa fa-trash-o red icon-only bigger-130"></i>
 								</a>
 							</div>
@@ -492,8 +492,9 @@
 							<ul class="attachment-list pull-left list-unstyled">
 								<%for(var i = 0, a, icon, name, t; (a = d.attachments[i]); i++){%>
 									<%if ("image" === a.contentType.type) continue;%>
+									<% console.log(JSON.stringify(a.contentType)) %>
 									<li>
-										<a href="#" class="attached-file">
+										<a href="#preview" class="attached-file">
 											<i class="ace-icon fa <%"video" === a.contentType.type ? "fa-film" : "fa-file-o"%> bigger-110"></i>
 											<span class="attached-name"><%a.contentType.params.name%></span>
 										</a>
@@ -503,7 +504,7 @@
 												<i class="ace-icon fa fa-download bigger-125 blue"></i>
 											</a>
 
-											<a href="#">
+											<a href="#delete">
 												<i class="ace-icon fa fa-trash-o bigger-125 red"></i>
 											</a>
 										</span>
@@ -515,7 +516,9 @@
 								<div class="vspace-4-sm"></div>
 								<%for(var i = 0, a; (a = d.attachments[i]); i++){%>
 									<%if ("image" !== a.contentType.type) continue;%>
-									<img width="36" alt="<%a.contentType.params.name%>" src="<%`data:${a.contentType.value};base64, ${a.content}`%>">
+									<a href="<%`data:${a.contentType.value};base64, ${a.content}`%>" download="<%a.contentType.params.name%>">
+										<img width="36" alt="<%a.contentType.params.name%>" src="<%`data:${a.contentType.value};base64, ${a.content}`%>">
+									</a>
 								<%}%>
 								<div>
 								</div>
@@ -528,46 +531,6 @@
 				</div>
 
 				<!-- #section:pages/inbox.message-footer -->
-				<div class="hide message-footer clearfix">
-					<div class="pull-left"> 151 messages total </div>
-
-					<div class="pull-right">
-						<div class="inline middle"> page 1 of 16 </div>
-
-						&nbsp; &nbsp;
-						<ul class="pagination middle">
-							<li class="disabled">
-								<span>
-									<i class="ace-icon fa fa-step-backward middle"></i>
-								</span>
-							</li>
-
-							<li class="disabled">
-								<span>
-									<i class="ace-icon fa fa-caret-left bigger-140 middle"></i>
-								</span>
-							</li>
-
-							<li>
-								<span>
-									<input value="1" maxlength="3" type="text" />
-								</span>
-							</li>
-
-							<li>
-								<a href="#">
-									<i class="ace-icon fa fa-caret-right bigger-140 middle"></i>
-								</a>
-							</li>
-
-							<li>
-								<a href="#">
-									<i class="ace-icon fa fa-step-forward middle"></i>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
 
 				<div class="message-footer message-footer-style2 clearfix">
 					<div class="pull-left"> last read on <%d.read ? new Date(d.read) : new Date()%> </div>
@@ -599,219 +562,3 @@
 </div><!-- /.tabbable -->
 
 <!-- /section:pages/inbox -->
-
-<form id="id-message-form" class="hide form-horizontal message-form col-xs-12">
-	<!-- #section:pages/inbox.compose -->
-	<div>
-		<div class="form-group">
-			<label class="col-sm-3 control-label no-padding-right" for="form-field-recipient">Recipient:</label>
-
-			<div class="col-sm-9">
-				<span class="input-icon">
-					<input type="email" name="recipient" id="form-field-recipient" data-value="alex@doe.com" value="alex@doe.com" placeholder="Recipient(s)" />
-					<i class="ace-icon fa fa-user"></i>
-				</span>
-			</div>
-		</div>
-
-		<div class="hr hr-18 dotted"></div>
-
-		<div class="form-group">
-			<label class="col-sm-3 control-label no-padding-right" for="form-field-subject">Subject:</label>
-
-			<div class="col-sm-6 col-xs-12">
-				<div class="input-icon block col-xs-12 no-padding">
-					<input maxlength="100" type="text" class="col-xs-12" name="subject" id="form-field-subject" placeholder="Subject" />
-					<i class="ace-icon fa fa-comment-o"></i>
-				</div>
-			</div>
-		</div>
-
-		<div class="hr hr-18 dotted"></div>
-
-		<div class="form-group">
-			<label class="col-sm-3 control-label no-padding-right">
-				<span class="inline space-24 hidden-480"></span>
-				Message:
-			</label>
-
-			<!-- #section:plugins/editor.wysiwyg -->
-			<div class="col-sm-9">
-				<div class="wysiwyg-editor"></div>
-			</div>
-
-			<!-- /section:plugins/editor.wysiwyg -->
-		</div>
-
-		<div class="hr hr-18 dotted"></div>
-
-		<div class="form-group no-margin-bottom">
-			<label class="col-sm-3 control-label no-padding-right">Attachments:</label>
-
-			<div class="col-sm-9">
-				<div id="form-attachments">
-					<!-- #section:custom/file-input -->
-					<input type="file" name="attachment[]" />
-
-					<!-- /section:custom/file-input -->
-				</div>
-			</div>
-		</div>
-
-		<div class="align-right">
-			<button id="id-add-attachment" type="button" class="btn btn-sm btn-danger">
-				<i class="ace-icon fa fa-paperclip bigger-140"></i>
-				Add Attachment
-			</button>
-		</div>
-
-		<div class="space"></div>
-	</div>
-
-	<!-- /section:pages/inbox.compose -->
-</form>
-
-<div class="hide message-content" id="id-message-content">
-	<!-- #section:pages/inbox.message-header -->
-	<div class="message-header clearfix">
-		<div class="pull-left">
-			<span class="blue bigger-125"> Clik to open this message </span>
-
-			<div class="space-4"></div>
-
-			<i class="ace-icon fa fa-star orange2"></i>
-
-			&nbsp;
-			<img class="middle" alt="John&#39;s Avatar" src="dat/gopal.png" width="32" />
-			&nbsp;
-			<a href="#" class="sender">John Doe</a>
-
-			&nbsp;
-			<i class="ace-icon fa fa-clock-o bigger-110 orange middle"></i>
-			<span class="time grey">Today, 7:15 pm</span>
-		</div>
-
-		<div class="pull-right action-buttons">
-			<a href="#">
-				<i class="ace-icon fa fa-reply green icon-only bigger-130"></i>
-			</a>
-
-			<a href="#">
-				<i class="ace-icon fa fa-mail-forward blue icon-only bigger-130"></i>
-			</a>
-
-			<a href="#">
-				<i class="ace-icon fa fa-trash-o red icon-only bigger-130"></i>
-			</a>
-		</div>
-	</div>
-
-	<!-- /section:pages/inbox.message-header -->
-	<div class="hr hr-double"></div>
-
-	<!-- #section:pages/inbox.message-body -->
-	<div class="message-body">
-		<p>
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-		</p>
-
-		<p>
-			Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-		</p>
-
-		<p>
-			Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-		</p>
-
-		<p>
-			Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		</p>
-
-		<p>
-			Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-		</p>
-
-		<p>
-			Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-		</p>
-	</div>
-
-	<!-- /section:pages/inbox.message-body -->
-	<div class="hr hr-double"></div>
-
-	<!-- #section:pages/inbox.message-attachment -->
-	<div class="message-attachment clearfix">
-		<div class="attachment-title">
-			<span class="blue bolder bigger-110">Attachments</span>
-			&nbsp;
-			<span class="grey">(<%d.attachments.length%> files, <%d.attachmentSize%> MB)</span>
-
-			<div class="inline position-relative">
-				<a href="#" data-toggle="dropdown" class="dropdown-toggle">
-					&nbsp;
-					<i class="ace-icon fa fa-caret-down bigger-125 middle"></i>
-				</a>
-
-				<ul class="dropdown-menu dropdown-lighter">
-					<li>
-						<a href="#">Download all as zip</a>
-					</li>
-
-					<li>
-						<a href="#">Display in slideshow</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-
-		&nbsp;
-		<ul class="attachment-list pull-left list-unstyled">
-			<li>
-				<a href="#" class="attached-file">
-					<i class="ace-icon fa fa-file-o bigger-110"></i>
-					<span class="attached-name">Document1.pdf</span>
-				</a>
-
-				<span class="action-buttons">
-					<a href="#">
-						<i class="ace-icon fa fa-download bigger-125 blue"></i>
-					</a>
-
-					<a href="#">
-						<i class="ace-icon fa fa-trash-o bigger-125 red"></i>
-					</a>
-				</span>
-			</li>
-
-			<li>
-				<a href="#" class="attached-file">
-					<i class="ace-icon fa fa-film bigger-110"></i>
-					<span class="attached-name">Sample.mp4</span>
-				</a>
-
-				<span class="action-buttons">
-					<a href="#">
-						<i class="ace-icon fa fa-download bigger-125 blue"></i>
-					</a>
-
-					<a href="#">
-						<i class="ace-icon fa fa-trash-o bigger-125 red"></i>
-					</a>
-				</span>
-			</li>
-		</ul>
-
-		<div class="attachment-images pull-right">
-			<div class="vspace-4-sm"></div>
-
-			<div>
-				<img width="36" alt="image 4" src="dat/thumb-4.jpg" />
-				<img width="36" alt="image 3" src="dat/thumb-3.jpg" />
-				<img width="36" alt="image 2" src="dat/thumb-2.jpg" />
-				<img width="36" alt="image 1" src="dat/thumb-1.jpg" />
-			</div>
-		</div>
-	</div>
-
-	<!-- /section:pages/inbox.message-attachment -->
-</div><!-- /.message-content -->

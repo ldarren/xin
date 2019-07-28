@@ -217,6 +217,7 @@
 						{"id":"navbar-container", "class":"navbar-container ace-save-state"}
 					]}],
 					["ums", "ref", "ums"],
+					["models", "refs", "models"],
 					["p/View", "view", [
 						["options", "map", {"tag":"button","id":"menu-toggler", "class":"navbar-toggle menu-toggler pull-left", "data": {"target": "#sidebar"}, "content":[
 							{"tag":"span", "class":"icon-bar"},
@@ -235,6 +236,7 @@
 							{"tag":"ul", "class":"nav ace-nav"}
 						]}],
 						["ums", "ref", "ums"],
+						["inbox", "ref", "inbox"],
 						["home/navbar-menu-content", "view", [
 							["options", "map", {"tag":"li", "class":"light-blue dropdown-modal"}],
 							["tpl", "file", "home/navbar-menu-content.asp"],
@@ -242,9 +244,11 @@
 							["photo", "text", "dat/gopal.png"],
 							["icon_right", "text", "fa-caret-down"],
 							["ums", "ref", "ums"],
+							["inbox", "ref", "inbox"],
 							["home/navbar-menu-user", "view", [
 								["options", "map", {"tag":"ul", "class":"user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close"}],
 								["ums", "ref", "ums"],
+								["inbox", "ref", "inbox"],
 								["html", "file", "home/navbar-menu-user.html"]
 							]]
 						]]
@@ -262,7 +266,7 @@
 							{"id":10, "perm":[0,1], "name":"Mailbox", "icon":"fa-inbox", "href":"#/dash/mail", "shortcut":124},
 							{"id":20, "perm":[1,0], "name":"Settings", "icon":"fa-cogs"},
 							{"id":21, "perm":[1,0], "name":"New Email Account", "icon":"far fa-plus-square", "parent":20, "href":"#/dash/config/mailbox", "shortcut":1548192889},
-							{"id":22, "perm":[1,0], "name":"Email Accounts", "icon":"far fa-plus-square", "parent":20, "href":"#/dash/config/mailboxes", "shortcut":15481929889}
+							{"id":22, "perm":[1,0], "name":"Email Accounts", "icon":"far fa-address-card", "parent":20, "href":"#/dash/config/mailboxes", "shortcut":15481929889}
 						]]
 					]],
 					["home/sidebar", "view", [

@@ -1,3 +1,5 @@
+const router = require('po/router')
+
 return {
 	deps: {
 		tpl: 'file',
@@ -7,5 +9,16 @@ return {
 	},
 	create(deps, params){
 		this.el.innerHTML = deps.tpl(deps)
+	},
+	events: {
+		'click a': function(e, target){
+			const href = $(target).attr('href')
+			switch(href){
+			case '#':
+				e.preventDefault()
+				router.go(href.replace('#','/'))
+				break
+			}
+		}
 	}
 }

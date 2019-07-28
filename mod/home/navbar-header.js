@@ -1,3 +1,5 @@
+const router = require('po/router')
+
 return {
 	deps: {
 		name: ['text', 'Home'],
@@ -8,5 +10,16 @@ return {
 		setTimeout(() => {
 			this.el.innerHTML = deps.tpl(deps)
 		}, 0)
+	},
+	events: {
+		'click a': function(e, target){
+			const href = $(target).attr('href')
+			switch(href){
+			case '#':
+				e.preventDefault()
+				router.go(href.replace('#','/'))
+				break
+			}
+		}
 	}
 }

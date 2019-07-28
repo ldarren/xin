@@ -39,7 +39,7 @@ return {
 		'click a': function(e, target){
 			const href = $(target).attr('href')
 			switch(href){
-			case '#land':
+			case '#':
 			case '#auth':
 			case '#dash':
 				e.preventDefault()

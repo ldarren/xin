@@ -61,7 +61,7 @@ S3Bucket.prototype = {
 		if (!selected) return
 		const aws = selected.env
 		if (!aws) return
-		this.s3 = new AWS.S3({apiVersion: '2006-03-01'})
+		this.s3 = new AWS.S3({region: aws.region, apiVersion: '2006-03-01'})
 		this.awsConfig = aws
 		this.Bucket = aws.Bucket
 	},

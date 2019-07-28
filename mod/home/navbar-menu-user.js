@@ -3,7 +3,8 @@ const router = require('po/router')
 
 return {
 	deps: {
-		ums: 'cognito'
+		ums: 'cognito',
+		inbox: 'models',
 	},
 	events: {
 		'click a': function(evt, target){
@@ -12,6 +13,7 @@ return {
 			case '#profile':
 				break
 			case '#logout':
+				this.deps.inbox.clear()
 				this.deps.ums.signout()
 				router.go('/auth')
 				break

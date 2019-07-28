@@ -6,7 +6,8 @@ function countUnread(inbox){
 	return count
 }
 
-function update(){
+function update(evt){
+	if ('clear' === evt) return
 	const {
 		tpl,
 		inbox,
@@ -55,20 +56,32 @@ return {
 		this.super.remove.call(this)
 	},
 	events: {
+		'click ul#inbox-tabs a': function(evt, target){
+			switch(target.href.split('#')[1]){
+			case 'write':
+			case 'sent':
+			case 'draft':
+			case '':
+				evt.preventDefault()
+				alert('Coming soon')
+				break
+			}
+		},
 		'click a.orderby': function(evt, target){
 			evt.preventDefault()
 			const sort = target.href.split('#')[1]
 			const config = this.deps.setting.get('mailbox')
 			if (config.sort === sort) return
 			config.sort = sort
-			this.signals.mailboxRefresh().send([this.host])
+			update.call(this)
+			//this.signals.mailboxRefresh().send([this.host])
 		},
 		'click ul.pagination li': function(evt, target){
 			evt.preventDefault()
 			if (target.classList.contains('disabled')) return
-			const a = target.querySelector('a')
 			const config = this.deps.setting.get('mailbox')
 			let index = parseInt(config.index)
+			const a = target.querySelector('a')
 			switch(a.href.split('#')[1]){
 			case 'first':
 				index = 1
@@ -87,7 +100,7 @@ return {
 			}
 			config.index = index
 			update.call(this)
-			this.signals.mailboxRefresh().send([this.host])
+			//this.signals.mailboxRefresh().send([this.host])
 		},
 		'input .nav-search-input': function(evt, target){
 			const config = this.deps.setting.get('mailbox')
