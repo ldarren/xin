@@ -13,8 +13,8 @@ return {
 			case '#profile':
 				break
 			case '#logout':
-				this.deps.ums.signout()
 				this.deps.inbox.clear()
+				this.deps.ums.signout()
 				router.go('/auth')
 				break
 			default:
