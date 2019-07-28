@@ -3,7 +3,7 @@
 	<ul id="inbox-tabs" class="inbox-tabs nav nav-tabs padding-16 tab-size-bigger tab-space-1">
 		<!-- #section:pages/inbox.compose-btn -->
 		<li class="li-new-mail pull-right">
-			<a data-toggle="tab" href="#write" data-target="write" class="btn-new-mail">
+			<a data-toggle="tab-disable" href="#write" data-target="write" class="btn-new-mail">
 				<span class="btn btn-purple no-border">
 					<i class="ace-icon fa fa-envelope bigger-130"></i>
 					<span class="bigger-110">Write Mail</span>
@@ -20,21 +20,21 @@
 		</li>
 
 		<li>
-			<a data-toggle="tab" href="#sent" data-target="sent">
+			<a data-toggle="tab-disable" href="#sent" data-target="sent">
 				<i class="orange ace-icon fa fa-location-arrow bigger-130"></i>
 				<span class="bigger-110">Sent</span>
 			</a>
 		</li>
 
 		<li>
-			<a data-toggle="tab" href="#draft" data-target="draft">
+			<a data-toggle="tab-disable" href="#draft" data-target="draft">
 				<i class="green ace-icon fa fa-pencil bigger-130"></i>
 				<span class="bigger-110">Draft</span>
 			</a>
 		</li>
 
 		<li class="dropdown">
-			<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+			<a data-toggle="dropdown-disable" class="dropdown-toggle" href="#">
 				<i class="pink ace-icon fa fa-tags bigger-130"></i>
 
 				<span class="bigger-110">
@@ -96,19 +96,19 @@
 
 								<ul class="dropdown-menu dropdown-lighter dropdown-caret dropdown-125">
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-mail-reply blue"></i>&nbsp; Reply
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-mail-forward green"></i>&nbsp; Forward
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-folder-open orange"></i>&nbsp; Archive
 										</a>
 									</li>
@@ -116,19 +116,19 @@
 									<li class="divider"></li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-eye blue"></i>&nbsp; Mark as read
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-eye-slash green"></i>&nbsp; Mark unread
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-flag-o red"></i>&nbsp; Flag
 										</a>
 									</li>
@@ -136,7 +136,7 @@
 									<li class="divider"></li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-trash-o red bigger-110"></i>&nbsp; Delete
 										</a>
 									</li>
@@ -153,25 +153,25 @@
 
 								<ul class="dropdown-menu dropdown-lighter dropdown-caret dropdown-125">
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-stop pink2"></i>&nbsp; Tag#1
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-stop blue"></i>&nbsp; Family
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-stop green"></i>&nbsp; Friends
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-stop grey"></i>&nbsp; Work
 										</a>
 									</li>
@@ -278,19 +278,19 @@
 
 								<ul class="dropdown-menu dropdown-lighter dropdown-caret dropdown-125">
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-mail-reply blue"></i>&nbsp; Reply
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-mail-forward green"></i>&nbsp; Forward
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-folder-open orange"></i>&nbsp; Archive
 										</a>
 									</li>
@@ -298,19 +298,19 @@
 									<li class="divider"></li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-eye blue"></i>&nbsp; Mark as read
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-eye-slash green"></i>&nbsp; Mark unread
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-flag-o red"></i>&nbsp; Flag
 										</a>
 									</li>
@@ -318,7 +318,7 @@
 									<li class="divider"></li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-trash-o red bigger-110"></i>&nbsp; Delete
 										</a>
 									</li>
@@ -335,25 +335,25 @@
 
 								<ul class="dropdown-menu dropdown-lighter dropdown-caret dropdown-125">
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-stop pink2"></i>&nbsp; Tag#1
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-stop blue"></i>&nbsp; Family
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-stop green"></i>&nbsp; Friends
 										</a>
 									</li>
 
 									<li>
-										<a href="#">
+										<a href="#soon">
 											<i class="ace-icon fa fa-stop grey"></i>&nbsp; Work
 										</a>
 									</li>
@@ -531,46 +531,6 @@
 				</div>
 
 				<!-- #section:pages/inbox.message-footer -->
-				<div class="hide message-footer clearfix">
-					<div class="pull-left"> 151 messages total </div>
-
-					<div class="pull-right">
-						<div class="inline middle"> page 1 of 16 </div>
-
-						&nbsp; &nbsp;
-						<ul class="pagination middle">
-							<li class="disabled">
-								<span>
-									<i class="ace-icon fa fa-step-backward middle"></i>
-								</span>
-							</li>
-
-							<li class="disabled">
-								<span>
-									<i class="ace-icon fa fa-caret-left bigger-140 middle"></i>
-								</span>
-							</li>
-
-							<li>
-								<span>
-									<input value="1" maxlength="3" type="text" />
-								</span>
-							</li>
-
-							<li>
-								<a href="#">
-									<i class="ace-icon fa fa-caret-right bigger-140 middle"></i>
-								</a>
-							</li>
-
-							<li>
-								<a href="#">
-									<i class="ace-icon fa fa-step-forward middle"></i>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
 
 				<div class="message-footer message-footer-style2 clearfix">
 					<div class="pull-left"> last read on <%d.read ? new Date(d.read) : new Date()%> </div>

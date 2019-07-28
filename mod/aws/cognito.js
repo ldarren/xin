@@ -6,7 +6,7 @@ const Callback = require('po/Callback')
 function setAWSConfig(aws, token, cb){
 	const region = aws.IdentityPoolId.split(':')[0]
 	AWS.config.update({
-		region: aws.region,
+		region: region,
 		credentials: new AWS.CognitoIdentityCredentials({
 			IdentityPoolId: aws.IdentityPoolId,
 			Logins: {

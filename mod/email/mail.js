@@ -91,6 +91,18 @@ return {
 			const id = a.href.split('#')[1]
 			router.go('/dash/mail/view/'+id)
 		},
+		'click ul#inbox-tabs a': function(evt, target){
+			const route = target.href.split('#')[1]
+			switch(route){
+			case 'write':
+			case 'sent':
+			case 'draft':
+			case '':
+				evt.preventDefault()
+				alert('Coming soon')
+				break
+			}
+		},
 		'click a': function(evt, target){
 			const route = target.href.split('#')[1]
 			switch(route){
@@ -98,8 +110,9 @@ return {
 			case 'reply':
 			case 'forward':
 			case 'delete':
+			case 'soon':
 				evt.preventDefault()
-				alert('Work in progress')
+				alert('Coming soon')
 				break
 			}
 		}
