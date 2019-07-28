@@ -6,7 +6,8 @@ function countUnread(inbox){
 	return count
 }
 
-function update(){
+function update(evt){
+	if ('clear' === evt) return
 	const {
 		tpl,
 		inbox,
