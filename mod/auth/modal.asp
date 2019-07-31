@@ -202,10 +202,7 @@
 
 				<label class="block">
 				<input type="checkbox" class="ace" required/>
-				<span class="lbl">
-				I accept the
-				<a href="#">User Agreement</a>
-				</span>
+				<span class="lbl"> I accept the <a href="https://kloudkonsole.com?_=/terms" target=_blank>User Agreement</a> </span>
 				</label>
 
 				<div class="space-24"></div>
