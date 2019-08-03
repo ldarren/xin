@@ -35,7 +35,7 @@ function encodeCacheKey(id){
 	if (!this.name) return
 	const uid = this.ums.getId()
 	if (!uid) return
-	return this.name + ':' + uid + ':' + id
+	return this.name + ':' + uid + (id ? ':' + id : '')
 }
 
 function decodeCacheKey(key){
