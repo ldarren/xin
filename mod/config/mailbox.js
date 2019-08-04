@@ -1,6 +1,9 @@
 const router = require('po/router')
 
 function saved(err, model){
+	const btn = document.querySelector('button#mailbox-submit').classList
+	btn.remove('disabled')
+
 	if (err) return alert(JSON.stringify(err))
 	alert('saved')
 	router.go('/dash/config/mailboxes')
@@ -28,8 +31,13 @@ return {
 	},
 	events: {
 		'click button#mailbox-submit': function(evt, target){
+			const btn = target.classList
+			if (btn.contains('disabled')) return
+
 			const f = this.form
 			if (!f.reportValidity()) return
+
+			btn.add('disabled')
 
 			const data = {
 				id: this.configId,
@@ -46,9 +54,6 @@ return {
 			}else{
 				this.deps.config.create(data, saved)
 			}
-
-		},
-		'click button#mailbox-reset': function(evt, target){
 		}
 	}
 }

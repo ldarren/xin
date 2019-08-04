@@ -28,17 +28,18 @@ function update(evt){
 	this.spawn(this.deps['email/mailbox'])
 }
 
-function refresh(ctx){
+function refresh(ctx, cb){
 	const deps = ctx.deps
 	const inbox = deps.inbox
 	const len = inbox.length()
 	deps.bucket.list(inbox, deps.mails, err => {
 		if (err) return alert(err)
+		inbox.callback.off('*', update, ctx)
 		if (len !== inbox.length()){
 			update.call(ctx)
 		}
-		inbox.callback.off('*', update, ctx)
 		inbox.callback.on('*', update, ctx)
+		if (cb) cb()
 	})
 }
 
@@ -54,7 +55,7 @@ return {
 	},
 	create(deps, params){
 		update.call(this)
-		//refresh(this)
+		refresh(this)
 	},
 	remove(){
 		this.deps.inbox.callback.off('*', update, this)
@@ -71,7 +72,16 @@ return {
 				alert('Coming soon')
 				break
 			case 'refresh':
-				refresh(this)
+				{
+					const btn = target.querySelector('span.btn').classList
+					if (btn.contains('disabled')) break
+					btn.add('disabled')
+					refresh(this, () => {
+						setTimeout(() => {
+							btn.remove('disabled')
+						}, 15000)
+					})
+				}
 				break
 			}
 		},
