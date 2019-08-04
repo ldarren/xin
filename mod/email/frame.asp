@@ -15,8 +15,7 @@
 		<li class="li-new-mail pull-right">
 			<a data-toggle="tab-disable" href="#refresh" class="btn-new-mail">
 				<span class="btn btn-yellow no-border">
-					<i class="ace-icon glyphicon glyphicon-refresh bigger-130"></i>
-					<span class="bigger-110">Refresh</span>
+					<i class="glyphicon glyphicon-refresh bigger-130"></i>
 				</span>
 			</a>
 		</li>
