@@ -1,7 +1,7 @@
 const router = require('po/router')
 
 function error(btn, msg){
-	btn.removed('disabled')
+	btn.remove('disabled')
 	alert(msg)
 }
 
