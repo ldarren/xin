@@ -33,15 +33,17 @@ function ajax(method, route, params, cb){
 
 function encodeCacheKey(id){
 	if (!this.name) return
+	const com = this.ums.company0
 	const uid = this.ums.getId()
 	if (!uid) return
-	return this.name + ':' + uid + (id ? ':' + id : '')
+	return this.name + ':' + com + ':' + uid + (id ? ':' + id : '')
 }
 
 function decodeCacheKey(key){
 	var arr = key.split(':')
 	if (arr[0] !== this.name) return
-	if (arr[1] !== this.ums.getId()) return
+	if (arr[1] !== this.ums.company0) return
+	if (arr[2] !== this.ums.getId()) return
 	return arr
 }
 
