@@ -359,6 +359,11 @@
 				["desc", "text", "list of your mailboxes"],
 				["html", "file", "config/mailboxes.html"],
 				["config", "ref", "config"]
+			]],
+			"empty": ["p/View", "view", [
+				["title", "text", "Dashboard"],
+				["desc", "text", "Coming soon"],
+				["html", "file", "home/empty.html"]
 			]]
 		}],
 		["routes","map",{
@@ -366,7 +371,7 @@
 			"/privacy": ["privacy"],
 			"/terms": ["terms"],
 			"/auth":["auth"],
-			"/dash":["home"],
+			"/dash":["home", "empty"],
 			"/dash/mail":["home","mailbox"],
 			"/dash/mail/view/:id":["home","mail"],
 			"/dash/config/mailbox":["home","config/mailbox"],
