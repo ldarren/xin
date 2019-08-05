@@ -9,6 +9,10 @@ function saved(err, model){
 	router.go('/dash/config/mailboxes')
 }
 
+function checkCompany(company0, company){
+	return -1 === company.toLowerCase().indexOf(company0.toLowerCase())
+}
+
 return {
 	deps: {
 		config: 'models',
@@ -37,8 +41,7 @@ return {
 			const f = this.form
 			if (!f.reportValidity()) return
 
-			btn.add('disabled')
-
+			const config = this.deps.config
 			const data = {
 				id: this.configId,
 				name: f['name'].value,
@@ -49,10 +52,16 @@ return {
 				ClientId: f['ClientId'].value
 			}
 
+			if (!checkCompany(config.selected(), data.name)){
+				return alert('Invalid company name')
+			}
+
+			btn.add('disabled')
+
 			if (data.id){
-				this.deps.config.replace(data, saved)
+				config.replace(data, saved)
 			}else{
-				this.deps.config.create(data, saved)
+				config.create(data, saved)
 			}
 		}
 	}

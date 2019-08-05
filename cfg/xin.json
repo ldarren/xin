@@ -24,7 +24,7 @@
 			["env", "ref", "env"]
 		]],
 		["ums", "cognito", [
-			["company", "text", "xin.com"],
+			["company", "text", "kloudkonsole"],
 			["env", "ref", "env"],
 			["user", "shared", [
 				["routes", "map", {

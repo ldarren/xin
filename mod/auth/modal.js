@@ -16,7 +16,7 @@ return {
 	},
 	create(deps, params){
 		this.super.create.call(this, deps, params)
-		const group = deps.config.getSelected() || {name: 'xin.com'}
+		const group = deps.config.getSelected() || {name: 'kloudkonsole'}
 		this.el.innerHTML = deps.tpl(Object.assign({company: group.name}, deps))
 	},
 	events: {
