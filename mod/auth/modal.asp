@@ -111,7 +111,7 @@
 			<fieldset>
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name=email type="email" class="form-control" placeholder="Email" required/>
+				<input name=email type="email" class="form-control" placeholder="peisan@mail.com" required/>
 				<i class="ace-icon fa fa-envelope"></i>
 				</span>
 				</label>
@@ -162,15 +162,8 @@
 
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name="email" type=email class="form-control" placeholder="name@pmail.com" required/>
+				<input name="email" type=email class="form-control" placeholder="peisan@mail.com" required/>
 				<i class="ace-icon fa fa-envelope"></i>
-				</span>
-				</label>
-
-				<label class="block clearfix">
-				<span class="block input-icon input-icon-right">
-				<input name="phone" type=tel class="form-control" placeholder="+6598765432" required/>
-				<i class="ace-icon fa fa-mobile"></i>
 				</span>
 				</label>
 

@@ -58,7 +58,7 @@ return {
 				case 'btn-register':
 					if (password !== els.repeat.value) return error(btn, 'password not match')
 
-					ums.signup(company, username, password, els.email.value, els.phone.value, (err, result) => {
+					ums.signup(company, username, password, els.email.value, (err, result) => {
 						if (err) return error(btn, JSON.stringify(err, null, '\t'))
 						if (result.userUnconfirmed){
 							router.go('/dash')
