@@ -52,7 +52,7 @@ return {
 				ClientId: f['ClientId'].value
 			}
 
-			if (!checkCompany(config.selected(), data.name)){
+			if (!checkCompany(config.ums.company0, data.name)){
 				return alert('Invalid company name')
 			}
 

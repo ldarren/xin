@@ -56,17 +56,20 @@ return {
 					})
 					break
 				case 'btn-register':
+				{
 					if (password !== els.repeat.value) return error(btn, 'password not match')
+					const email = els.email.value
 
-					ums.signup(company, username, password, els.email.value, (err, result) => {
+					ums.signup(company, username, password, email, (err, result) => {
 						if (err) return error(btn, JSON.stringify(err, null, '\t'))
 						if (result.userUnconfirmed){
 							router.go('/dash')
 						}else{
-							error(btn, 'Please confirm your account before login', 'Signup Successfully')
+							error(btn, `Almost done...\nWe are sending an email verification link to ${email}. Please click on it to activate your account.`, 'Success')
 						}
 					})
 					break
+				}
 				case 'btn-forget':
 					break
 				default:

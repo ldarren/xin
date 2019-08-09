@@ -114,17 +114,14 @@ Cognito.prototype = {
 			onFailure: cb
 		})
 	},
-	signup(company, Username, Password, email, phone, cb){
-		const attributes = [
-			new AmazonCognitoIdentity.CognitoUserAttribute({
+	signup(company, Username, Password, email, cb){
+		const attributes = []
+		if (email){
+			attributes.push( new AmazonCognitoIdentity.CognitoUserAttribute({
 				Name : 'email',
 				Value : email,
-			}),
-			new AmazonCognitoIdentity.CognitoUserAttribute({
-				Name : 'phone_number',
-				Value : phone
-			})
-		]
+			}))
+		}
 
 		this.userPool.signUp(Username, Password, attributes, null, (err, result) => {
 			if (err) return cb(err)
