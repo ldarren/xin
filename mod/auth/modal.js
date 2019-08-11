@@ -5,6 +5,24 @@ function error(btn, msg){
 	alert(msg)
 }
 
+function hideEmail(ctx, company){
+	const label = document.querySelector('label#signupEmail')
+	const email = label.querySelector('input[name=email]')
+	if (ctx.deps.ums.company0.toLowerCase() === (company || '').toLowerCase()){
+		if (!ctx.emailHidden) return
+		label.classList.add('block')
+		label.classList.remove('hidden')
+		email.required = true
+		ctx.emailHidden = false
+	}else{
+		if (ctx.emailHidden) return
+		label.classList.add('hidden')
+		label.classList.remove('block')
+		email.required = false
+		ctx.emailHidden = true
+	}
+}
+
 return {
 	deps: {
 		tpl: 'file',
@@ -18,6 +36,11 @@ return {
 		this.super.create.call(this, deps, params)
 		const group = deps.config.getSelected() || {name: 'kloudkonsole'}
 		this.el.innerHTML = deps.tpl(Object.assign({company: group.name}, deps))
+		this.emailHidden = false
+	},
+	render(){
+		hideEmail(this, this.deps.config.getSelected().name)
+		return this.el
 	},
 	events: {
 		'click .toolbar a[data-target]': function(evt, target){
@@ -26,6 +49,9 @@ return {
 			var visible = document.querySelectorAll('.widget-box.visible')
 			visible.forEach(v => v.classList.remove('visible'))
 			this.el.querySelector(targetData).classList.add('visible')//show target
+		},
+		'input input#companyInput': function(evt, target){
+			hideEmail(this, target.value)
 		},
 		'click button': function(evt, target){
 			const btn = target.classList
@@ -60,12 +86,16 @@ return {
 					if (password !== els.repeat.value) return error(btn, 'password not match')
 					const email = els.email.value
 
-					ums.signup(company, username, password, email, (err, result) => {
+					ums.signup(company, username, password, this.hiddenEmail ? null : email, (err, result) => {
 						if (err) return error(btn, JSON.stringify(err, null, '\t'))
 						if (result.userUnconfirmed){
 							router.go('/dash')
 						}else{
-							error(btn, `Almost done...\nWe are sending an email verification link to ${email}. Please click on it to activate your account.`, 'Success')
+							if (this.emailHidden){
+								error(btn, 'Almost done...\nPlease contact your account administrator and request for the account confirmation.', 'Success')
+							}else{
+								error(btn, `Almost done...\nWe are sending an email verification link to ${email}. Please click on it to activate your account.`, 'Success')
+							}
 						}
 					})
 					break

@@ -10,7 +10,7 @@ function saved(err, model){
 }
 
 function checkCompany(company0, company){
-	return -1 === company.toLowerCase().indexOf(company0.toLowerCase())
+	return company.toLowerCase() !== company0.toLowerCase()
 }
 
 return {

@@ -111,7 +111,7 @@
 			<fieldset>
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name=email type="email" class="form-control" placeholder="peisan@mail.com" required/>
+				<input name=email type="email" class="form-control" placeholder="jenice@mail.com" required/>
 				<i class="ace-icon fa fa-envelope"></i>
 				</span>
 				</label>
@@ -150,7 +150,7 @@
 			<fieldset>
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name=company type=text class=form-control placeholder=Company value=<%d.company%>
+				<input id=companyInput name=company type=text class=form-control placeholder=Company value=<%d.company%>
 					autocapitalize=off
 					autocomplete=off
 					spellcheck=false
@@ -160,9 +160,9 @@
 				</span>
 				</label>
 
-				<label class="block clearfix">
+				<label id=signupEmail class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name="email" type=email class="form-control" placeholder="peisan@mail.com" required/>
+				<input name=email type=email class="form-control" placeholder="jenice@mail.com" required/>
 				<i class="ace-icon fa fa-envelope"></i>
 				</span>
 				</label>
