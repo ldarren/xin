@@ -1,20 +1,22 @@
 // get html content if possible
 function getContent(node, contents, attachments){
-	switch(node.contentType.value){
-	case 'multipart/mixed':
-	case 'multipart/related':
-	case 'multipart/alternative':
-		node.childNodes.forEach(n => getContent(n, contents, attachments))
-		break
+	const val = node.contentType.value.toLowerCase()
+
+	switch(val){
 	case 'text/plain':
 	case 'text/html':
-		contents[node.contentType.value] = Array.prototype.slice.call(node.content)
+	case 'message/delivery-status':
+		contents[val] = Array.prototype.slice.call(node.content)
 		break
 	default:
-		attachments.push({
-			headers: node.headers,
-			content: Array.prototype.slice.call(node.content)
-		})
+		if (node._isMultipart || node._isRfc822) {
+			node.childNodes.forEach(n => getContent(n, contents, attachments))
+		}else{
+			attachments.push({
+				headers: node.headers,
+				content: Array.prototype.slice.call(node.content)
+			})
+		}
 		break
 	}
 }

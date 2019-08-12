@@ -28,6 +28,21 @@ function update(evt){
 	this.spawn(this.deps['email/mailbox'])
 }
 
+function refresh(ctx, cb){
+	const deps = ctx.deps
+	const inbox = deps.inbox
+	const len = inbox.length()
+	deps.bucket.list(inbox, deps.mails, err => {
+		if (err) return alert(err)
+		inbox.callback.off('*', update, ctx)
+		if (len !== inbox.length()){
+			update.call(ctx)
+		}
+		inbox.callback.on('*', update, ctx)
+		if (cb) cb()
+	})
+}
+
 return {
 	signals: ['mailboxRefresh'],
 	deps: {
@@ -40,16 +55,7 @@ return {
 	},
 	create(deps, params){
 		update.call(this)
-		const inbox = deps.inbox
-		const len = inbox.length()
-		deps.bucket.list(inbox, deps.mails, err => {
-			if (err) return alert(err)
-			if (len !== inbox.length()){
-				update.call(this)
-			}
-			inbox.callback.off('*', update, this)
-			inbox.callback.on('*', update, this)
-		})
+		refresh(this)
 	},
 	remove(){
 		this.deps.inbox.callback.off('*', update, this)
@@ -64,6 +70,18 @@ return {
 			case '':
 				evt.preventDefault()
 				alert('Coming soon')
+				break
+			case 'refresh':
+				{
+					const btn = target.querySelector('span.btn').classList
+					if (btn.contains('disabled')) break
+					btn.add('disabled')
+					refresh(this, () => {
+						setTimeout(() => {
+							btn.remove('disabled')
+						}, 15000)
+					})
+				}
 				break
 			}
 		},

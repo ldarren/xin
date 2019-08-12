@@ -1,6 +1,7 @@
 <!-- #section:pages/inbox -->
-<div class="tabbable">
-	<ul id="inbox-tabs" class="inbox-tabs nav nav-tabs padding-16 tab-size-bigger tab-space-1">
+<div class=tabbable>
+	<ul id=inbox-tabs class="inbox-tabs nav nav-tabs padding-16 tab-size-bigger tab-space-1">
+
 		<!-- #section:pages/inbox.compose-btn -->
 		<li class="li-new-mail pull-right">
 			<a data-toggle="tab-disable" href="#write" data-target="write" class="btn-new-mail">
@@ -10,6 +11,14 @@
 				</span>
 			</a>
 		</li><!-- /.li-new-mail -->
+
+		<li class="li-new-mail pull-right">
+			<a data-toggle="tab-disable" href="#refresh" class="btn-new-mail">
+				<span class="btn btn-yellow no-border">
+					<i class="glyphicon glyphicon-refresh bigger-130"></i>
+				</span>
+			</a>
+		</li>
 
 		<!-- /section:pages/inbox.compose-btn -->
 		<li class="active">

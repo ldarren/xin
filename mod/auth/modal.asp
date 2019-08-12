@@ -111,7 +111,7 @@
 			<fieldset>
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name=email type="email" class="form-control" placeholder="Email" required/>
+				<input name=email type="email" class="form-control" placeholder="jenice@mail.com" required/>
 				<i class="ace-icon fa fa-envelope"></i>
 				</span>
 				</label>
@@ -150,7 +150,7 @@
 			<fieldset>
 				<label class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name=company type=text class=form-control placeholder=Company value=<%d.company%>
+				<input id=companyInput name=company type=text class=form-control placeholder=Company value=<%d.company%>
 					autocapitalize=off
 					autocomplete=off
 					spellcheck=false
@@ -160,17 +160,10 @@
 				</span>
 				</label>
 
-				<label class="block clearfix">
+				<label id=signupEmail class="block clearfix">
 				<span class="block input-icon input-icon-right">
-				<input name="email" type=email class="form-control" placeholder="name@pmail.com" required/>
+				<input name=email type=email class="form-control" placeholder="jenice@mail.com" required/>
 				<i class="ace-icon fa fa-envelope"></i>
-				</span>
-				</label>
-
-				<label class="block clearfix">
-				<span class="block input-icon input-icon-right">
-				<input name="phone" type=tel class="form-control" placeholder="+6598765432" required/>
-				<i class="ace-icon fa fa-mobile"></i>
 				</span>
 				</label>
 
@@ -202,10 +195,7 @@
 
 				<label class="block">
 				<input type="checkbox" class="ace" required/>
-				<span class="lbl">
-				I accept the
-				<a href="#">User Agreement</a>
-				</span>
+				<span class="lbl"> I accept the <a href="https://kloudkonsole.com?_=/terms" target=_blank>User Agreement</a> </span>
 				</label>
 
 				<div class="space-24"></div>

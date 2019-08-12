@@ -1,9 +1,16 @@
 const router = require('po/router')
 
 function saved(err, model){
+	const btn = document.querySelector('button#mailbox-submit').classList
+	btn.remove('disabled')
+
 	if (err) return alert(JSON.stringify(err))
 	alert('saved')
 	router.go('/dash/config/mailboxes')
+}
+
+function checkCompany(company0, company){
+	return company.toLowerCase() !== company0.toLowerCase()
 }
 
 return {
@@ -28,9 +35,13 @@ return {
 	},
 	events: {
 		'click button#mailbox-submit': function(evt, target){
+			const btn = target.classList
+			if (btn.contains('disabled')) return
+
 			const f = this.form
 			if (!f.reportValidity()) return
 
+			const config = this.deps.config
 			const data = {
 				id: this.configId,
 				name: f['name'].value,
@@ -41,14 +52,17 @@ return {
 				ClientId: f['ClientId'].value
 			}
 
-			if (data.id){
-				this.deps.config.replace(data, saved)
-			}else{
-				this.deps.config.create(data, saved)
+			if (!checkCompany(config.ums.company0, data.name)){
+				return alert('Invalid company name')
 			}
 
-		},
-		'click button#mailbox-reset': function(evt, target){
+			btn.add('disabled')
+
+			if (data.id){
+				config.replace(data, saved)
+			}else{
+				config.create(data, saved)
+			}
 		}
 	}
 }
