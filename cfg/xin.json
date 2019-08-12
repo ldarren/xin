@@ -241,7 +241,7 @@
 							["options", "map", {"tag":"li", "class":"light-blue dropdown-modal"}],
 							["tpl", "file", "home/navbar-menu-content.asp"],
 							["greet", "text", "Welcome,"],
-							["photo", "text", "dat/gopal.png"],
+							["photo", "text", "dat/avatar2.png"],
 							["icon_right", "text", "fa-caret-down"],
 							["ums", "ref", "ums"],
 							["inbox", "ref", "inbox"],
