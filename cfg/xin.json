@@ -216,8 +216,6 @@
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default ace-save-state", "content":[
 						{"id":"navbar-container", "class":"navbar-container ace-save-state"}
 					]}],
-					["ums", "ref", "ums"],
-					["models", "refs", "models"],
 					["p/View", "view", [
 						["options", "map", {"tag":"button","id":"menu-toggler", "class":"navbar-toggle menu-toggler pull-left", "data": {"target": "#sidebar"}, "content":[
 							{"tag":"span", "class":"icon-bar"},
@@ -235,8 +233,6 @@
 						["options", "map", {"class":"navbar-header navbar-buttons pull-right", "role":"navigation", "content":[
 							{"tag":"ul", "class":"nav ace-nav"}
 						]}],
-						["ums", "ref", "ums"],
-						["inbox", "ref", "inbox"],
 						["home/navbar-menu-content", "view", [
 							["options", "map", {"tag":"li", "class":"light-blue dropdown-modal"}],
 							["tpl", "file", "home/navbar-menu-content.asp"],
@@ -247,19 +243,17 @@
 							["inbox", "ref", "inbox"],
 							["home/navbar-menu-user", "view", [
 								["options", "map", {"tag":"ul", "class":"user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close"}],
+								["html", "file", "home/navbar-menu-user.html"],
 								["ums", "ref", "ums"],
-								["inbox", "ref", "inbox"],
-								["html", "file", "home/navbar-menu-user.html"]
+								["inbox", "ref", "inbox"]
 							]]
 						]]
 					]]
 				]],
 				["home/main-container", "view", [
 					["options", "map", {"id":"main-container", "class":"main-container ace-save-state"}],
-					["bucket", "ref", "bucket"],
 					["shared", "refs", "shared"],
 					["models", "refs", "models"],
-					["ums", "ref", "ums"],
 					["menu", "models", [
 						["data", "list", [
 							{"id":1, "perm":[], "name":"Dashboard", "icon":"fa-tachometer", "href":"#/dash", "shortcut":123},
@@ -277,10 +271,8 @@
 					]],
 					["home/main-content", "view", [
 						["options", "map", {"class":"main-content", "content": [{"class": "main-content-inner"}]}],
-						["bucket", "ref", "bucket"],
 						["shared", "refs", "shared"],
 						["models", "refs", "models"],
-						["ums", "ref", "ums"],
 						["home/breadcrumbs", "view", [
 							["options", "map", {"id": "breadcrumbs", "class":"breadcrumbs ace-save-state"}],
 							["html", "file", "home/breadcrumbs.html"],
@@ -294,7 +286,6 @@
 						]],
 						["p/View", "view", [
 							["options", "map", {"class":"page-content"}],
-							["bucket", "ref", "bucket"],
 							["shared", "refs", "shared"],
 							["models", "refs", "models"],
 							["p/View", "view", [
