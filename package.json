@@ -1,6 +1,6 @@
 {
   "name": "xin",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "xin client",
   "main": "pclient-build",
   "scripts": {

@@ -75,7 +75,6 @@
 			"land": ["land/layout", "view", [
 				["options", "map", {"el": "body", "class":"no-skin pos-rel", "data": {"spy": "scroll", "target": "#menu"}}],
 				["css", "file", "land/layout.css"],
-				["ums", "ref", "ums"],
 				["land/navbar", "view", [
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default navbar-fixed-top", "content": [{"id":"navbar-container", "class":"navbar-container container"}]}],
 					["tpl", "file", "land/navbar.asp"],
@@ -129,7 +128,6 @@
 			"privacy": ["land/layout", "view", [
 				["options", "map", {"el": "body", "class":"no-skin pos-rel", "data": {"spy": "scroll", "target": "#menu"}}],
 				["css", "file", "land/layout.css"],
-				["ums", "ref", "ums"],
 				["land/navbar", "view", [
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default navbar-fixed-top", "content": [{"id":"navbar-container", "class":"navbar-container container"}]}],
 					["tpl", "file", "land/navbar.asp"],
@@ -154,7 +152,6 @@
 			"terms": ["land/layout", "view", [
 				["options", "map", {"el": "body", "class":"no-skin pos-rel", "data": {"spy": "scroll", "target": "#menu"}}],
 				["css", "file", "land/layout.css"],
-				["ums", "ref", "ums"],
 				["land/navbar", "view", [
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default navbar-fixed-top", "content": [{"id":"navbar-container", "class":"navbar-container container"}]}],
 					["tpl", "file", "land/navbar.asp"],
@@ -180,9 +177,6 @@
 				["options", "map", {"el": "body", "class":"login-layout"}],
 				["html", "file", "auth/layout.html"],
 				["css", "file", "home/layout.css"],
-				["shared", "refs", "shared"],
-				["models", "refs", "models"],
-				["ums", "ref", "ums"],
 				["auth/navbar", "view", [
 					["options", "map", {"class":"navbar-fixed-top align-right"}],
 					["html", "file", "auth/navbar.html"]
@@ -208,10 +202,6 @@
 			"home": ["p/View", "view", [
 				["options", "map", {"el": "body", "class":"no-skin"}],
 				["css", "file", "home/layout.css"],
-				["ums", "ref", "ums"],
-				["bucket", "ref", "bucket"],
-				["shared", "refs", "shared"],
-				["models", "refs", "models"],
 				["p/View", "view", [
 					["options", "map", {"id":"navbar", "class":"navbar navbar-default ace-save-state", "content":[
 						{"id":"navbar-container", "class":"navbar-container ace-save-state"}
@@ -227,7 +217,7 @@
 						["options", "map", {"class":"navbar-header pull-left"}],
 						["tpl", "file", "home/navbar-header.asp"],
 						["icon", "text", "fa-inbox"],
-						["name", "text", "Kloud Konsole"]
+						["config", "ref", "configRO"]
 					]],
 					["home/navbar-menu", "view", [
 						["options", "map", {"class":"navbar-header navbar-buttons pull-right", "role":"navigation", "content":[
@@ -252,8 +242,6 @@
 				]],
 				["home/main-container", "view", [
 					["options", "map", {"id":"main-container", "class":"main-container ace-save-state"}],
-					["shared", "refs", "shared"],
-					["models", "refs", "models"],
 					["menu", "models", [
 						["data", "list", [
 							{"id":1, "perm":[], "name":"Dashboard", "icon":"fa-tachometer", "href":"#/dash", "shortcut":123},
@@ -271,23 +259,19 @@
 					]],
 					["home/main-content", "view", [
 						["options", "map", {"class":"main-content", "content": [{"class": "main-content-inner"}]}],
-						["shared", "refs", "shared"],
-						["models", "refs", "models"],
 						["home/breadcrumbs", "view", [
 							["options", "map", {"id": "breadcrumbs", "class":"breadcrumbs ace-save-state"}],
 							["html", "file", "home/breadcrumbs.html"],
 							["tpl", "file", "home/breadcrumb.asp"],
+							["menu", "ref", "menu"],
 							["ums", "ref", "ums"],
 							["breadcrumbs", "models", [
 								["name", "text", "breadcrumb"],
 								["ums", "ref", "ums"]
-							]],
-							["menu", "ref", "menu"]
+							]]
 						]],
 						["p/View", "view", [
 							["options", "map", {"class":"page-content"}],
-							["shared", "refs", "shared"],
-							["models", "refs", "models"],
 							["p/View", "view", [
 								["options", "map", {"id":"ace-settings-container", "class":"ace-settings-container"}],
 								["html", "file", "home/settings-container.html"]
@@ -297,10 +281,7 @@
 								["tpl", "file", "home/page-header.asp"]
 							]],
 							["home/page-content", "view", [
-								["options", "map", {"class":"row", "content":[{"class":"col-ex-12"}]}],
-								["bucket", "ref", "bucket"],
-								["shared", "refs", "shared"],
-								["models", "refs", "models"]
+								["options", "map", {"class":"row", "content":[{"class":"col-ex-12"}]}]
 							]]
 						]]
 					]],
