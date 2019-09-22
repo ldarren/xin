@@ -4,7 +4,7 @@ return {
 		this.super.create.call(this, deps, params)
 	},
 	render(){
-		this.signals.moduleAdded().send(this.host)
+		this.signal.moduleAdded().send(this.host)
 		return this.el
 	},
 	slots: {

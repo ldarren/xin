@@ -2,13 +2,14 @@ const router = require('po/router')
 
 return {
 	deps: {
-		name: ['text', 'Home'],
 		icon: ['text', 'fa-home'],
+		config: 'models',
 		tpl: 'file'
 	},
 	create(deps, params){
 		setTimeout(() => {
-			this.el.innerHTML = deps.tpl(deps)
+			const { name } = deps.config.getSelected()
+			this.el.innerHTML = deps.tpl(Object.assign(deps, {name}))
 		}, 0)
 	},
 	events: {

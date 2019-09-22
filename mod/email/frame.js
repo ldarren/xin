@@ -92,7 +92,7 @@ return {
 			if (config.sort === sort) return
 			config.sort = sort
 			update.call(this)
-			//this.signals.mailboxRefresh().send([this.host])
+			//this.signal.mailboxRefresh().send([this.host])
 		},
 		'click ul.pagination li': function(evt, target){
 			evt.preventDefault()
@@ -118,22 +118,22 @@ return {
 			}
 			config.index = index
 			update.call(this)
-			//this.signals.mailboxRefresh().send([this.host])
+			//this.signal.mailboxRefresh().send([this.host])
 		},
 		'input .nav-search-input': function(evt, target){
 			const config = this.deps.setting.get('mailbox')
 			config.search = target.value.toLowerCase()
-			this.signals.mailboxRefresh(target.value.toLowerCase()).send([this.host])
+			this.signal.mailboxRefresh(target.value.toLowerCase()).send([this.host])
 		},
 		'click .select-message': function(evt, target){
 			const config = this.deps.setting.get('mailbox')
 			config.select = target.id.slice('id-select-message-'.length)
-			this.signals.mailboxRefresh().send([this.host])
+			this.signal.mailboxRefresh().send([this.host])
 		},
 		'change #id-toggle-all': function(evt, target){
 			const config = this.deps.setting.get('mailbox')
 			config.select = target.checked ? 'all' : 'none'
-			this.signals.mailboxRefresh().send([this.host])
+			this.signal.mailboxRefresh().send([this.host])
 		}
 	}
 }
