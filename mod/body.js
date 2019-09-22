@@ -3,7 +3,7 @@ const specMgr = require('p/specMgr')
 
 function changeContent(state, params){
 	if (!state) return
-	this.signals.changeContent(state, this.specMap[state], params).send([this.host])
+	this.signal.changeContent(state, this.specMap[state], params).send([this.host])
 }
 
 function pageChanged(evt, states, params){
