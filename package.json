@@ -28,7 +28,7 @@
   "homepage": "https://github.com/ldarren/xin#readme",
   "dependencies": {
     "amazon-cognito-identity-js": "^3.0.14",
-    "aws-sdk": "^2.501.0",
+    "aws-sdk": "^>=2.814.0",
     "emailjs-mime-parser": "^2.0.7",
     "holderjs": "^2.9.6",
     "pico-client": "^0.6.6"
